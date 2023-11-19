@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="logs\**" />
+    <Content Remove="logs\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <None Remove="logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Billing\billing.der" />
     <None Remove="Resources\Billing\billing.private.txt" />
     <None Remove="Resources\Billing\server.p12" />
