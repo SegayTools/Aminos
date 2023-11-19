@@ -1,4 +1,4 @@
-﻿using Aminos.Models.AllNet.Reesponses;
+﻿using Aminos.Models.AllNet.Responses;
 using Aminos.Models.AllNet.Requests;
 using System.Net;
 

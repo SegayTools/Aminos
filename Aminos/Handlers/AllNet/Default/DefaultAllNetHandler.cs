@@ -1,4 +1,4 @@
-﻿using Aminos.Models.AllNet.Reesponses;
+﻿using Aminos.Models.AllNet.Responses;
 using Aminos.Models.AllNet.Requests;
 using Aminos.Utils;
 using System.Net;
@@ -9,17 +9,17 @@ namespace Aminos.Handlers.AllNet.Default
 	{
 		public async ValueTask<PowerOnResponseBase> HandlePowerOn(PowerOnRequest request, ConnectionInfo connectionInfo)
 		{
-			if (!await CheckKeychipIfValid(request.Serial))
+			if (!await CheckKeychipIfValid(request.serial))
 				return default;
 
-			var response = request.FormatVersion.StartsWith("2") ? HandlePowerOnAsV2(request) : HandlePowerOnAsV3(request);
+			var response = request.format_ver.StartsWith("2") ? HandlePowerOnAsV2(request) : HandlePowerOnAsV3(request);
 
 			//process base common
-			var localHost = connectionInfo.LocalIpAddress.ToString();
+			var localHost = connectionInfo.LocalIpAddress.MapToIPv4().ToString();
 
-			response.Host = localHost;
-			response.Uri = GenerateGameUrl(request, connectionInfo);
-			response.PlaceId = GetPlaceName(request);
+			response.host = localHost;
+			response.uri = GenerateGameUrl(request, connectionInfo);
+			response.place_id = GetPlaceName(request);
 
 			return response;
 		}
@@ -27,7 +27,7 @@ namespace Aminos.Handlers.AllNet.Default
 		private string GetPlaceName(PowerOnRequest request)
 		{
 			//todo
-			return "Aminos' Heaven";
+			return "123";
 		}
 
 		public string ConvertSerialToIdentityStr(string serial) => SimpleCryptography.Encrypt(serial).Replace("=", "_");
@@ -35,11 +35,11 @@ namespace Aminos.Handlers.AllNet.Default
 
 		private string GenerateGameUrl(PowerOnRequest request, ConnectionInfo connectionInfo)
 		{
-			var gameId = request.GameId;
-			var host = connectionInfo.LocalIpAddress?.ToString();
+			var gameId = request.game_id;
+			var host = connectionInfo.LocalIpAddress.MapToIPv4().ToString();
 			var port = connectionInfo.LocalPort;
-			var ver = request.Version;
-			var identityStr = ConvertSerialToIdentityStr(request.Serial);
+			var ver = request.ver;
+			var identityStr = ConvertSerialToIdentityStr(request.serial);
 
 			var url = $"http://{host}:{port}/{identityStr}/";
 			if (!string.IsNullOrWhiteSpace(gameId))
@@ -53,12 +53,12 @@ namespace Aminos.Handlers.AllNet.Default
 			var now = DateTime.Now;
 			return new PowerOnResponseV2()
 			{
-				Year = now.Year,
-				Month = now.Month,
-				Day = now.Day,
-				Hour = now.Hour,
-				Minute = now.Minute,
-				Second = now.Second,
+				year = now.Year,
+				month = now.Month,
+				day = now.Day,
+				hour = now.Hour,
+				minute = now.Minute,
+				second = now.Second,
 			};
 		}
 
@@ -66,12 +66,12 @@ namespace Aminos.Handlers.AllNet.Default
 		{
 			return new PowerOnResponseV3()
 			{
-				Token = request.Token,
-				AllnetId = "456",
-				ClientTimezone = "+0900",
-				Setting = string.Empty,
-				ResVersion = "3",
-				UtcTime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss").Substring(0, 19) + "Z"
+				token = request.token,
+				allnet_id = "456",
+				client_timezone = "+0900",
+				setting = string.Empty,
+				res_ver = "3",
+				utc_time = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss").Substring(0, 19) + "Z"
 			};
 		}
 

@@ -6,8 +6,30 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Databases\" />
-    <Folder Include="Models\AllNet\DAOs\" />
+    <None Remove="Resources\Billing\billing.der" />
+    <None Remove="Resources\Billing\billing.private.txt" />
+    <None Remove="Resources\Billing\server.p12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Billing\billing.der" />
+    <EmbeddedResource Include="Resources\Billing\billing.private.txt" />
+    <EmbeddedResource Include="Resources\Billing\server.p12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SharpZipLib" Version="1.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\AimeDB\Requests\" />
   </ItemGroup>
 
 </Project>

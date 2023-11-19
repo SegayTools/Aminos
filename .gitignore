@@ -9,6 +9,7 @@
 
 _build/
 _site/
+Aminos/logs/
 Properties/
 
 # See #577
