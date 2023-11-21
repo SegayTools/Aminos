@@ -9,25 +9,28 @@ namespace Aminos.Models.Title.SDEZ.Tables
     [Index(nameof(Id))]
     [Table("MaimaiDX_UserChargelogs")]
     public class UserChargelog
-    {
-        [Key]
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
+
+		[Key]
         [JsonIgnore]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
-        public int chargeId;
+        public int chargeId { get; set; }
 
-        public int price;
+		public int price { get; set; }
 
-        public string purchaseDate;
+		public string purchaseDate { get; set; }
 
-        public int playCount;
+		public int playCount { get; set; }
 
-        public int playerRating;
+		public int playerRating { get; set; }
 
-        public int placeId;
+		public int placeId { get; set; }
 
-        public int regionId;
+		public int regionId { get; set; }
 
-        public string clientId;
-    }
+		public string clientId { get; set; }
+	}
 }

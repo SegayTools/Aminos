@@ -36,6 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Kernels\Databases\Attributes\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Models\AimeDB\Requests\" />
   </ItemGroup>
 

@@ -8,17 +8,20 @@ namespace Aminos.Models.Title.SDEZ.Tables
     [Index(nameof(Id))]
     [Table("MaimaiDX_UserCharges")]
     public class UserCharge
-    {
-        [Key]
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
+
+		[Key]
         [JsonIgnore]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
-        public int chargeId;
+        public int chargeId { get; set; }
 
-        public int stock;
+		public int stock { get; set; }
 
-        public string purchaseDate;
+		public string purchaseDate { get; set; }
 
-        public string validDate;
-    }
+		public string validDate { get; set; }
+	}
 }

@@ -4,37 +4,40 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserGamePlaylogs")]
-    public class UserGamePlaylog
-    {
-        [JsonPropertyName("playlogId")]
-        public int Id { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserGamePlaylogs")]
+	public class UserGamePlaylog
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        public string version;
+		[JsonPropertyName("playlogId")]
+		public ulong Id { get; set; }
 
-        public string playDate;
+		public string version { get; set; }
 
-        public int playMode;
+		public string playDate { get; set; }
 
-        public int useTicketId;
+		public int playMode { get; set; }
 
-        public int playCredit;
+		public int useTicketId { get; set; }
 
-        public int playTrack;
+		public int playCredit { get; set; }
 
-        public string clientId;
+		public int playTrack { get; set; }
 
-        public bool isPlayTutorial;
+		public string clientId { get; set; }
 
-        public bool isEventMode;
+		public bool isPlayTutorial { get; set; }
 
-        public bool isNewFree;
+		public bool isEventMode { get; set; }
 
-        public int playCount;
+		public bool isNewFree { get; set; }
 
-        public int playSpecial;
+		public int playCount { get; set; }
 
-        public ulong playOtherUserId;
-    }
+		public int playSpecial { get; set; }
+
+		public ulong playOtherUserId { get; set; }
+	}
 }

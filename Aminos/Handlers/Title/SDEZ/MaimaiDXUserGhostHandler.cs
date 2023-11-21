@@ -16,13 +16,13 @@ namespace Aminos.Handlers.Title.SDEZ
 			this.maimaiDxDB = maimaiDxDB;
 		}
 
-		public async ValueTask<UserGhostResponseVO> GetUserGhost(UserGhostRequestVO request)
+		public ValueTask<UserGhostResponseVO> GetUserGhost(UserGhostRequestVO request)
 		{
 			var response = new UserGhostResponseVO();
 			response.userGhostList = new UserGhost[0];
 			response.userId = request.userId;
 
-			return response;
+			return ValueTask.FromResult(response);
 		}
 	}
 }

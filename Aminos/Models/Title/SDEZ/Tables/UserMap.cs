@@ -5,22 +5,25 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserMaps")]
-    public class UserMap
-    {
-        [Key]
-        [JsonIgnore]
-        public int Id { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserMaps")]
+	public class UserMap
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        public int mapId;
+		[Key]
+		[JsonIgnore]
+		public ulong Id { get; set; }
 
-        public uint distance;
+		public int mapId { get; set; }
 
-        public bool isLock;
+		public uint distance { get; set; }
 
-        public bool isClear;
+		public bool isLock { get; set; }
 
-        public bool isComplete;
-    }
+		public bool isClear { get; set; }
+
+		public bool isComplete { get; set; }
+	}
 }

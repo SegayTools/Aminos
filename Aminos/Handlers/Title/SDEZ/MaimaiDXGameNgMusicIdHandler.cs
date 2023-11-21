@@ -5,16 +5,16 @@ using Aminos.Models.Title.SDEZ.Responses;
 
 namespace Aminos.Handlers.Title.SDEZ
 {
-	[RegisterInjectable(typeof(MaimaiDXUserChargeHandler))]
+	[RegisterInjectable(typeof(MaimaiDXGameNgMusicIdHandler))]
 	public class MaimaiDXGameNgMusicIdHandler
 	{
-		public async ValueTask<GameNgMusicIdResponseVO> GetGameNgMusicId(GameNgMusicIdRequestVO request)
+		public ValueTask<GameNgMusicIdResponseVO> GetGameNgMusicId(GameNgMusicIdRequestVO request)
 		{
 			var response = new GameNgMusicIdResponseVO();
 			response.musicIdList = new int[0];
 			response.length = 0;
 
-			return response;
+			return ValueTask.FromResult(response);
 		}
 	}
 }

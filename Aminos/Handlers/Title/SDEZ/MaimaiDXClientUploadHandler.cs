@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Handlers.Title.SDEZ
 {
-	[RegisterInjectable(typeof(MaimaiDXClientBookkeepHandler))]
+	[RegisterInjectable(typeof(MaimaiDXClientUploadHandler))]
 	public class MaimaiDXClientUploadHandler
 	{
 		private readonly MaimaiDXDB maimaiDxDB;
@@ -16,14 +16,14 @@ namespace Aminos.Handlers.Title.SDEZ
 			this.maimaiDxDB = maimaiDxDB;
 		}
 
-		public async Task<UpsertResponseVO> UpsertClientUpload(ClientUploadRequestVO request)
-		{ 
+		public ValueTask<UpsertResponseVO> UpsertClientUpload(ClientUploadRequestVO request)
+		{
 			//todo 实现一下
 			var response = new UpsertResponseVO();
 			response.apiName = nameof(MaimaiDXClientBookkeepHandler);
 			response.returnCode = 1;
 
-			return response;
+			return ValueTask.FromResult(response);
 		}
 	}
 }

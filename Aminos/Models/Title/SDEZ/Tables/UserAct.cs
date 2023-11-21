@@ -8,23 +8,28 @@ namespace Aminos.Models.Title.SDEZ.Tables
     [Index(nameof(Id))]
     [Table("MaimaiDX_UserActs")]
     public class UserAct
-    {
-        [Key]
+	{
+		[JsonIgnore]
+		public ulong UserActivityPlayListId { get; set; }
+		[JsonIgnore]
+		public ulong UserActivityMusicListId { get; set; }
+
+		[Key]
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
-        public int kind;
+        public int kind { get; set; }
 
-        public long sortNumber;
+		public long sortNumber { get; set; }
 
-        public int param1;
+		public int param1 { get; set; }
 
-        public int param2;
+		public int param2 { get; set; }
 
-        public int param3;
+		public int param3 { get; set; }
 
-        public int param4;
+		public int param4 { get; set; }
 
-        public int userId;
-    }
+		public int userId { get; set; }
+	}
 }

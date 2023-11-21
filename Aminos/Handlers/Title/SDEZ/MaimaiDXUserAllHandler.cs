@@ -189,7 +189,7 @@ namespace Aminos.Handlers.Title.SDEZ
 			SimpleRepalceEntites(
 				request.upsertUserAll.userFavoriteList,
 				userData.UserFavorites,
-				a => a.Id,
+				a => (int)a.Id,
 				(a, b) => a.Id = b.Id);
 
 			#endregion
@@ -243,7 +243,7 @@ namespace Aminos.Handlers.Title.SDEZ
 			SimpleRepalceEntites(
 				request.upsertUserAll.userGamePlaylogList,
 				userData.UserGamePlaylogs,
-				a => a.Id,
+				a => (int)a.Id,
 				(a, b) => a.Id = b.Id);
 
 			#endregion

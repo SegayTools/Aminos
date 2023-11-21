@@ -4,42 +4,42 @@ namespace Aminos.Models.Title.SDEZ.Tables
 {
 	public class UserGhost
 	{
-		public string name;
+		public string name { get; set; }
 
-		public int iconId;
+		public int iconId { get; set; }
 
-		public int plateId;
+		public int plateId { get; set; }
 
-		public int titleId;
+		public int titleId { get; set; }
 
-		public int rate;
+		public int rate { get; set; }
 
-		public int udemaeRate;
+		public int udemaeRate { get; set; }
 
-		public uint courseRank;
+		public uint courseRank { get; set; }
 
-		public uint classRank;
+		public uint classRank { get; set; }
 
-		public int classValue;
+		public int classValue { get; set; }
 
-		public string playDatetime;
+		public string playDatetime { get; set; }
 
-		public uint shopId;
+		public uint shopId { get; set; }
 
-		public int regionCode;
+		public int regionCode { get; set; }
 
-		public MusicDifficultyID typeId;
+		public MusicDifficultyID typeId { get; set; }
 
-		public int musicId;
+		public int musicId { get; set; }
 
-		public int difficulty;
+		public int difficulty { get; set; }
 
-		public int version;
+		public int version { get; set; }
 
-		public byte[] resultBitList;
+		public byte[] resultBitList { get; set; }
 
-		public int resultNum;
+		public int resultNum { get; set; }
 
-		public int achievement;
+		public int achievement { get; set; }
 	}
 }

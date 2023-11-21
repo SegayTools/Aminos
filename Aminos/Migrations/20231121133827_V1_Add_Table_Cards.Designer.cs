@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aminos.Migrations
 {
     [DbContext(typeof(AminosDB))]
-    [Migration("20231117163300_V1_AddTable_Cards")]
-    partial class V1_AddTable_Cards
+    [Migration("20231121133827_V1_Add_Table_Cards")]
+    partial class V1_Add_Table_Cards
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

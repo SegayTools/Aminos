@@ -14,18 +14,18 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
         [JsonInclude]
         [JsonPropertyName("user2pPlaylogDetailList")]
-        public ICollection<User2pPlaylogDetail> User2pPlaylogDetails { get; set; }
+        public ICollection<User2pPlaylogDetail> User2pPlaylogDetails { get; set; } = new List<User2pPlaylogDetail>();
 
-        public ulong userId1;
+		public ulong userId1 { get; set; }
 
-        public ulong userId2;
+		public ulong userId2 { get; set; }
 
-        public string userName1;
+		public string userName1 { get; set; }
 
-        public string userName2;
+		public string userName2 { get; set; }
 
-        public int regionId;
+		public int regionId { get; set; }
 
-        public int placeId;
-    }
+		public int placeId { get; set; }
+	}
 }

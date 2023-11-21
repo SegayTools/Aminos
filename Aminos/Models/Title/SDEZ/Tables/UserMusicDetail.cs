@@ -6,32 +6,33 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserMusicDetails")]
-    public class UserMusicDetail
-    {
-        public UserDetail UserDetail { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserMusicDetails")]
+	public class UserMusicDetail
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        [Key]
-        [JsonIgnore]
-        public int Id { get; set; }
+		[Key]
+		[JsonIgnore]
+		public ulong Id { get; set; }
 
-        public int musicId;
+		public int musicId { get; set; }
 
-        public MusicDifficultyID level;
+		public MusicDifficultyID level { get; set; }
 
-        public uint playCount;
+		public uint playCount { get; set; }
 
-        public uint achievement;
+		public uint achievement { get; set; }
 
-        public PlayComboflagID comboStatus;
+		public PlayComboflagID comboStatus { get; set; }
 
-        public PlaySyncflagID syncStatus;
+		public PlaySyncflagID syncStatus { get; set; }
 
-        public uint deluxscoreMax;
+		public uint deluxscoreMax { get; set; }
 
-        public MusicClearrankID scoreRank;
+		public MusicClearrankID scoreRank { get; set; }
 
-        public uint extNum1;
-    }
+		public uint extNum1 { get; set; }
+	}
 }

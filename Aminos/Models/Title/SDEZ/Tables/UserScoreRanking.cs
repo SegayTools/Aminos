@@ -5,20 +5,23 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserScoreRankings")]
-    public class UserScoreRanking
-    {
-        [Key]
-        [JsonIgnore]
-        public int Id { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserScoreRankings")]
+	public class UserScoreRanking
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        public int tournamentId;
+		[Key]
+		[JsonIgnore]
+		public ulong Id { get; set; }
 
-        public long totalScore;
+		public int tournamentId { get; set; }
 
-        public int ranking;
+		public long totalScore { get; set; }
 
-        public string rankingDate;
-    }
+		public int ranking { get; set; }
+
+		public string rankingDate { get; set; }
+	}
 }

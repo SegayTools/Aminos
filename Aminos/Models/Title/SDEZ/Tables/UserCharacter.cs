@@ -1,22 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
     [Index(nameof(Id))]
     [Table("MaimaiDX_UserCharacters")]
     public class UserCharacter
-    {
-        [Key]
-        public int Id { get; set; }
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        public int characterId;
+		[Key]
+        public ulong Id { get; set; }
 
-        public uint level;
+        public int characterId { get; set; }
 
-        public uint awakening;
+		public uint level { get; set; }
 
-        public uint useCount;
+		public uint awakening { get; set; }
+
+		public uint useCount { get; set; }
     }
 }

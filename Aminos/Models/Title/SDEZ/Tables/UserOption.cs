@@ -6,108 +6,111 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserOptions")]
-    public class UserOption
-    {
-        [Key]
-        [JsonIgnore]
-        public int Id { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserOptions")]
+	public class UserOption
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        public OptionKindID optionKind;
+		[Key]
+		[JsonIgnore]
+		public uint Id { get; set; }
 
-        public OptionNotespeedID noteSpeed;
+		public OptionKindID optionKind { get; set; }
 
-        public OptionSlidespeedID slideSpeed;
+		public OptionNotespeedID noteSpeed { get; set; }
 
-        public OptionTouchspeedID touchSpeed;
+		public OptionSlidespeedID slideSpeed { get; set; }
 
-        public OptionGametapID tapDesign;
+		public OptionTouchspeedID touchSpeed { get; set; }
 
-        public OptionGameholdID holdDesign;
+		public OptionGametapID tapDesign { get; set; }
 
-        public OptionGameslideID slideDesign;
+		public OptionGameholdID holdDesign { get; set; }
 
-        public OptionStartypeID starType;
+		public OptionGameslideID slideDesign { get; set; }
 
-        public OptionGameoutlineID outlineDesign;
+		public OptionStartypeID starType { get; set; }
 
-        public OptionNotesizeID noteSize;
+		public OptionGameoutlineID outlineDesign { get; set; }
 
-        public OptionSlidesizeID slideSize;
+		public OptionNotesizeID noteSize { get; set; }
 
-        public OptionTouchsizeID touchSize;
+		public OptionSlidesizeID slideSize { get; set; }
 
-        public OptionStarrotateID starRotate;
+		public OptionTouchsizeID touchSize { get; set; }
 
-        public OptionCenterdisplayID dispCenter;
+		public OptionStarrotateID starRotate { get; set; }
 
-        public OptionOutframedisplayID outFrameType;
+		public OptionCenterdisplayID dispCenter { get; set; }
 
-        public OptionDispchainID dispChain;
+		public OptionOutframedisplayID outFrameType { get; set; }
 
-        public OptionDisprateID dispRate;
+		public OptionDispchainID dispChain { get; set; }
 
-        public OptionDispbarlineID dispBar;
+		public OptionDisprateID dispRate { get; set; }
 
-        public OptionToucheffectID touchEffect;
+		public OptionDispbarlineID dispBar { get; set; }
 
-        public OptionSubmonitorID submonitorAnimation;
+		public OptionToucheffectID touchEffect { get; set; }
 
-        public OptionSubmonAchiveID submonitorAchive;
+		public OptionSubmonitorID submonitorAnimation { get; set; }
 
-        public OptionAppealID submonitorAppeal;
+		public OptionSubmonAchiveID submonitorAchive { get; set; }
 
-        public OptionMatchingID matching;
+		public OptionAppealID submonitorAppeal { get; set; }
 
-        public OptionTrackskipID trackSkip;
+		public OptionMatchingID matching { get; set; }
 
-        public OptionMoviebrightnessID brightness;
+		public OptionTrackskipID trackSkip { get; set; }
 
-        public OptionMirrorID mirrorMode;
+		public OptionMoviebrightnessID brightness { get; set; }
 
-        public OptionDispjudgeID dispJudge;
+		public OptionMirrorID mirrorMode { get; set; }
 
-        public OptionDispjudgeposID dispJudgePos;
+		public OptionDispjudgeID dispJudge { get; set; }
 
-        public OptionDispjudgetouchposID dispJudgeTouchPos;
+		public OptionDispjudgeposID dispJudgePos { get; set; }
 
-        public OptionJudgetimingID adjustTiming;
+		public OptionDispjudgetouchposID dispJudgeTouchPos { get; set; }
 
-        public OptionJudgetimingID judgeTiming;
+		public OptionJudgetimingID adjustTiming { get; set; }
 
-        public OptionVolumeAnswerSoundID ansVolume;
+		public OptionJudgetimingID judgeTiming { get; set; }
 
-        public OptionVolumeID tapHoldVolume;
+		public OptionVolumeAnswerSoundID ansVolume { get; set; }
 
-        public OptionCriticalID criticalSe;
+		public OptionVolumeID tapHoldVolume { get; set; }
 
-        public OptionTapSuccessSeID tapSe;
+		public OptionCriticalID criticalSe { get; set; }
 
-        public OptionBreakseID breakSe;
+		public OptionTapSuccessSeID tapSe { get; set; }
 
-        public OptionVolumeID breakVolume;
+		public OptionBreakseID breakSe { get; set; }
 
-        public OptionExseID exSe;
+		public OptionVolumeID breakVolume { get; set; }
 
-        public OptionVolumeID exVolume;
+		public OptionExseID exSe { get; set; }
 
-        public OptionSlideseID slideSe;
+		public OptionVolumeID exVolume { get; set; }
 
-        public OptionVolumeID slideVolume;
+		public OptionSlideseID slideSe { get; set; }
 
-        public OptionVolumeID breakSlideVolume;
+		public OptionVolumeID slideVolume { get; set; }
 
-        public OptionVolumeID touchVolume;
+		public OptionVolumeID breakSlideVolume { get; set; }
 
-        public OptionVolumeID touchHoldVolume;
+		public OptionVolumeID touchVolume { get; set; }
 
-        public OptionVolumeID damageSeVolume;
+		public OptionVolumeID touchHoldVolume { get; set; }
 
-        public OptionHeadphonevolumeID headPhoneVolume;
+		public OptionVolumeID damageSeVolume { get; set; }
 
-        public SortTabID sortTab;
+		public OptionHeadphonevolumeID headPhoneVolume { get; set; }
 
-        public SortMusicID sortMusic;
-    }
+		public SortTabID sortTab { get; set; }
+
+		public SortMusicID sortMusic { get; set; }
+	}
 }

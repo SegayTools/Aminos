@@ -5,20 +5,29 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserRates")]
-    public class UserRate
-    {
-        [Key]
-        [JsonIgnore]
-        public int Id { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserRates")]
+	public class UserRate
+	{
+		[JsonIgnore]
+		public ulong UserRatingRatingListId { get; set; }
+		[JsonIgnore]
+		public ulong UserRatingNewRatingListId { get; set; }
+		[JsonIgnore]
+		public ulong UserRatingNextRatingListId { get; set; }
+		[JsonIgnore]
+		public ulong UserRatingNextNewRatingListId { get; set; }
 
-        public int musicId;
+		[Key]
+		[JsonIgnore]
+		public ulong Id { get; set; }
 
-        public int level;
+		public int musicId { get; set; }
 
-        public uint romVersion;
+		public int level { get; set; }
 
-        public uint achievement;
-    }
+		public uint romVersion { get; set; }
+
+		public uint achievement { get; set; }
+	}
 }

@@ -11,16 +11,16 @@ namespace Aminos.Models.Title.SDEZ.Tables
     {
         [Key]
         [JsonIgnore]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
-        public int orderId;
+        public int orderId { get; set; }
 
-        public int chargeId;
+        public int chargeId { get; set; }
 
-        public int price;
+		public int price { get; set; }
 
-        public string startDate;
+		public string startDate { get; set; }
 
-        public string endDate;
-    }
+		public string endDate { get; set; }
+	}
 }

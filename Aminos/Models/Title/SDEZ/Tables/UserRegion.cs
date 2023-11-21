@@ -5,18 +5,21 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserRegions")]
-    public class UserRegion
-    {
-        [Key]
-        [JsonIgnore]
-        public int Id { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserRegions")]
+	public class UserRegion
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        public int regionId;
+		[Key]
+		[JsonIgnore]
+		public ulong Id { get; set; }
 
-        public int playCount;
+		public int regionId { get; set; }
 
-        public string created;
-    }
+		public int playCount { get; set; }
+
+		public string created { get; set; }
+	}
 }

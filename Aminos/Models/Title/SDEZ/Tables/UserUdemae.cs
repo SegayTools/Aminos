@@ -5,47 +5,47 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserUdemaes")]
-    public class UserUdemae
-    {
-        [JsonIgnore]
-        public UserRating UserRating { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserUdemaes")]
+	public class UserUdemae
+	{
+		[JsonIgnore]
+		public ulong UserRatingId { get; set; }
 
-        [Key]
-        [JsonIgnore]
-        public int Id { get; set; }
+		[Key]
+		[JsonIgnore]
+		public ulong Id { get; set; }
 
-        public int rate;
+		public int rate { get; set; }
 
-        public int maxRate;
+		public int maxRate { get; set; }
 
-        public int classValue;
+		public int classValue { get; set; }
 
-        public int maxClassValue;
+		public int maxClassValue { get; set; }
 
-        public uint totalWinNum;
+		public uint totalWinNum { get; set; }
 
-        public uint totalLoseNum;
+		public uint totalLoseNum { get; set; }
 
-        public uint maxWinNum;
+		public uint maxWinNum { get; set; }
 
-        public uint maxLoseNum;
+		public uint maxLoseNum { get; set; }
 
-        public uint winNum;
+		public uint winNum { get; set; }
 
-        public uint loseNum;
+		public uint loseNum { get; set; }
 
-        public uint npcTotalWinNum;
+		public uint npcTotalWinNum { get; set; }
 
-        public uint npcTotalLoseNum;
+		public uint npcTotalLoseNum { get; set; }
 
-        public uint npcMaxWinNum;
+		public uint npcMaxWinNum { get; set; }
 
-        public uint npcMaxLoseNum;
+		public uint npcMaxLoseNum { get; set; }
 
-        public uint npcWinNum;
+		public uint npcWinNum { get; set; }
 
-        public uint npcLoseNum;
-    }
+		public uint npcLoseNum { get; set; }
+	}
 }

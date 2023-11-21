@@ -8,33 +8,36 @@ namespace Aminos.Models.Title.SDEZ.Tables
     [Index(nameof(Id))]
     [Table("MaimaiDX_UserCourses")]
     public class UserCourse
-    {
-        [Key]
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
+
+		[Key]
         [JsonIgnore]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
-        public int courseId;
+        public int courseId { get; set; }
 
-        public bool isLastClear;
+		public bool isLastClear { get; set; }
 
-        public uint totalRestlife;
+		public uint totalRestlife { get; set; }
 
-        public uint totalAchievement;
+		public uint totalAchievement { get; set; }
 
-        public uint totalDeluxscore;
+		public uint totalDeluxscore { get; set; }
 
-        public uint playCount;
+		public uint playCount { get; set; }
 
-        public string clearDate;
+		public string clearDate { get; set; }
 
-        public string lastPlayDate;
+		public string lastPlayDate { get; set; }
 
-        public uint bestAchievement;
+		public uint bestAchievement { get; set; }
 
-        public string bestAchievementDate;
+		public string bestAchievementDate { get; set; }
 
-        public uint bestDeluxscore;
+		public uint bestDeluxscore { get; set; }
 
-        public string bestDeluxscoreDate;
-    }
+		public string bestDeluxscoreDate { get; set; }
+	}
 }

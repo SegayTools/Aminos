@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Aminos.Migrations
 {
     /// <inheritdoc />
-    public partial class V1_AddTable_Cards : Migration
+    public partial class V1_Add_Table_Cards : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

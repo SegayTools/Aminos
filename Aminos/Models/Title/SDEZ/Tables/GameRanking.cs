@@ -9,10 +9,10 @@ namespace Aminos.Models.Title.SDEZ.Tables
     public class GameRanking
     {
         [Key]
-        public long id;
+        public long id { get; set; }
 
-        public long point;
+		public long point { get; set; }
 
-        public string userName;
-    }
+		public string userName { get; set; }
+	}
 }

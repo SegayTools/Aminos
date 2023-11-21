@@ -5,20 +5,23 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserLoginBonuss")]
-    public class UserLoginBonus
-    {
-        [Key]
-        [JsonIgnore]
-        public int Id { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserLoginBonuses")]
+	public class UserLoginBonus
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        public int bonusId;
+		[Key]
+		[JsonIgnore]
+		public ulong Id { get; set; }
 
-        public uint point;
+		public int bonusId { get; set; }
 
-        public bool isCurrent;
+		public uint point { get; set; }
 
-        public bool isComplete;
-    }
+		public bool isCurrent { get; set; }
+
+		public bool isComplete { get; set; }
+	}
 }

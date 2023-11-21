@@ -8,13 +8,16 @@ namespace Aminos.Models.Title.SDEZ.Tables
     [Index(nameof(UserFavoriteItemId))]
     [Table("MaimaiDX_UserFavoriteItems")]
     public class UserFavoriteItem
-    {
-        [Key]
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
+
+		[Key]
         [JsonPropertyName("orderId")]
         public int UserFavoriteItemId { get; set; }
 
-        public int kind;
+        public int kind { get; set; }
 
-        public ulong id;
-    }
+		public ulong id { get; set; }
+	}
 }

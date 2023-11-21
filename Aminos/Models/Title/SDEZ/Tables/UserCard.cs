@@ -1,5 +1,6 @@
 ﻿using Aminos.Models.General;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -8,19 +9,24 @@ namespace Aminos.Models.Title.SDEZ.Tables
     [Index(nameof(Id))]
     [Table("MaimaiDX_UserCards")]
     public class UserCard
-    {
-        public int Id { get; set; }
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        public int cardId;
+		[Key]
+		[JsonIgnore]
+        public ulong Id { get; set; }
 
-        public int cardTypeId;
+        public int cardId { get; set; }
 
-        public int charaId;
+		public int cardTypeId { get; set; }
 
-        public int mapId;
+		public int charaId { get; set; }
 
-        public string startDate;
+		public int mapId { get; set; }
 
-        public string endDate;
-    }
+		public string startDate { get; set; }
+
+		public string endDate { get; set; }
+	}
 }

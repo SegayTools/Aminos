@@ -7,16 +7,19 @@ namespace Aminos.Models.Title.SDEZ.Tables
     [Index(nameof(Id))]
     [Table("MaimaiDX_UserItems")]
     public class UserItem
-    {
-        [JsonIgnore]
-        public int Id { get; set; }
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        public int itemKind;
+		[JsonIgnore]
+        public ulong Id { get; set; }
 
-        public int itemId;
+        public int itemKind { get; set; }
 
-        public int stock;
+		public int itemId { get; set; }
 
-        public bool isValid;
-    }
+		public int stock { get; set; }
+
+		public bool isValid { get; set; }
+	}
 }

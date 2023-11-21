@@ -11,15 +11,15 @@ namespace Aminos.Models.Title.SDEZ.Tables
     {
         [Key]
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public ulong Id { get; set; }
 
-        public int type;
+        public int type { get; set; }
 
-        public string startDate;
+		public string startDate { get; set; }
 
-        public string endDate;
+		public string endDate { get; set; }
 
-        [JsonIgnore]
-        public bool enable;
-    }
+		[JsonIgnore]
+        public bool enable { get; set; }
+	}
 }

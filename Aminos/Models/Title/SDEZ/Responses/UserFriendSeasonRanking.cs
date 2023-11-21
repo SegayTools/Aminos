@@ -11,7 +11,7 @@ namespace Aminos.Models.Title.SDEZ.Responses
 	{
 		[Key]
 		[JsonIgnore]
-		public int Id { get; set; }
+		public ulong Id { get; set; }
 
 		public int seasonId;
 

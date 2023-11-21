@@ -1,4 +1,5 @@
 using Aminos.Databases;
+using Aminos.Databases.Title.SDEZ;
 using Aminos.Handlers.AllNet;
 using Aminos.Handlers.AllNet.Default;
 using Aminos.Kernels.Injections;
@@ -8,6 +9,8 @@ using Aminos.Utils.MethodExtensions;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using System.Net;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
@@ -50,6 +53,10 @@ namespace Aminos
 				});
 			});
 
+			var fileProviderRootPath = Path.Combine(Path.GetTempPath(), "AnimosTemps");
+			Directory.CreateDirectory(fileProviderRootPath);
+			builder.Services.AddScoped<IFileProvider>((x) => new PhysicalFileProvider(fileProviderRootPath));
+
 			// Add services to the container.
 			builder.Services.AddControllers();
 			builder.Services.AddSingleton<IAllNetHandler, DefaultAllNetHandler>();
@@ -79,7 +86,10 @@ namespace Aminos
 			});
 
 			builder.Services.AddDbContext<AminosDB>(options =>
-			options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")),
+				options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")),
+			ServiceLifetime.Scoped);
+			builder.Services.AddDbContext<MaimaiDXDB>(options =>
+				options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")),
 			ServiceLifetime.Scoped);
 
 			builder.Services.AddInjectsByAttributes(typeof(Program).Assembly);

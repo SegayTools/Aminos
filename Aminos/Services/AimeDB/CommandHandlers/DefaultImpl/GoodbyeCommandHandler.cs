@@ -12,9 +12,9 @@ namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 	{
 		public int HandleCommandId => 0x0066;
 
-		public async ValueTask<bool> Handle(AimeDBPacketStreamReaderWriter stream, AimeDBPacket reqPacket, CancellationToken token)
+		public ValueTask<bool> Handle(AimeDBPacketStreamReaderWriter stream, AimeDBPacket reqPacket, CancellationToken token)
 		{
-			return true;
+			return ValueTask.FromResult(true);
 		}
 	}
 }

@@ -75,12 +75,12 @@ namespace Aminos.Handlers.AllNet.Default
 			};
 		}
 
-		private async ValueTask<bool> CheckKeychipIfValid(string serial)
+		private ValueTask<bool> CheckKeychipIfValid(string serial)
 		{
 			if (string.IsNullOrWhiteSpace(serial))
-				return false;
+				return ValueTask.FromResult(false);
 
-			return true;
+			return ValueTask.FromResult(true);
 		}
 	}
 }

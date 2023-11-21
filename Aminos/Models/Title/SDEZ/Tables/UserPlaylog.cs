@@ -6,228 +6,231 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserPlaylogs")]
-    public class UserPlaylog
-    {
-        [JsonIgnore]
-        [Key]
-        public int Id { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserPlaylogs")]
+	public class UserPlaylog
+	{
+		[JsonIgnore]
+		public ulong UserDetailId { get; set; }
 
-        public ulong userId;
+		[JsonIgnore]
+		[Key]
+		public ulong Id { get; set; }
 
-        public int orderId;
+		public ulong userId { get; set; }
 
-        public ulong playlogId;
+		public int orderId { get; set; }
 
-        public int version;
+		public ulong playlogId { get; set; }
 
-        public int placeId;
+		public int version { get; set; }
 
-        public string placeName;
+		public int placeId { get; set; }
 
-        public long loginDate;
+		public string placeName { get; set; }
 
-        public string playDate;
+		public long loginDate { get; set; }
 
-        public string userPlayDate;
+		public string playDate { get; set; }
 
-        public int type;
+		public string userPlayDate { get; set; }
 
-        public int musicId;
+		public int type { get; set; }
 
-        public int level;
+		public int musicId { get; set; }
 
-        public int trackNo;
+		public int level { get; set; }
 
-        public int vsMode;
+		public int trackNo { get; set; }
 
-        public string vsUserName;
+		public int vsMode { get; set; }
 
-        public int vsStatus;
+		public string vsUserName { get; set; }
 
-        public int vsUserRating;
+		public int vsStatus { get; set; }
 
-        public int vsUserAchievement;
+		public int vsUserRating { get; set; }
 
-        public int vsUserGradeRank;
+		public int vsUserAchievement { get; set; }
 
-        public int vsRank;
+		public int vsUserGradeRank { get; set; }
 
-        public int playerNum;
+		public int vsRank { get; set; }
 
-        public ulong playedUserId1;
+		public int playerNum { get; set; }
 
-        public string playedUserName1;
+		public ulong playedUserId1 { get; set; }
 
-        public int playedMusicLevel1;
+		public string playedUserName1 { get; set; }
 
-        public ulong playedUserId2;
+		public int playedMusicLevel1 { get; set; }
 
-        public string playedUserName2;
+		public ulong playedUserId2 { get; set; }
 
-        public int playedMusicLevel2;
+		public string playedUserName2 { get; set; }
 
-        public ulong playedUserId3;
+		public int playedMusicLevel2 { get; set; }
 
-        public string playedUserName3;
+		public ulong playedUserId3 { get; set; }
 
-        public int playedMusicLevel3;
+		public string playedUserName3 { get; set; }
 
-        public int characterId1;
+		public int playedMusicLevel3 { get; set; }
 
-        public int characterLevel1;
+		public int characterId1 { get; set; }
 
-        public int characterAwakening1;
+		public int characterLevel1 { get; set; }
 
-        public int characterId2;
+		public int characterAwakening1 { get; set; }
 
-        public int characterLevel2;
+		public int characterId2 { get; set; }
 
-        public int characterAwakening2;
+		public int characterLevel2 { get; set; }
 
-        public int characterId3;
+		public int characterAwakening2 { get; set; }
 
-        public int characterLevel3;
+		public int characterId3 { get; set; }
 
-        public int characterAwakening3;
+		public int characterLevel3 { get; set; }
 
-        public int characterId4;
+		public int characterAwakening3 { get; set; }
 
-        public int characterLevel4;
+		public int characterId4 { get; set; }
 
-        public int characterAwakening4;
+		public int characterLevel4 { get; set; }
 
-        public int characterId5;
+		public int characterAwakening4 { get; set; }
 
-        public int characterLevel5;
+		public int characterId5 { get; set; }
 
-        public int characterAwakening5;
+		public int characterLevel5 { get; set; }
 
-        public int achievement;
+		public int characterAwakening5 { get; set; }
 
-        public int deluxscore;
+		public int achievement { get; set; }
 
-        public int scoreRank;
+		public int deluxscore { get; set; }
 
-        public int maxCombo;
+		public int scoreRank { get; set; }
 
-        public int totalCombo;
+		public int maxCombo { get; set; }
 
-        public int maxSync;
+		public int totalCombo { get; set; }
 
-        public int totalSync;
+		public int maxSync { get; set; }
 
-        public int tapCriticalPerfect;
+		public int totalSync { get; set; }
 
-        public int tapPerfect;
+		public int tapCriticalPerfect { get; set; }
 
-        public int tapGreat;
+		public int tapPerfect { get; set; }
 
-        public int tapGood;
+		public int tapGreat { get; set; }
 
-        public int tapMiss;
+		public int tapGood { get; set; }
 
-        public int holdCriticalPerfect;
+		public int tapMiss { get; set; }
 
-        public int holdPerfect;
+		public int holdCriticalPerfect { get; set; }
 
-        public int holdGreat;
+		public int holdPerfect { get; set; }
 
-        public int holdGood;
+		public int holdGreat { get; set; }
 
-        public int holdMiss;
+		public int holdGood { get; set; }
 
-        public int slideCriticalPerfect;
+		public int holdMiss { get; set; }
 
-        public int slidePerfect;
+		public int slideCriticalPerfect { get; set; }
 
-        public int slideGreat;
+		public int slidePerfect { get; set; }
 
-        public int slideGood;
+		public int slideGreat { get; set; }
 
-        public int slideMiss;
+		public int slideGood { get; set; }
 
-        public int touchCriticalPerfect;
+		public int slideMiss { get; set; }
 
-        public int touchPerfect;
+		public int touchCriticalPerfect { get; set; }
 
-        public int touchGreat;
+		public int touchPerfect { get; set; }
 
-        public int touchGood;
+		public int touchGreat { get; set; }
 
-        public int touchMiss;
+		public int touchGood { get; set; }
 
-        public int breakCriticalPerfect;
+		public int touchMiss { get; set; }
 
-        public int breakPerfect;
+		public int breakCriticalPerfect { get; set; }
 
-        public int breakGreat;
+		public int breakPerfect { get; set; }
 
-        public int breakGood;
+		public int breakGreat { get; set; }
 
-        public int breakMiss;
+		public int breakGood { get; set; }
 
-        public bool isTap;
+		public int breakMiss { get; set; }
 
-        public bool isHold;
+		public bool isTap { get; set; }
 
-        public bool isSlide;
+		public bool isHold { get; set; }
 
-        public bool isTouch;
+		public bool isSlide { get; set; }
 
-        public bool isBreak;
+		public bool isTouch { get; set; }
 
-        public bool isCriticalDisp;
+		public bool isBreak { get; set; }
 
-        public bool isFastLateDisp;
+		public bool isCriticalDisp { get; set; }
 
-        public int fastCount;
+		public bool isFastLateDisp { get; set; }
 
-        public int lateCount;
+		public int fastCount { get; set; }
 
-        public bool isAchieveNewRecord;
+		public int lateCount { get; set; }
 
-        public bool isDeluxscoreNewRecord;
+		public bool isAchieveNewRecord { get; set; }
 
-        public int comboStatus;
+		public bool isDeluxscoreNewRecord { get; set; }
 
-        public int syncStatus;
+		public int comboStatus { get; set; }
 
-        public bool isClear;
+		public int syncStatus { get; set; }
 
-        public int beforeRating;
+		public bool isClear { get; set; }
 
-        public int afterRating;
+		public int beforeRating { get; set; }
 
-        public int beforeGrade;
+		public int afterRating { get; set; }
 
-        public int afterGrade;
+		public int beforeGrade { get; set; }
 
-        public int afterGradeRank;
+		public int afterGrade { get; set; }
 
-        public int beforeDeluxRating;
+		public int afterGradeRank { get; set; }
 
-        public int afterDeluxRating;
+		public int beforeDeluxRating { get; set; }
 
-        public bool isPlayTutorial;
+		public int afterDeluxRating { get; set; }
 
-        public bool isEventMode;
+		public bool isPlayTutorial { get; set; }
 
-        public bool isFreedomMode;
+		public bool isEventMode { get; set; }
 
-        public int playMode;
+		public bool isFreedomMode { get; set; }
 
-        public bool isNewFree;
+		public int playMode { get; set; }
 
-        public int trialPlayAchievement;
+		public bool isNewFree { get; set; }
 
-        public int extNum1;
+		public int trialPlayAchievement { get; set; }
 
-        public int extNum2;
+		public int extNum1 { get; set; }
 
-        public int extNum4;
+		public int extNum2 { get; set; }
 
-        public bool extBool1;
-    }
+		public int extNum4 { get; set; }
+
+		public bool extBool1 { get; set; }
+	}
 }
