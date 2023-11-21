@@ -1,7 +1,6 @@
-﻿using Aminos.Models.AllNet.Responses;
-using Aminos.Models.AllNet.Requests;
+﻿using Aminos.Models.AllNet.Requests;
+using Aminos.Models.AllNet.Responses;
 using Aminos.Utils;
-using System.Net;
 
 namespace Aminos.Handlers.AllNet.Default
 {

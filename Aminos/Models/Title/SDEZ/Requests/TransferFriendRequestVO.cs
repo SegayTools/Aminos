@@ -2,6 +2,6 @@
 {
 	public class TransferFriendRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 	}
 }

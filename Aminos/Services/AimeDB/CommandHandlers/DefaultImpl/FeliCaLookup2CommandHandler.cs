@@ -1,11 +1,9 @@
 ﻿using Aminos.Databases;
 using Aminos.Kernels.Injections.Attrbutes;
 using Aminos.Models.AimeDB;
-using Aminos.Models.AimeDB.Requests;
 using Aminos.Services.AimeDB.Streams;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.EntityFrameworkCore;
-using System.Buffers;
 
 namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 {
@@ -23,8 +21,8 @@ namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 
 		public async ValueTask<bool> Handle(AimeDBPacketStreamReaderWriter stream, AimeDBPacket reqPacket, CancellationToken token)
 		{
-			var idm = reqPacket.AquaData[0x0030..0x0038];
-			var pmm = reqPacket.AquaData[0x0038..0x0040];
+			var idm = reqPacket.Buffer[0x0030..0x0038];
+			var pmm = reqPacket.Buffer[0x0038..0x0040];
 
 			var accessCode = string.Concat(idm.ToArray().Select(x => x.ToString("X2")));
 			accessCode = accessCode.PadRight(20, '0');

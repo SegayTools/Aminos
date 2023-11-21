@@ -2,6 +2,6 @@
 {
 	public class UserRegionRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 	}
 }

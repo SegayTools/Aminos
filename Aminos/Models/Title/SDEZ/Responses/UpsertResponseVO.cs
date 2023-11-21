@@ -2,8 +2,8 @@
 {
 	public class UpsertResponseVO
 	{
-		public int returnCode;
+		public int returnCode { get; set; }
 
-		public string apiName;
+		public string apiName { get; set; }
 	}
 }

@@ -2,10 +2,10 @@
 {
 	public class UserMusicRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public int nextIndex;
+		public int nextIndex { get; set; }
 
-		public int maxCount = 50;
+		public int maxCount { get; set; } = 50;
 	}
 }

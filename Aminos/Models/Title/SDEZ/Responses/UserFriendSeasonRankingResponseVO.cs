@@ -2,10 +2,10 @@
 {
 	public class UserFriendSeasonRankingResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public long nextIndex;
+		public long nextIndex { get; set; }
 
-		public UserFriendSeasonRanking[] userFriendSeasonRankingList;
+		public UserFriendSeasonRanking[] userFriendSeasonRankingList { get; set; }
 	}
 }

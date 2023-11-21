@@ -2,10 +2,10 @@
 
 namespace Aminos.Models.Title.SDEZ.Requests
 {
-    public class UserPlaylogRequestVO
+	public class UserPlaylogRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public UserPlaylog userPlaylog;
+		public UserPlaylog userPlaylog { get; set; }
 	}
 }

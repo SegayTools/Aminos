@@ -2,6 +2,6 @@
 {
 	public class UserChargeRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 	}
 }

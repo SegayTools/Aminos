@@ -2,6 +2,6 @@
 {
 	public class GameRankingRequestVO
 	{
-		public long type;
+		public long type { get; set; }
 	}
 }

@@ -1,5 +1,4 @@
-﻿using Aminos.Utils;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
 namespace Aminos.Controllers.Title
@@ -13,6 +12,9 @@ namespace Aminos.Controllers.Title
 			IgnoreReadOnlyProperties = true,
 		};
 
-		public IActionResult Json<T>(T obj) => new JsonResult(obj, JsonSerializeOption);
+		public IActionResult Json<T>(T obj)
+		{
+			return new JsonResult(obj, JsonSerializeOption);
+		}
 	}
 }

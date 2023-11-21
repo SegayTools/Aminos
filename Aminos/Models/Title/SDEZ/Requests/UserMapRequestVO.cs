@@ -2,10 +2,10 @@
 {
 	public class UserMapRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public long nextIndex;
+		public long nextIndex { get; set; }
 
-		public int maxCount = 20;
+		public int maxCount { get; set; } = 20;
 	}
 }

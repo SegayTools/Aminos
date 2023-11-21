@@ -2,8 +2,8 @@
 {
 	public class UserRivalResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public UserRivalData userRivalData;
+		public UserRivalData userRivalData { get; set; }
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using Aminos.Models.AimeDB;
-using Aminos.Models.AimeDB.Requests;
 using Aminos.Services.AimeDB.Streams;
 
 namespace Aminos.Services.AimeDB.CommandHandlers

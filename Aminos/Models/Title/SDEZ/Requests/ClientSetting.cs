@@ -2,22 +2,22 @@
 {
 	public class ClientSetting
 	{
-		public int placeId;
+		public int placeId { get; set; }
 
-		public string clientId;
+		public string clientId { get; set; }
 
-		public string placeName;
+		public string placeName { get; set; }
 
-		public int regionId;
+		public int regionId { get; set; }
 
-		public string regionName;
+		public string regionName { get; set; }
 
-		public string bordId;
+		public string bordId { get; set; }
 
-		public int romVersion;
+		public int romVersion { get; set; }
 
-		public bool isDevelop;
+		public bool isDevelop { get; set; }
 
-		public bool isAou;
+		public bool isAou { get; set; }
 	}
 }

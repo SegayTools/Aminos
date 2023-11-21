@@ -2,8 +2,8 @@
 {
 	public class UserRivalMusic
 	{
-		public int musicId;
+		public int musicId { get; set; }
 
-		public UserRivalMusicDetail[] userRivalMusicDetailList;
+		public UserRivalMusicDetail[] userRivalMusicDetailList { get; set; }
 	}
 }

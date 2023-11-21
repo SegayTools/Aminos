@@ -1,11 +1,9 @@
 ﻿using Aminos.Databases;
 using Aminos.Kernels.Injections.Attrbutes;
 using Aminos.Models.AimeDB;
-using Aminos.Models.AimeDB.Requests;
 using Aminos.Services.AimeDB.Streams;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.EntityFrameworkCore;
-using System.Buffers;
 
 namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 {
@@ -25,14 +23,14 @@ namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 
 		public async ValueTask<bool> Handle(AimeDBPacketStreamReaderWriter stream, AimeDBPacket reqPacket, CancellationToken token)
 		{
-			var luid = reqPacket.AquaData[0x0020..0x002a];
+			var luid = reqPacket.Buffer[0x0020..0x002a];
 			var luidStr = Convert.ToHexString(luid.Span);
 
-			var card = await aminosDB.Cards.FirstOrDefaultAsync(x => luidStr.Equals(x.Luid, StringComparison.InvariantCultureIgnoreCase));
+			var card = await aminosDB.Cards.FirstOrDefaultAsync(x => luidStr == x.Luid);
 			var aimeId = card?.AimeId ?? -1;
 
 			using var respPacket = new AimeDBPacket(0x0130);
-			respPacket.CommandID = 0x0006;
+			respPacket.CommandID = 0x0010;
 			respPacket.Result = 1;
 
 			respPacket.Buffer.WriteValue(0x0020, aimeId);

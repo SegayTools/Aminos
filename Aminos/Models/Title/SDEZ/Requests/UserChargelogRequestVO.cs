@@ -2,12 +2,12 @@
 
 namespace Aminos.Models.Title.SDEZ.Requests
 {
-    public class UserChargelogRequestVO
+	public class UserChargelogRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public UserChargelog userChargelog;
+		public UserChargelog userChargelog { get; set; }
 
-		public UserCharge userCharge;
+		public UserCharge userCharge { get; set; }
 	}
 }

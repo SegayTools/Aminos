@@ -2,8 +2,8 @@
 {
 	public class UserScoreRankingRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public int competitionId;
+		public int competitionId { get; set; }
 	}
 }

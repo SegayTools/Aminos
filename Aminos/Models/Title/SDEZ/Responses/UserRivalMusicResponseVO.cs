@@ -2,12 +2,12 @@
 {
 	public class UserRivalMusicResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public ulong rivalId;
+		public ulong rivalId { get; set; }
 
-		public int nextIndex;
+		public int nextIndex { get; set; }
 
-		public UserRivalMusic[] userRivalMusicList;
+		public UserRivalMusic[] userRivalMusicList { get; set; }
 	}
 }

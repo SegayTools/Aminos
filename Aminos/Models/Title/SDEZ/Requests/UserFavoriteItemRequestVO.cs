@@ -2,14 +2,14 @@
 {
 	public class UserFavoriteItemRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public int kind;
+		public int kind { get; set; }
 
-		public ulong nextIndex;
+		public ulong nextIndex { get; set; }
 
-		public int maxCount = 100;
+		public int maxCount { get; set; } = 100;
 
-		public bool isAllFavoriteItem;
+		public bool isAllFavoriteItem { get; set; }
 	}
 }

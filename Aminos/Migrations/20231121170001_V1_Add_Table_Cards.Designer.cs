@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aminos.Migrations
 {
     [DbContext(typeof(AminosDB))]
-    [Migration("20231121133827_V1_Add_Table_Cards")]
+    [Migration("20231121170001_V1_Add_Table_Cards")]
     partial class V1_Add_Table_Cards
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Aminos.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
 
-            modelBuilder.Entity("Aminos.Models.General.Card", b =>
+            modelBuilder.Entity("Aminos.Models.General.Tables.Card", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace Aminos.Migrations
                     b.HasIndex("Luid")
                         .IsUnique();
 
-                    b.ToTable("Cards");
+                    b.ToTable("General.Cards");
                 });
 #pragma warning restore 612, 618
         }

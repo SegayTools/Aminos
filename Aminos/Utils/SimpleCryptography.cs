@@ -1,5 +1,4 @@
 ﻿using Aminos.Utils.MethodExtensions;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using System.Security.Cryptography;
 using System.Text;
 

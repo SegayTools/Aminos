@@ -8,9 +8,6 @@ namespace Aminos.Models.Title.SDEZ.Tables
 	[Table("MaimaiDX_UserGamePlaylogs")]
 	public class UserGamePlaylog
 	{
-		[JsonIgnore]
-		public ulong UserDetailId { get; set; }
-
 		[JsonPropertyName("playlogId")]
 		public ulong Id { get; set; }
 

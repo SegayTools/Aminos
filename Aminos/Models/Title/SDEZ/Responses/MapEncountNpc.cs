@@ -2,8 +2,8 @@
 {
 	public class MapEncountNpc
 	{
-		public int npcId;
+		public int npcId { get; set; }
 
-		public int musicId;
+		public int musicId { get; set; }
 	}
 }

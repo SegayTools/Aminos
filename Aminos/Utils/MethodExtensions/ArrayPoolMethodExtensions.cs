@@ -1,5 +1,4 @@
 ﻿using System.Buffers;
-using static Aminos.Utils.MethodExtensions.ArrayPoolMethodExtensions;
 
 namespace Aminos.Utils.MethodExtensions
 {

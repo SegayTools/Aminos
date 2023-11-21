@@ -6,7 +6,7 @@ using Aminos.Models.Title.SDEZ.Tables;
 
 namespace Aminos.Handlers.Title.SDEZ
 {
-    [RegisterInjectable(typeof(MaimaiDXUserGhostHandler))]
+	[RegisterInjectable(typeof(MaimaiDXUserGhostHandler))]
 	public class MaimaiDXUserGhostHandler
 	{
 		private readonly MaimaiDXDB maimaiDxDB;

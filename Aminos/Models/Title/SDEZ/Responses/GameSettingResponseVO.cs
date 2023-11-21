@@ -1,11 +1,9 @@
-﻿using static ICSharpCode.SharpZipLib.Zip.ZipEntryFactory;
-
-namespace Aminos.Models.Title.SDEZ.Responses
+﻿namespace Aminos.Models.Title.SDEZ.Responses
 {
 	public class GameSettingResponseVO
 	{
-		public bool isAouAccession;
+		public bool isAouAccession { get; set; }
 
-		public GameSetting gameSetting;
+		public GameSetting gameSetting { get; set; }
 	}
 }

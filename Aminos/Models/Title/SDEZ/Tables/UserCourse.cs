@@ -5,18 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserCourses")]
-    public class UserCourse
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserCourses")]
+	public class UserCourse
 	{
-		[JsonIgnore]
-		public ulong UserDetailId { get; set; }
-
 		[Key]
-        [JsonIgnore]
-        public ulong Id { get; set; }
+		[JsonIgnore]
+		public ulong Id { get; set; }
 
-        public int courseId { get; set; }
+		public int courseId { get; set; }
 
 		public bool isLastClear { get; set; }
 

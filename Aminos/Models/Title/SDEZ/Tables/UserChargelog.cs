@@ -6,18 +6,15 @@ using System.Text.Json.Serialization;
 namespace Aminos.Models.Title.SDEZ.Tables
 {
 
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserChargelogs")]
-    public class UserChargelog
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserChargelogs")]
+	public class UserChargelog
 	{
-		[JsonIgnore]
-		public ulong UserDetailId { get; set; }
-
 		[Key]
-        [JsonIgnore]
-        public ulong Id { get; set; }
+		[JsonIgnore]
+		public ulong Id { get; set; }
 
-        public int chargeId { get; set; }
+		public int chargeId { get; set; }
 
 		public int price { get; set; }
 

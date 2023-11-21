@@ -1,14 +1,12 @@
 ﻿using Aminos.Handlers.Title.SDEZ;
 using Aminos.Models.Title.SDEZ.Requests;
-using Aminos.Utils;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace Aminos.Controllers.Title.SDEZ
 {
 	[ApiController]
-	[Route("{userHash}/SDEZ/{version}/")]
+	[Route("{userHash}/SDEZ/{version}/Maimai2Servlet")]
+	[TitleZlibCompression]
 	public class MaimaiDXController : TitleControllerBase
 	{
 		private readonly ILogger<MaimaiDXController> logger;

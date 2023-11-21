@@ -2,6 +2,6 @@
 {
 	public class ClientSettingRequestVO
 	{
-		public ClientSetting clientSetting;
+		public ClientSetting clientSetting { get; set; }
 	}
 }

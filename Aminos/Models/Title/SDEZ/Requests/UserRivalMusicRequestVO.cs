@@ -2,13 +2,13 @@
 {
 	public class UserRivalMusicRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public ulong rivalId;
+		public ulong rivalId { get; set; }
 
-		public int nextIndex;
+		public int nextIndex { get; set; }
 
-		public UserRivalMusicLevel[] userRivalMusicLevelList = new UserRivalMusicLevel[5]
+		public UserRivalMusicLevel[] userRivalMusicLevelList { get; set; } = new UserRivalMusicLevel[5]
 		{
 			new UserRivalMusicLevel
 			{

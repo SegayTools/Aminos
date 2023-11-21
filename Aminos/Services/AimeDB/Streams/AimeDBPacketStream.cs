@@ -1,8 +1,6 @@
 ﻿using Aminos.Models.AimeDB;
 using Aminos.Utils.MethodExtensions;
-using System;
 using System.Buffers;
-using System.IO;
 
 namespace Aminos.Services.AimeDB.Streams
 {

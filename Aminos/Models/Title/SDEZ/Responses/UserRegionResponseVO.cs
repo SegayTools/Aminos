@@ -2,12 +2,12 @@
 
 namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class UserRegionResponseVO
+	public class UserRegionResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public ulong length;
+		public ulong length { get; set; }
 
-		public UserRegion[] userRegionList;
+		public UserRegion[] userRegionList { get; set; }
 	}
 }

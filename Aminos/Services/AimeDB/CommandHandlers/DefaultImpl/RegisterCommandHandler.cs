@@ -1,11 +1,10 @@
 ﻿using Aminos.Databases;
 using Aminos.Kernels.Injections.Attrbutes;
 using Aminos.Models.AimeDB;
-using Aminos.Models.AimeDB.Requests;
+using Aminos.Models.General.Tables;
 using Aminos.Services.AimeDB.Streams;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.EntityFrameworkCore;
-using System.Buffers;
 
 namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 {
@@ -23,15 +22,30 @@ namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 
 		public async ValueTask<bool> Handle(AimeDBPacketStreamReaderWriter stream, AimeDBPacket reqPacket, CancellationToken token)
 		{
-			var luid = reqPacket.AquaData[0x0020..0x002a];
+			var luid = reqPacket.Buffer[0x0020..0x002a];
 			var luidStr = Convert.ToHexString(luid.Span);
 
 			var status = 0;
 			var aimeId = 0L;
 
-			var card = await aminosDB.Cards.FirstOrDefaultAsync(x => luidStr.Equals(x.Luid, StringComparison.InvariantCultureIgnoreCase));
+			var card = await aminosDB.Cards.FirstOrDefaultAsync(x => luidStr == x.Luid);
 			if (card is null)
 			{
+				var rand = new Random();
+				var extId = rand.Next(99999999).ToString();
+				while (await aminosDB.Cards.AnyAsync(x => x.ExtId == extId))
+					extId = rand.Next(99999999).ToString();
+
+				card = new Card()
+				{
+					Luid = luidStr,
+					RegisterTime = DateTime.Now,
+					AccessTime = DateTime.Now,
+					ExtId = extId,
+				};
+
+				await aminosDB.Cards.AddAsync(card);
+
 				status = 1;
 				aimeId = card.AimeId;
 			}

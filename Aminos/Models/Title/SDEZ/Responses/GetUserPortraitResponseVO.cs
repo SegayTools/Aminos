@@ -1,9 +1,9 @@
 ﻿namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class GetUserPortraitResponseVO
+	public class GetUserPortraitResponseVO
 	{
-		public int length;
+		public int length { get; set; }
 
-		public List<UserPortrait> userPortraitList;
+		public List<UserPortrait> userPortraitList { get; set; }
 	}
 }

@@ -2,47 +2,47 @@
 {
 	public class UserPreviewResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public string userName;
+		public string userName { get; set; }
 
-		public bool isLogin;
+		public bool isLogin { get; set; }
 
-		public string lastGameId;
+		public string lastGameId { get; set; }
 
-		public string lastDataVersion;
+		public string lastDataVersion { get; set; }
 
-		public string lastRomVersion;
+		public string lastRomVersion { get; set; }
 
-		public string lastLoginDate;
+		public string lastLoginDate { get; set; }
 
-		public string lastPlayDate;
+		public string lastPlayDate { get; set; }
 
-		public int playerRating;
+		public int playerRating { get; set; }
 
-		public int nameplateId;
+		public int nameplateId { get; set; }
 
-		public int iconId;
+		public int iconId { get; set; }
 
-		public int trophyId;
+		public int trophyId { get; set; }
 
-		public int partnerId;
+		public int partnerId { get; set; }
 
-		public int frameId;
+		public int frameId { get; set; }
 
-		public int dispRate;
+		public int dispRate { get; set; }
 
-		public int totalAwake;
+		public int totalAwake { get; set; }
 
-		public int isNetMember;
+		public int isNetMember { get; set; }
 
-		public string dailyBonusDate;
+		public string dailyBonusDate { get; set; }
 
-		public int headPhoneVolume;
+		public int headPhoneVolume { get; set; }
 
-		public bool isInherit;
+		public bool isInherit { get; set; }
 
-		public int banState;
+		public int banState { get; set; }
 
 		public bool IsNewUser()
 		{

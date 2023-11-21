@@ -10,9 +10,6 @@ namespace Aminos.Models.Title.SDEZ.Tables
 	[Table("MaimaiDX_UserOptions")]
 	public class UserOption
 	{
-		[JsonIgnore]
-		public ulong UserDetailId { get; set; }
-
 		[Key]
 		[JsonIgnore]
 		public uint Id { get; set; }

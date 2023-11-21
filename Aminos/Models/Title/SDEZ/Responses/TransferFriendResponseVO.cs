@@ -2,8 +2,8 @@
 {
 	public class TransferFriendResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public TransferFriend[] transferFriendList;
+		public TransferFriend[] transferFriendList { get; set; }
 	}
 }

@@ -1,4 +1,4 @@
-﻿using Aminos.Models.General;
+﻿using Aminos.Models.General.Tables;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Databases

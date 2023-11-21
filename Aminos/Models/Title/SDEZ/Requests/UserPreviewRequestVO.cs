@@ -2,8 +2,8 @@
 {
 	public class UserPreviewRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public string segaIdAuthKey;
+		public string segaIdAuthKey { get; set; }
 	}
 }

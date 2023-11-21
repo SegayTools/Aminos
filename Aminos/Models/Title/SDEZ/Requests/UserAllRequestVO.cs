@@ -1,17 +1,15 @@
-﻿using Aminos.Models.Title.SDEZ.Responses;
-
-namespace Aminos.Models.Title.SDEZ.Requests
+﻿namespace Aminos.Models.Title.SDEZ.Requests
 {
 	public class UserAllRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public ulong playlogId;
+		public ulong playlogId { get; set; }
 
-		public bool isEventMode;
+		public bool isEventMode { get; set; }
 
-		public bool isFreePlay;
+		public bool isFreePlay { get; set; }
 
-		public UserAll upsertUserAll;
+		public UserAll upsertUserAll { get; set; }
 	}
 }

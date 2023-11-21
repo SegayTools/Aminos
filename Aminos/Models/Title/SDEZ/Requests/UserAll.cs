@@ -3,56 +3,56 @@ using Aminos.Models.Title.SDEZ.Tables;
 
 namespace Aminos.Models.Title.SDEZ.Requests
 {
-    public class UserAll
+	public class UserAll
 	{
-		public UserDetail[] userData;
+		public UserDetail[] userData { get; set; }
 
-		public UserExtend[] userExtend;
+		public UserExtend[] userExtend { get; set; }
 
-		public UserOption[] userOption;
+		public UserOption[] userOption { get; set; }
 
-		public UserCharacter[] userCharacterList;
+		public UserCharacter[] userCharacterList { get; set; }
 
-		public UserGhost[] userGhost;
+		public UserGhost[] userGhost { get; set; }
 
-		public UserMap[] userMapList;
+		public UserMap[] userMapList { get; set; }
 
-		public UserLoginBonus[] userLoginBonusList;
+		public UserLoginBonus[] userLoginBonusList { get; set; }
 
-		public UserRating[] userRatingList;
+		public UserRating[] userRatingList { get; set; }
 
-		public UserItem[] userItemList;
+		public UserItem[] userItemList { get; set; }
 
-		public UserMusicDetail[] userMusicDetailList;
+		public UserMusicDetail[] userMusicDetailList { get; set; }
 
-		public UserCourse[] userCourseList;
+		public UserCourse[] userCourseList { get; set; }
 
-		public UserFriendSeasonRanking[] userFriendSeasonRankingList;
+		public UserFriendSeasonRanking[] userFriendSeasonRankingList { get; set; }
 
-		public UserCharge[] userChargeList;
+		public UserCharge[] userChargeList { get; set; }
 
-		public UserFavorite[] userFavoriteList;
+		public UserFavorite[] userFavoriteList { get; set; }
 
-		public UserActivity[] userActivityList;
+		public UserActivity[] userActivityList { get; set; }
 
-		public UserGamePlaylog[] userGamePlaylogList;
+		public UserGamePlaylog[] userGamePlaylogList { get; set; }
 
-		public User2pPlaylog user2pPlaylog;
+		public User2pPlaylog user2pPlaylog { get; set; }
 
-		public string isNewCharacterList;
+		public string isNewCharacterList { get; set; }
 
-		public string isNewMapList;
+		public string isNewMapList { get; set; }
 
-		public string isNewLoginBonusList;
+		public string isNewLoginBonusList { get; set; }
 
-		public string isNewItemList;
+		public string isNewItemList { get; set; }
 
-		public string isNewMusicDetailList;
+		public string isNewMusicDetailList { get; set; }
 
-		public string isNewCourseList;
+		public string isNewCourseList { get; set; }
 
-		public string isNewFavoriteList;
+		public string isNewFavoriteList { get; set; }
 
-		public string isNewFriendSeasonRankingList;
+		public string isNewFriendSeasonRankingList { get; set; }
 	}
 }

@@ -5,17 +5,17 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_GameCharges")]
-    public class GameCharge
-    {
-        [Key]
-        [JsonIgnore]
-        public ulong Id { get; set; }
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_GameCharges")]
+	public class GameCharge
+	{
+		[Key]
+		[JsonIgnore]
+		public ulong Id { get; set; }
 
-        public int orderId { get; set; }
+		public int orderId { get; set; }
 
-        public int chargeId { get; set; }
+		public int chargeId { get; set; }
 
 		public int price { get; set; }
 

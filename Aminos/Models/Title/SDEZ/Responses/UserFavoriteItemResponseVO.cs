@@ -2,14 +2,14 @@
 
 namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class UserFavoriteItemResponseVO
+	public class UserFavoriteItemResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public int kind;
+		public int kind { get; set; }
 
-		public ulong nextIndex;
+		public ulong nextIndex { get; set; }
 
-		public UserFavoriteItem[] userFavoriteItemList;
+		public UserFavoriteItem[] userFavoriteItemList { get; set; }
 	}
 }

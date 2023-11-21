@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Handlers.Title.SDEZ
 {
-    [RegisterInjectable(typeof(MaimaiDXUserCharacterHandler))]
+	[RegisterInjectable(typeof(MaimaiDXUserCharacterHandler))]
 	public class MaimaiDXUserCharacterHandler
 	{
 		private readonly MaimaiDXDB maimaiDxDB;
@@ -19,7 +19,7 @@ namespace Aminos.Handlers.Title.SDEZ
 
 		public async ValueTask<UserCharacterResponseVO> GetUserCharacter(UserCharacterRequestVO request)
 		{
-			var userDetail = await maimaiDxDB.UserDetails.Include(x=>x.UserCharacters).FirstOrDefaultAsync(x => x.Id == request.userId);
+			var userDetail = await maimaiDxDB.UserDetails.Include(x => x.UserCharacters).FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserCharacterResponseVO();
 			response.userId = request.userId;

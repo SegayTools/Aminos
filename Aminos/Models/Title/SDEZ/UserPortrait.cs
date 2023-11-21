@@ -1,21 +1,21 @@
 ﻿namespace Aminos.Models.Title.SDEZ
 {
-    public class UserPortrait
-    {
-        public ulong userId;
+	public class UserPortrait
+	{
+		public ulong userId { get; set; }
 
-        public int divNumber;
+		public int divNumber { get; set; }
 
-        public int divLength;
+		public int divLength { get; set; }
 
-        public string divData;
+		public string divData { get; set; }
 
-        public int placeId;
+		public int placeId { get; set; }
 
-        public string clientId;
+		public string clientId { get; set; }
 
-        public string uploadDate;
+		public string uploadDate { get; set; }
 
-        public string fileName;
-    }
+		public string fileName { get; set; }
+	}
 }

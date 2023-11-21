@@ -2,6 +2,6 @@
 {
 	public class UserLogoutResponseVO
 	{
-		public int returnCode;
+		public int returnCode { get; set; }
 	}
 }

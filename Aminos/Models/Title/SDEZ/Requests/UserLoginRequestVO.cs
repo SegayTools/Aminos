@@ -2,16 +2,16 @@
 {
 	public class UserLoginRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public string accessCode;
+		public string accessCode { get; set; }
 
-		public int regionId;
+		public int regionId { get; set; }
 
-		public int placeId;
+		public int placeId { get; set; }
 
-		public string clientId;
+		public string clientId { get; set; }
 
-		public long dateTime;
+		public long dateTime { get; set; }
 	}
 }

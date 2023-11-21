@@ -1,6 +1,5 @@
-﻿using Aminos.Models.AllNet.Responses;
-using Aminos.Models.AllNet.Requests;
-using System.Net;
+﻿using Aminos.Models.AllNet.Requests;
+using Aminos.Models.AllNet.Responses;
 
 namespace Aminos.Handlers.AllNet
 {

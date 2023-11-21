@@ -2,10 +2,10 @@
 
 namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class GameRankingResponseVO
+	public class GameRankingResponseVO
 	{
-		public long type;
+		public long type { get; set; }
 
-		public GameRanking[] gameRankingList;
+		public GameRanking[] gameRankingList { get; set; }
 	}
 }

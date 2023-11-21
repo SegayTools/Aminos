@@ -1,9 +1,6 @@
-﻿using Microsoft.Extensions.Logging.Console;
-using Microsoft.Extensions.Logging;
+﻿using System.Buffers;
 using System.Security.Cryptography;
 using System.Text;
-using Aminos.Utils.MethodExtensions;
-using System.Buffers;
 
 namespace Aminos.Services.AimeDB
 {

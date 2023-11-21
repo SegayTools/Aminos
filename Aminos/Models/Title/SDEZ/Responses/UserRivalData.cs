@@ -1,14 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-
-namespace Aminos.Models.Title.SDEZ.Responses
+﻿namespace Aminos.Models.Title.SDEZ.Responses
 {
 	public class UserRivalData
 	{
-		public ulong rivalId;
+		public ulong rivalId { get; set; }
 
-		public string rivalName;
+		public string rivalName { get; set; }
 	}
 }

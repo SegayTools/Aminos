@@ -2,10 +2,10 @@
 {
 	public class UserRivalMusicDetail
 	{
-		public int level;
+		public int level { get; set; }
 
-		public int achievement;
+		public int achievement { get; set; }
 
-		public int deluxscoreMax;
+		public int deluxscoreMax { get; set; }
 	}
 }

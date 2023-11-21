@@ -1,12 +1,11 @@
-﻿using Aminos.Databases.Title.SDEZ;
-using Aminos.Kernels.Injections.Attrbutes;
+﻿using Aminos.Kernels.Injections.Attrbutes;
 using Aminos.Models.Title.SDEZ.Requests;
 using Aminos.Models.Title.SDEZ.Responses;
 using Aminos.Models.Title.SDEZ.Tables;
 
 namespace Aminos.Handlers.Title.SDEZ
 {
-    [RegisterInjectable(typeof(MaimaiDXGameRankHandler))]
+	[RegisterInjectable(typeof(MaimaiDXGameRankHandler))]
 	public class MaimaiDXGameRankHandler
 	{
 		public Task<GameRankingResponseVO> GetGameRank(GameRankingRequestVO request)

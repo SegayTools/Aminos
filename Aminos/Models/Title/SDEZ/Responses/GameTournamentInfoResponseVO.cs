@@ -2,8 +2,8 @@
 {
 	public class GameTournamentInfoResponseVO
 	{
-		public long length;
+		public long length { get; set; }
 
-		public GameTournamentInfo[] gameTournamentInfoList;
+		public GameTournamentInfo[] gameTournamentInfoList { get; set; }
 	}
 }

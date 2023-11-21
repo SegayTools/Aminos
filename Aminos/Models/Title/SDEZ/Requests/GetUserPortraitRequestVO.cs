@@ -2,6 +2,6 @@
 {
 	public class GetUserPortraitRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 	}
 }

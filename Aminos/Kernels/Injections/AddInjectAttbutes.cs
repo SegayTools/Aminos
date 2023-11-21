@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Aminos.Kernels.Injections
 {
-    public static class AddInjectAttbuteServiceCollection
+	public static class AddInjectAttbuteServiceCollection
 	{
 		public static IServiceCollection AddInjectsByAttributes(this IServiceCollection services, Assembly assembly)
 		{

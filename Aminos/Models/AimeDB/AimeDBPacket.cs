@@ -1,7 +1,5 @@
 ﻿using Aminos.Utils.MethodExtensions;
-using System;
 using System.Buffers;
-using System.Drawing;
 using System.Text;
 using static Aminos.Utils.MethodExtensions.ArrayPoolMethodExtensions;
 
@@ -15,25 +13,28 @@ namespace Aminos.Models.AimeDB
 		public Memory<byte> Buffer => bufferDisp is not null ? bufferDisp.Memory.Slice(0, size) : throw new ObjectDisposedException("AimeDBPackets had been disposed by GC or Dispose() called.");
 
 		public bool IsValid => BitConverter.ToUInt16(Buffer.Span.Slice(0)) == 0xA13E;
+
 		public ushort Version => BitConverter.ToUInt16(Buffer.Span.Slice(2));
+
 		public ushort CommandID
 		{
 			get => BitConverter.ToUInt16(Buffer.Span.Slice(4));
 			set => BitConverter.TryWriteBytes(Buffer.Span.Slice(4), value);
 		}
+
 		public ushort TotalPacketLength => BitConverter.ToUInt16(Buffer.Span.Slice(6));
+
 		public ushort Result
 		{
 			get => BitConverter.ToUInt16(Buffer.Span.Slice(8));
 			set => BitConverter.TryWriteBytes(Buffer.Span.Slice(8), value);
 		}
+
 		public string GameID => Encoding.ASCII.GetString(Buffer.Span[10..15]);
+
 		public long StoreID => BitConverter.ToUInt32(Buffer.Span.Slice(16));
+
 		public string KeychipID => Encoding.ASCII.GetString(Buffer.Span[20..31]);
-
-		public Memory<byte> Content => Buffer[32..];
-
-		public Memory<byte> AquaData => Buffer[16..];
 
 		public AimeDBPacket(ushort size)
 		{

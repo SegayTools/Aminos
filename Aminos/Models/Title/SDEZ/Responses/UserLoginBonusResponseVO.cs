@@ -2,12 +2,12 @@
 
 namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class UserLoginBonusResponseVO
+	public class UserLoginBonusResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public long nextIndex;
+		public long nextIndex { get; set; }
 
-		public UserLoginBonus[] userLoginBonusList;
+		public UserLoginBonus[] userLoginBonusList { get; set; }
 	}
 }

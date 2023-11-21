@@ -24,7 +24,7 @@ namespace Aminos.Handlers.Title.SDEZ
 			var response = new UserLoginResponseVO()
 			{
 				returnCode = 1,
-				lastLoginDate = userDetail.lastLoginDate,
+				lastLoginDate = userDetail?.lastLoginDate ?? string.Empty,
 				Bearer = string.Empty,
 				consecutiveLoginCount = 0,
 				loginCount = 1,

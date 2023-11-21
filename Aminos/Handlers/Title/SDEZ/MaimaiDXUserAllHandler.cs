@@ -1,6 +1,7 @@
 ﻿using Aminos.Databases;
 using Aminos.Databases.Title.SDEZ;
 using Aminos.Kernels.Injections.Attrbutes;
+using Aminos.Models.General.Tables;
 using Aminos.Models.Title.SDEZ.Requests;
 using Aminos.Models.Title.SDEZ.Responses;
 using Aminos.Models.Title.SDEZ.Tables;
@@ -8,14 +9,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Handlers.Title.SDEZ
 {
-    [RegisterInjectable(typeof(MaimaiDXUserAllHandler))]
+	[RegisterInjectable(typeof(MaimaiDXUserAllHandler))]
 	public class MaimaiDXUserAllHandler
 	{
+		private readonly ILogger<MaimaiDXUserAllHandler> logger;
 		private readonly MaimaiDXDB maimaiDxDB;
 		private readonly AminosDB aminosDB;
 
-		public MaimaiDXUserAllHandler(MaimaiDXDB maimaiDxDB, AminosDB aminosDB)
+		public MaimaiDXUserAllHandler(ILogger<MaimaiDXUserAllHandler> logger, MaimaiDXDB maimaiDxDB, AminosDB aminosDB)
 		{
+			this.logger = logger;
 			this.maimaiDxDB = maimaiDxDB;
 			this.aminosDB = aminosDB;
 		}
@@ -40,24 +43,38 @@ namespace Aminos.Handlers.Title.SDEZ
 			{
 				return new()
 				{
-					returnCode = 0,
+					returnCode = 1,
 					apiName = nameof(MaimaiDXUserAllHandler)
 				};
 			}
 
-			using (var transaction = await maimaiDxDB.Database.BeginTransactionAsync())
-			{
-				var isNew = !await maimaiDxDB.UserDetails.ContainsAsync(userData);
-				if (isNew)
-					await maimaiDxDB.UserDetails.AddAsync(userData);
-				else
-				{
-					maimaiDxDB.Update(userData);
-				}
+			if (await maimaiDxDB.UserDetails.AnyAsync(x => x.Id == userData.Id))
+				maimaiDxDB.Entry(userData).State = EntityState.Modified;
+			else
+				await maimaiDxDB.UserDetails.AddAsync(userData);
+			userData.isNetMember = 1;
 
-				userData.isNetMember = 1;
-				await maimaiDxDB.SaveChangesAsync();
-				await transaction.CommitAsync();
+			#endregion
+
+			#region General Card
+
+			var accessCode = userData.accessCode;
+			if (!await aminosDB.Cards.AnyAsync(x => x.AccessCode == accessCode))
+			{
+				var rand = new Random();
+				var extId = rand.Next(99999999).ToString();
+				while (await aminosDB.Cards.AnyAsync(x => x.ExtId == extId))
+					extId = rand.Next(99999999).ToString();
+
+				var card = new Card()
+				{
+					Luid = accessCode,
+					RegisterTime = DateTime.Now,
+					AccessTime = DateTime.Now,
+					ExtId = extId,
+				};
+
+				await aminosDB.Cards.AddAsync(card);
 			}
 
 			#endregion
@@ -247,6 +264,8 @@ namespace Aminos.Handlers.Title.SDEZ
 				(a, b) => a.Id = b.Id);
 
 			#endregion
+
+			await maimaiDxDB.SaveChangesAsync();
 
 			return new()
 			{

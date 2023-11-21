@@ -2,6 +2,6 @@
 {
 	public class ClientTestmodeRequestVO
 	{
-		public ClientTestmode clientTestmode;
+		public ClientTestmode clientTestmode { get; set; }
 	}
 }

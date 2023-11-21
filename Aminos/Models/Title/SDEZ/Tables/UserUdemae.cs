@@ -9,9 +9,6 @@ namespace Aminos.Models.Title.SDEZ.Tables
 	[Table("MaimaiDX_UserUdemaes")]
 	public class UserUdemae
 	{
-		[JsonIgnore]
-		public ulong UserRatingId { get; set; }
-
 		[Key]
 		[JsonIgnore]
 		public ulong Id { get; set; }

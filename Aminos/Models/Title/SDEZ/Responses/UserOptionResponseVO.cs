@@ -1,12 +1,11 @@
 ﻿using Aminos.Models.Title.SDEZ.Tables;
-using Microsoft.AspNetCore.Identity;
 
 namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class UserOptionResponseVO
+	public class UserOptionResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public UserOption userOption;
+		public UserOption userOption { get; set; }
 	}
 }

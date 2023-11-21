@@ -1,8 +1,4 @@
-﻿using Aminos.Databases.Title.SDEZ;
-using Aminos.Kernels.Databases;
-using Aminos.Kernels.Injections.Attrbutes;
-using Aminos.Models.Title.SDEZ.Responses;
-using Aminos.Utils.MethodExtensions;
+﻿using Aminos.Models.Title.SDEZ.Responses;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,36 +8,8 @@ namespace Aminos.Models.Title.SDEZ.Tables
 {
 	[Index(nameof(Id))]
 	[Table("MaimaiDX_UserDetails")]
-	[RegisterInjectable(typeof(IModelCreateBuilder<MaimaiDXDB>))]
-	public class UserDetail : IModelCreateBuilder<MaimaiDXDB>
+	public class UserDetail
 	{
-		public void OnModelCreateBuilder(ModelBuilder modelBuilder)
-		{
-			modelBuilder.
-				OneToMany<UserDetail, UserCard>(e => e.UserCards).
-				OneToMany<UserDetail, UserCharacter>(e => e.UserCharacters).
-				OneToMany<UserDetail, UserFavorite>(e => e.UserFavorites).
-				OneToMany<UserDetail, UserFavoriteItem>(e => e.UserFavoriteItems).
-				OneToMany<UserDetail, UserItem>(e => e.UserItems).
-				OneToMany<UserDetail, UserLoginBonus>(e => e.UserLoginBonuses).
-				OneToMany<UserDetail, UserMap>(e => e.UserMaps).
-				OneToMany<UserDetail, UserMusicDetail>(e => e.UserMusicDetails).
-				OneToMany<UserDetail, UserRegion>(e => e.UserRegions).
-				OneToMany<UserDetail, UserScoreRanking>(e => e.UserScoreRankings).
-				OneToMany<UserDetail, UserPlaylog>(e => e.UserPlaylogs).
-				OneToMany<UserDetail, UserCourse>(e => e.UserCourses).
-				OneToMany<UserDetail, UserFriendSeasonRanking>(e => e.UserFriendSeasonRankings).
-				OneToMany<UserDetail, UserCharge>(e => e.UserCharges).
-				OneToMany<UserDetail, UserChargelog>(e => e.UserChargelogs).
-				OneToMany<UserDetail, UserGamePlaylog>(e => e.UserGamePlaylogs);
-
-			modelBuilder.
-				OneToOne<UserDetail, UserOption>(x => x.UserOption, x => x.UserDetailId).
-				OneToOne<UserDetail, UserRating>(x => x.UserRating, x => x.UserDetailId).
-				OneToOne<UserDetail, UserActivity>(x => x.UserActivity, x => x.UserDetailId).
-				OneToOne<UserDetail, UserExtend>(x => x.UserExtend, x => x.UserDetailId);
-		}
-
 		[JsonIgnore]
 		public ICollection<UserCard> UserCards { get; set; } = new List<UserCard>();
 		[JsonIgnore]
@@ -83,6 +51,12 @@ namespace Aminos.Models.Title.SDEZ.Tables
 		public UserExtend UserExtend { get; set; }
 		[JsonIgnore]
 		public UserActivity UserActivity { get; set; }
+
+		[JsonIgnore]
+		public bool IsGuest => (Id & 0x1000000000001L) == 281474976710657L;
+
+		[JsonIgnore]
+		public ulong AimeId => Id;
 
 		[Key]
 		[JsonIgnore]

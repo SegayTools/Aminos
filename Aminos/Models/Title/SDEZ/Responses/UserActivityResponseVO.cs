@@ -2,8 +2,8 @@
 
 namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class UserActivityResponseVO
+	public class UserActivityResponseVO
 	{
-		public UserActivity userActivity;
+		public UserActivity userActivity { get; set; }
 	}
 }

@@ -20,5 +20,13 @@ namespace Aminos.Utils
 
 			return decompBuffer;
 		}
+
+		public static async ValueTask<byte[]> DecompressGzip(byte[] src)
+		{
+			using var deflatStream = new GZipStream(new MemoryStream(src), CompressionMode.Decompress);
+			var decompBuffer = await deflatStream.ToByteArrayAsync();
+
+			return decompBuffer;
+		}
 	}
 }

@@ -1,7 +1,7 @@
 ﻿namespace Aminos.Models.Title.SDEZ.Requests
 {
-    public class UploadUserPortraitRequestVO
+	public class UploadUserPortraitRequestVO
 	{
-		public UserPortrait userPortrait;
+		public UserPortrait userPortrait { get; set; }
 	}
 }

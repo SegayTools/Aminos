@@ -2,26 +2,26 @@
 {
 	public class GameSetting
 	{
-		public bool isMaintenance;
+		public bool isMaintenance { get; set; }
 
-		public int requestInterval;
+		public int requestInterval { get; set; }
 
-		public string rebootStartTime;
+		public string rebootStartTime { get; set; }
 
-		public string rebootEndTime;
+		public string rebootEndTime { get; set; }
 
-		public int movieUploadLimit;
+		public int movieUploadLimit { get; set; }
 
-		public int movieStatus;
+		public int movieStatus { get; set; }
 
-		public string movieServerUri;
+		public string movieServerUri { get; set; }
 
-		public string deliverServerUri;
+		public string deliverServerUri { get; set; }
 
-		public string oldServerUri;
+		public string oldServerUri { get; set; }
 
-		public string usbDlServerUri;
+		public string usbDlServerUri { get; set; }
 
-		public int rebootInterval;
+		public int rebootInterval { get; set; }
 	}
 }

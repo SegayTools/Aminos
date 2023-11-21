@@ -5,20 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserActs")]
-    public class UserAct
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserActs")]
+	public class UserAct
 	{
-		[JsonIgnore]
-		public ulong UserActivityPlayListId { get; set; }
-		[JsonIgnore]
-		public ulong UserActivityMusicListId { get; set; }
-
 		[Key]
-        [JsonPropertyName("id")]
-        public ulong Id { get; set; }
+		[JsonPropertyName("id")]
+		public ulong Id { get; set; }
 
-        public int kind { get; set; }
+		public int kind { get; set; }
 
 		public long sortNumber { get; set; }
 

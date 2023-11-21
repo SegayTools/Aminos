@@ -1,18 +1,13 @@
-﻿using Aminos.Kernels.Databases;
-using Aminos.Models.Title.SDEZ.Responses;
-using Aminos.Models.Title.SDEZ.Tables;
+﻿using Aminos.Models.Title.SDEZ.Tables;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace Aminos.Databases.Title.SDEZ
 {
 	public class MaimaiDXDB : DbContext
 	{
-		private readonly IEnumerable<IModelCreateBuilder<MaimaiDXDB>> builders;
-
 		public MaimaiDXDB(DbContextOptions<MaimaiDXDB> options, IServiceProvider serviceProvider) : base(options)
 		{
-			builders = serviceProvider.GetServices<IModelCreateBuilder<MaimaiDXDB>>();
+
 		}
 
 		public DbSet<GameEvent> GameEvents { get; set; }
@@ -24,9 +19,6 @@ namespace Aminos.Databases.Title.SDEZ
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-
-			foreach (var builder in builders)
-				builder.OnModelCreateBuilder(modelBuilder);
 		}
 	}
 }

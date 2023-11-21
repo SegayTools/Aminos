@@ -9,15 +9,6 @@ namespace Aminos.Models.Title.SDEZ.Tables
 	[Table("MaimaiDX_UserRates")]
 	public class UserRate
 	{
-		[JsonIgnore]
-		public ulong UserRatingRatingListId { get; set; }
-		[JsonIgnore]
-		public ulong UserRatingNewRatingListId { get; set; }
-		[JsonIgnore]
-		public ulong UserRatingNextRatingListId { get; set; }
-		[JsonIgnore]
-		public ulong UserRatingNextNewRatingListId { get; set; }
-
 		[Key]
 		[JsonIgnore]
 		public ulong Id { get; set; }

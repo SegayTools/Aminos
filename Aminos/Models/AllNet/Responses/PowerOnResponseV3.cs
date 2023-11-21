@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Aminos.Models.AllNet.Responses
+﻿namespace Aminos.Models.AllNet.Responses
 {
 	public class PowerOnResponseV3 : PowerOnResponseBase
 	{

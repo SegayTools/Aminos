@@ -2,6 +2,6 @@
 {
 	public class ClientBookkeepingRequestVO
 	{
-		public ClientBookkeeping clientBookkeeping;
+		public ClientBookkeeping clientBookkeeping { get; set; }
 	}
 }

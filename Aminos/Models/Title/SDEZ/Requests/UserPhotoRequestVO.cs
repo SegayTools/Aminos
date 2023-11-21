@@ -2,6 +2,6 @@
 {
 	public class UserPhotoRequestVO
 	{
-		public UserPhoto userPhoto;
+		public UserPhoto userPhoto { get; set; }
 	}
 }

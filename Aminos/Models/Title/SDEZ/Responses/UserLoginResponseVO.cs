@@ -2,16 +2,16 @@
 {
 	public class UserLoginResponseVO
 	{
-		public int returnCode;
+		public int returnCode { get; set; }
 
-		public string lastLoginDate;
+		public string lastLoginDate { get; set; }
 
-		public int loginCount;
+		public int loginCount { get; set; }
 
-		public int consecutiveLoginCount;
+		public int consecutiveLoginCount { get; set; }
 
-		public ulong loginId;
+		public ulong loginId { get; set; }
 
-		public string Bearer;
+		public string Bearer { get; set; }
 	}
 }

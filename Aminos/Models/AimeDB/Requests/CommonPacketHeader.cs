@@ -1,8 +1,4 @@
-﻿using Aminos.Utils.MethodExtensions;
-using System.IO;
-using System.Text;
-
-namespace Aminos.Models.AimeDB.Requests
+﻿namespace Aminos.Models.AimeDB.Requests
 {
 	public struct CommonPacketHeader
 	{

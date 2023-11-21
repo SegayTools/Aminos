@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(id))]
-    [Table("MaimaiDX_GameRankings")]
-    public class GameRanking
-    {
-        [Key]
-        public long id { get; set; }
+	[Index(nameof(id))]
+	[Table("MaimaiDX_GameRankings")]
+	public class GameRanking
+	{
+		[Key]
+		public long id { get; set; }
 
 		public long point { get; set; }
 

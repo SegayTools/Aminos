@@ -2,6 +2,6 @@
 {
 	public class ClientUploadRequestVO
 	{
-		public ClientUpload clientUpload;
+		public ClientUpload clientUpload { get; set; }
 	}
 }

@@ -2,20 +2,20 @@
 {
 	public class ClientTestmode
 	{
-		public int placeId;
+		public int placeId { get; set; }
 
-		public string clientId;
+		public string clientId { get; set; }
 
-		public int trackSingle;
+		public int trackSingle { get; set; }
 
-		public int trackMulti;
+		public int trackMulti { get; set; }
 
-		public int trackEvent;
+		public int trackEvent { get; set; }
 
-		public int totalMachine;
+		public int totalMachine { get; set; }
 
-		public int satelliteId;
+		public int satelliteId { get; set; }
 
-		public int cameraPosition;
+		public int cameraPosition { get; set; }
 	}
 }

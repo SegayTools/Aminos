@@ -2,8 +2,8 @@
 {
 	public class GameNgMusicIdResponseVO
 	{
-		public long length;
+		public long length { get; set; }
 
-		public int[] musicIdList;
+		public int[] musicIdList { get; set; }
 	}
 }

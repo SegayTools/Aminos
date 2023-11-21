@@ -2,14 +2,14 @@
 {
 	public class TransferFriend
 	{
-		public ulong playUserId;
+		public ulong playUserId { get; set; }
 
-		public string playUserName;
+		public string playUserName { get; set; }
 
-		public string playDate;
+		public string playDate { get; set; }
 
-		public int friendPoint;
+		public int friendPoint { get; set; }
 
-		public bool isFavorite;
+		public bool isFavorite { get; set; }
 	}
 }

@@ -2,8 +2,8 @@
 
 namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class UserMusic
+	public class UserMusic
 	{
-		public UserMusicDetail[] userMusicDetailList;
+		public UserMusicDetail[] userMusicDetailList { get; set; }
 	}
 }

@@ -4,17 +4,14 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-    [Index(nameof(Id))]
-    [Table("MaimaiDX_UserItems")]
-    public class UserItem
+	[Index(nameof(Id))]
+	[Table("MaimaiDX_UserItems")]
+	public class UserItem
 	{
 		[JsonIgnore]
-		public ulong UserDetailId { get; set; }
+		public ulong Id { get; set; }
 
-		[JsonIgnore]
-        public ulong Id { get; set; }
-
-        public int itemKind { get; set; }
+		public int itemKind { get; set; }
 
 		public int itemId { get; set; }
 

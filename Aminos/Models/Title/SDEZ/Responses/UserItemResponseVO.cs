@@ -2,14 +2,14 @@
 
 namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class UserItemResponseVO
+	public class UserItemResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public long nextIndex;
+		public long nextIndex { get; set; }
 
-		public int itemKind;
+		public int itemKind { get; set; }
 
-		public UserItem[] userItemList;
+		public UserItem[] userItemList { get; set; }
 	}
 }

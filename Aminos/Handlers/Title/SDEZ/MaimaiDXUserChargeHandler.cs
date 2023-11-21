@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Handlers.Title.SDEZ
 {
-    [RegisterInjectable(typeof(MaimaiDXUserChargeHandler))]
+	[RegisterInjectable(typeof(MaimaiDXUserChargeHandler))]
 	public class MaimaiDXUserChargeHandler
 	{
 		private readonly MaimaiDXDB maimaiDxDB;

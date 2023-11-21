@@ -2,6 +2,6 @@
 {
 	public class UserOptionRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 	}
 }

@@ -2,8 +2,8 @@
 {
 	public class UserFavoriteRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public int itemKind;
+		public int itemKind { get; set; }
 	}
 }

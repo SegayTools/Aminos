@@ -2,10 +2,10 @@
 
 namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class UserScoreRankingResponseVO
+	public class UserScoreRankingResponseVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public UserScoreRanking userScoreRanking;
+		public UserScoreRanking userScoreRanking { get; set; }
 	}
 }

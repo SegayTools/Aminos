@@ -2,66 +2,66 @@
 {
 	public class ClientBookkeeping
 	{
-		public int placeId;
+		public int placeId { get; set; }
 
-		public string clientId;
+		public string clientId { get; set; }
 
-		public string updateDate;
+		public string updateDate { get; set; }
 
-		public int creditSetting0;
+		public int creditSetting0 { get; set; }
 
-		public int creditSetting1;
+		public int creditSetting1 { get; set; }
 
-		public int creditSetting2;
+		public int creditSetting2 { get; set; }
 
-		public int credits1P;
+		public int credits1P { get; set; }
 
-		public int credits2P;
+		public int credits2P { get; set; }
 
-		public int creditsFreedom;
+		public int creditsFreedom { get; set; }
 
-		public int creditsTicket;
+		public int creditsTicket { get; set; }
 
-		public int creditCoin;
+		public int creditCoin { get; set; }
 
-		public int creditService;
+		public int creditService { get; set; }
 
-		public int creditEmoney;
+		public int creditEmoney { get; set; }
 
-		public int timeTotal;
+		public int timeTotal { get; set; }
 
-		public int timeTotalPlay;
+		public int timeTotalPlay { get; set; }
 
-		public int timeLongest1P;
+		public int timeLongest1P { get; set; }
 
-		public int timeShortest1P;
+		public int timeShortest1P { get; set; }
 
-		public int timeLongest2P;
+		public int timeLongest2P { get; set; }
 
-		public int timeShortest2P;
+		public int timeShortest2P { get; set; }
 
-		public int timeLongestFreedom;
+		public int timeLongestFreedom { get; set; }
 
-		public int timeShortestFreedom;
+		public int timeShortestFreedom { get; set; }
 
-		public int newFreeUserNum;
+		public int newFreeUserNum { get; set; }
 
-		public int tutorialPlay;
+		public int tutorialPlay { get; set; }
 
-		public int play1PNum;
+		public int play1PNum { get; set; }
 
-		public int play2PNum;
+		public int play2PNum { get; set; }
 
-		public int playFreedomNum;
+		public int playFreedomNum { get; set; }
 
-		public int aimeLoginNum;
+		public int aimeLoginNum { get; set; }
 
-		public int guestLoginNum;
+		public int guestLoginNum { get; set; }
 
-		public int regionId;
+		public int regionId { get; set; }
 
-		public int playCount;
+		public int playCount { get; set; }
 
-		public int coinToCredit;
+		public int coinToCredit { get; set; }
 	}
 }

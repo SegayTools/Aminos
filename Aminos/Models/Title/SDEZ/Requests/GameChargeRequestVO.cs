@@ -2,6 +2,6 @@
 {
 	public class GameChargeRequestVO
 	{
-		public bool isAll;
+		public bool isAll { get; set; }
 	}
 }

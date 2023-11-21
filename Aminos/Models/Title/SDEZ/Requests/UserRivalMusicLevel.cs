@@ -2,6 +2,6 @@
 {
 	public class UserRivalMusicLevel
 	{
-		public int level;
+		public int level { get; set; }
 	}
 }

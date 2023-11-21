@@ -13,16 +13,16 @@ namespace Aminos.Models.Title.SDEZ.Responses
 		[JsonIgnore]
 		public ulong Id { get; set; }
 
-		public int seasonId;
+		public int seasonId { get; set; }
 
-		public int point;
+		public int point { get; set; }
 
-		public int rank;
+		public int rank { get; set; }
 
-		public bool rewardGet;
+		public bool rewardGet { get; set; }
 
-		public string userName;
+		public string userName { get; set; }
 
-		public string recordDate;
+		public string recordDate { get; set; }
 	}
 }

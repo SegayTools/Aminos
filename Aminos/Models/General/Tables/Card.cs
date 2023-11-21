@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Aminos.Models.General
+namespace Aminos.Models.General.Tables
 {
 	[Index(nameof(ExtId), IsUnique = true)]
 	[Index(nameof(Luid), IsUnique = true)]
+	[Table("General.Cards")]
 	public class Card
 	{
 		[Key]

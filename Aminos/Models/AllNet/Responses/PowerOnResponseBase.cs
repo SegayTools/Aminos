@@ -1,10 +1,6 @@
-﻿using System.Reflection;
-using System.Text;
-using System.Text.Json.Serialization;
-
-namespace Aminos.Models.AllNet.Responses
+﻿namespace Aminos.Models.AllNet.Responses
 {
-    public abstract class PowerOnResponseBase : QueryPathSerializeBase
+	public abstract class PowerOnResponseBase : QueryPathSerializeBase
 	{
 		public int stat { get; set; } = 1;
 		public string uri { get; set; }

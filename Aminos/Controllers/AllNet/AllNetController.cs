@@ -1,6 +1,6 @@
 ﻿using Aminos.Handlers.AllNet;
-using Aminos.Models.AllNet.Responses;
 using Aminos.Models.AllNet.Requests;
+using Aminos.Models.AllNet.Responses;
 using Aminos.Utils;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.AspNetCore.Mvc;

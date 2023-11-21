@@ -2,12 +2,12 @@
 {
 	public class GameTournamentMusic
 	{
-		public int tournamentId;
+		public int tournamentId { get; set; }
 
-		public int musicId;
+		public int musicId { get; set; }
 
-		public int level;
+		public int level { get; set; }
 
-		public bool isFirstLock;
+		public bool isFirstLock { get; set; }
 	}
 }

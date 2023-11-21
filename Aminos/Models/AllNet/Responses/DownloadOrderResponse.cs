@@ -1,8 +1,8 @@
 ﻿namespace Aminos.Models.AllNet.Responses
 {
-    public class DownloadOrderResponse : QueryPathSerializeBase
+	public class DownloadOrderResponse : QueryPathSerializeBase
 	{
-		public string stat;
-		public string serial;
+		public string stat { get; set; }
+		public string serial { get; set; }
 	}
 }

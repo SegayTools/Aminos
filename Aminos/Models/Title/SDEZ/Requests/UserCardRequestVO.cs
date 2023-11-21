@@ -2,10 +2,10 @@
 {
 	public class UserCardRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 
-		public int nextIndex;
+		public int nextIndex { get; set; }
 
-		public int maxCount = 20;
-	}
+		public int maxCount { get; set; } = 20;
+}
 }

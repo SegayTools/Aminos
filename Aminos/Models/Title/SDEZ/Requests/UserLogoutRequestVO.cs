@@ -2,6 +2,6 @@
 {
 	public class UserLogoutRequestVO
 	{
-		public ulong userId;
+		public ulong userId { get; set; }
 	}
 }

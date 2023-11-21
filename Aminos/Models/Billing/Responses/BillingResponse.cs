@@ -1,6 +1,4 @@
-﻿using Aminos.Models.AllNet;
-
-namespace Aminos.Models.Billing.Responses
+﻿namespace Aminos.Models.Billing.Responses
 {
 	public class BillingResponse : QueryPathSerializeBase
 	{

@@ -2,8 +2,8 @@
 {
 	public class GameSettingRequestVO
 	{
-		public int placeId;
+		public int placeId { get; set; }
 
-		public string clientId;
+		public string clientId { get; set; }
 	}
 }

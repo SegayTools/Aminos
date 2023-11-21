@@ -1,8 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Reflection;
-using System.Text.Json.Serialization;
-
-namespace Aminos.Models.AllNet.Requests
+﻿namespace Aminos.Models.AllNet.Requests
 {
 	public class PowerOnRequest : QueryPathSerializeBase
 	{

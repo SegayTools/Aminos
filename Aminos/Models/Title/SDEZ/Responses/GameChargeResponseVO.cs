@@ -2,10 +2,10 @@
 
 namespace Aminos.Models.Title.SDEZ.Responses
 {
-    public class GameChargeResponseVO
+	public class GameChargeResponseVO
 	{
-		public long length;
+		public long length { get; set; }
 
-		public GameCharge[] gameChargeList;
+		public GameCharge[] gameChargeList { get; set; }
 	}
 }
