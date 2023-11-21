@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 
 namespace Aminos.Utils
 {
@@ -6,7 +7,7 @@ namespace Aminos.Utils
 	{
 		public static JsonSerializerOptions NonIntendSerializeOption { get; } = new JsonSerializerOptions()
 		{
-			WriteIndented = false,
+			WriteIndented = false
 		};
 	}
 }

@@ -55,8 +55,7 @@ namespace Aminos
 			builder.Services.AddSingleton<IAllNetHandler, DefaultAllNetHandler>();
 			builder.Services.AddLogging(logging =>
 			{
-				logging.AddDebug();
-				logging.SetMinimumLevel(LogLevel.Debug);
+				logging.SetMinimumLevel(LogLevel.Trace);
 			});
 			builder.Services.AddW3CLogging(o =>
 			{
