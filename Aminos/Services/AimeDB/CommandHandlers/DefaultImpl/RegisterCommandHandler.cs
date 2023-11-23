@@ -3,8 +3,11 @@ using Aminos.Kernels.Injections.Attrbutes;
 using Aminos.Models.AimeDB;
 using Aminos.Models.General.Tables;
 using Aminos.Services.AimeDB.Streams;
+using Aminos.Utils;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 {
@@ -12,12 +15,14 @@ namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 	public class RegisterCommandHandler : ICommandHander
 	{
 		private readonly AminosDB aminosDB;
+		private readonly ILogger<RegisterCommandHandler> logger;
 
 		public int HandleCommandId => 0x0005;
 
-		public RegisterCommandHandler(AminosDB aminosDB)
+		public RegisterCommandHandler(AminosDB aminosDB, ILogger<RegisterCommandHandler> logger)
 		{
 			this.aminosDB = aminosDB;
+			this.logger = logger;
 		}
 
 		public async ValueTask<bool> Handle(AimeDBPacketStreamReaderWriter stream, AimeDBPacket reqPacket, CancellationToken token)
@@ -48,6 +53,9 @@ namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 
 				status = 1;
 				aimeId = card.AimeId;
+
+				await aminosDB.SaveChangesAsync();
+				logger.LogInformation($"Register new card: {JsonSerializer.Serialize(card, JsonSerializeOptions.NonIntendSerializeOption)}");
 			}
 
 			using var respPacket = new AimeDBPacket(0x0030);

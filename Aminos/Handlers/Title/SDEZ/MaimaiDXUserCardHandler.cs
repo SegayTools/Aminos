@@ -19,7 +19,7 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async Task<UserCardResponseVO> GetUserCard(UserCardRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
-				.Include(x => x.UserCards)
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserCardResponseVO();
@@ -27,6 +27,8 @@ namespace Aminos.Handlers.Title.SDEZ
 				.Skip(request.nextIndex).Take(request.maxCount)
 				.ToArray();
 			response.nextIndex = request.nextIndex + response.userCardList.Length;
+			if (response.userCardList.Length == 0)
+				response.nextIndex = 0;
 			response.userId = request.userId;
 
 			return response;

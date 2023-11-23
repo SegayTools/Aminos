@@ -1,4 +1,7 @@
-﻿namespace Aminos.Models.Title.SDEZ.Requests
+﻿using Aminos.Utils.Json;
+using System.Text.Json.Serialization;
+
+namespace Aminos.Models.Title.SDEZ.Requests
 {
 	public class UserPhoto
 	{
@@ -16,7 +19,8 @@
 
 		public string clientId { get; set; }
 
-		public string uploadDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime uploadDate { get; set; }
 
 		public ulong playlogId { get; set; }
 

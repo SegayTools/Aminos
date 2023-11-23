@@ -13,7 +13,7 @@ namespace Aminos.Models.Title.SDEZ.Tables
 		[JsonIgnore]
 		public ulong Id { get; set; }
 
-		public ICollection<UserAct> playList { get; set; } = new List<UserAct>();
-		public ICollection<UserAct> musicList { get; set; } = new List<UserAct>();
+		public virtual ICollection<UserAct> playList { get; set; } = new List<UserAct>();
+		public virtual ICollection<UserAct> musicList { get; set; } = new List<UserAct>();
 	}
 }

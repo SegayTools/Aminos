@@ -18,7 +18,9 @@ namespace Aminos.Handlers.Title.SDEZ
 
 		public async Task<UserActivityResponseVO> GetUserActivity(UserActivityRequestVO request)
 		{
-			var userDetail = await maimaiDxDB.UserDetails.Include(x => x.UserActivity).FirstOrDefaultAsync(x => x.Id == request.userId);
+			var userDetail = await maimaiDxDB.UserDetails
+				
+				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserActivityResponseVO();
 			response.userActivity = userDetail.UserActivity;

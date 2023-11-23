@@ -19,13 +19,17 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UserItemResponseVO> GetUserItem(UserItemRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
-				.Include(x => x.UserItems)
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
+
+			var fixedNextIndex = request.nextIndex > int.MaxValue ? 0 : (int)request.nextIndex;
 
 			var response = new UserItemResponseVO();
 			response.userId = request.userId;
-			response.userItemList = userDetail.UserItems.Skip((int)request.nextIndex).Take(request.maxCount).ToArray();
-			response.nextIndex = request.nextIndex + response.userItemList.LongLength;
+			response.userItemList = userDetail.UserItems.Skip(fixedNextIndex).Take(request.maxCount).ToArray();
+			response.nextIndex = fixedNextIndex + response.userItemList.LongLength;
+			if (response.userItemList.Length == 0)
+				response.nextIndex = 0;
 
 			return response;
 		}

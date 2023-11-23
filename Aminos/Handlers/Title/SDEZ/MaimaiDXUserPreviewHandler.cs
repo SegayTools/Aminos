@@ -18,7 +18,8 @@ namespace Aminos.Handlers.Title.SDEZ
 
 		public async ValueTask<UserPreviewResponseVO> GetUserPreview(UserPreviewRequestVO request)
 		{
-			var userDetail = await maimaiDxDB.UserDetails.Include(x => x.UserOption).FirstOrDefaultAsync(x => x.Id == request.userId);
+			var userDetail = await maimaiDxDB.UserDetails
+				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserPreviewResponseVO()
 			{

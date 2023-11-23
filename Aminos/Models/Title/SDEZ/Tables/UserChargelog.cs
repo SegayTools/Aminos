@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Aminos.Utils.Json;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -18,7 +19,8 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		public int price { get; set; }
 
-		public string purchaseDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime purchaseDate { get; set; }
 
 		public int playCount { get; set; }
 

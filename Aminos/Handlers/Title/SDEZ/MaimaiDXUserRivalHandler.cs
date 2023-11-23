@@ -41,7 +41,7 @@ namespace Aminos.Handlers.Title.SDEZ
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var rivalUserDetail = await maimaiDxDB.UserDetails
-				.Include(x => x.UserMusicDetails)
+				
 				.FirstOrDefaultAsync(x => x.Id == request.rivalId);
 
 			var nextIndex = request.nextIndex;

@@ -20,7 +20,7 @@ namespace Aminos.Models.Title.SDEZ.Tables
 		[NotMapped]
 		public int[] itemId
 		{
-			get => __itemId.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+			get => string.IsNullOrWhiteSpace(__itemId) ? new int[0] : __itemId.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 			set => __itemId = string.Join(",", value);
 		}
 

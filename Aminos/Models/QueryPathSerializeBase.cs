@@ -29,10 +29,7 @@ namespace Aminos.Models
 			foreach (var pair in map)
 				queryBuilder.Append($"{pair.Key}={pair.Value(this)}&");
 
-			if (queryBuilder.Length > 0)
-				queryBuilder.Length -= 1;
-
-			return queryBuilder.ToString();
+			return queryBuilder.ToString() + "pvn=0";
 		}
 
 		public void ParseQueryPath(string queryString)

@@ -19,6 +19,7 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UserRatingResponseVO> GetUserRating(UserRatingRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserRatingResponseVO();

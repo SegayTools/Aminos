@@ -10,13 +10,15 @@ namespace Aminos.Handlers.Title.SDEZ
 	[RegisterInjectable(typeof(MaimaiDXUploadUserPhotoHandler))]
 	public class MaimaiDXUploadUserPhotoHandler
 	{
+		private readonly ILogger<MaimaiDXUploadUserPhotoHandler> logger;
 		private readonly MaimaiDXDB maimaiDxDB;
 		private readonly IFileProvider fileProvider;
 
 		public const string PicSavePath = "MaimaiDXUserPhotos";
 
-		public MaimaiDXUploadUserPhotoHandler(MaimaiDXDB maimaiDxDB, IFileProvider fileProvider)
+		public MaimaiDXUploadUserPhotoHandler(ILogger<MaimaiDXUploadUserPhotoHandler> logger, MaimaiDXDB maimaiDxDB, IFileProvider fileProvider)
 		{
+			this.logger = logger;
 			this.maimaiDxDB = maimaiDxDB;
 			this.fileProvider = fileProvider;
 		}
@@ -35,15 +37,24 @@ namespace Aminos.Handlers.Title.SDEZ
 
 			var imageData = Convert.FromBase64String(divData);
 			var picSavePhysicalPath = Path.GetFullPath(fileProvider.GetFileInfo(PicSavePath).PhysicalPath);
-			var tempFilePath = Path.Combine(picSavePhysicalPath, "temp", $"{userId}-{trackNo}.tmp");
+			var tempFolder = Path.Combine(picSavePhysicalPath, "temp");
+			Directory.CreateDirectory(tempFolder);
+			var tempFilePath = Path.Combine(tempFolder, $"{userId}-{trackNo}.tmp");
 
-			using (var fs = File.Open(tempFilePath, FileMode.Append, FileAccess.ReadWrite))
+			if (divNumber == 0 && File.Exists(tempFilePath))
+				File.Delete(tempFilePath);
+
+			using (var fs = File.Open(tempFilePath, FileMode.Append, FileAccess.Write))
 				await fs.WriteAsync(imageData);
 
 			if (divNumber == (divLength - 1))
 			{
-				var newFilePath = Path.Combine(picSavePhysicalPath, userId.ToString(), $"{DateTime.Now}.jpg");
+				var userFolder = Path.Combine(picSavePhysicalPath, userId.ToString());
+				Directory.CreateDirectory(userFolder);
+				var newFilePath = Path.Combine(userFolder, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss} {trackNo}.jpg");
 				File.Move(tempFilePath, newFilePath, true);
+
+				logger.LogInformation($"save user {userId} photo to {newFilePath}");
 			}
 
 			var response = new UpsertResponseVO();

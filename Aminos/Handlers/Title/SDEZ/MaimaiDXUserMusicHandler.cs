@@ -19,16 +19,17 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UserMusicResponseVO> GetUserMusic(UserMusicRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
-				.Include(x => x.UserMusicDetails)
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var musicDetails = userDetail.UserMusicDetails.Skip(request.nextIndex).Take(request.maxCount).ToArray();
 
 			var response = new UserMusicResponseVO();
 			response.userId = request.userId;
-			response.userMusicList = new UserMusic[] { new() { userMusicDetailList = musicDetails } };
+			response.userMusicList = musicDetails.Length > 0 ? new UserMusic[] { new() { userMusicDetailList = musicDetails } } : new UserMusic[0];
 			response.nextIndex = request.nextIndex + musicDetails.Length;
-
+			if (musicDetails.Length == 0)
+				response.nextIndex = 0;
 			return response;
 		}
 	}

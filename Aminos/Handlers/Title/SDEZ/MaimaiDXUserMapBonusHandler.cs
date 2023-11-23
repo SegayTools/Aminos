@@ -19,7 +19,7 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UserMapResponseVO> GetUserMap(UserMapRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
-				.Include(x => x.UserMaps)
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserMapResponseVO();
@@ -29,7 +29,8 @@ namespace Aminos.Handlers.Title.SDEZ
 				.Take(request.maxCount)
 				.ToArray();
 			response.nextIndex = request.nextIndex + response.userMapList.LongLength;
-
+			if (response.userMapList.Length == 0)
+				response.nextIndex = 0;
 			return response;
 		}
 	}

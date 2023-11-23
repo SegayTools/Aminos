@@ -31,7 +31,12 @@ namespace Aminos.Controllers.AllNet
 		{
 			//todo
 			var content = await Decode(await HttpContext.Request.Body.DumpToString());
-			return Content("stat=1&serial=A69E01A8888\n", "text/plain");
+			var resp = new DownloadOrderResponse()
+			{
+				stat = 1,
+				serial = "A69E01A8888"
+			};
+			return Content(resp.GenerateQueryPath() + "\n", "text/plain");
 		}
 
 		[HttpPost("servlet/PowerOn")]

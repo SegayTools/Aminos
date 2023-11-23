@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Aminos.Utils.Json;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -8,12 +10,16 @@ namespace Aminos.Models.Title.SDEZ.Tables
 	[Table("MaimaiDX_UserGamePlaylogs")]
 	public class UserGamePlaylog
 	{
-		[JsonPropertyName("playlogId")]
+		[JsonIgnore]
+		[Key]
 		public ulong Id { get; set; }
+
+		public ulong playlogId { get; set; }
 
 		public string version { get; set; }
 
-		public string playDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime playDate { get; set; }
 
 		public int playMode { get; set; }
 

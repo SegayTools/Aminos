@@ -1,4 +1,5 @@
 ﻿using Aminos.Models.Title.SDEZ.Responses;
+using Aminos.Utils.Json;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,46 +12,46 @@ namespace Aminos.Models.Title.SDEZ.Tables
 	public class UserDetail
 	{
 		[JsonIgnore]
-		public ICollection<UserCard> UserCards { get; set; } = new List<UserCard>();
+		public virtual ICollection<UserCard> UserCards { get; set; } = new List<UserCard>();
 		[JsonIgnore]
-		public ICollection<UserCharacter> UserCharacters { get; set; } = new List<UserCharacter>();
+		public virtual ICollection<UserCharacter> UserCharacters { get; set; } = new List<UserCharacter>();
 		[JsonIgnore]
-		public ICollection<UserFavorite> UserFavorites { get; set; } = new List<UserFavorite>();
+		public virtual ICollection<UserFavorite> UserFavorites { get; set; } = new List<UserFavorite>();
 		[JsonIgnore]
-		public ICollection<UserFavoriteItem> UserFavoriteItems { get; set; } = new List<UserFavoriteItem>();
+		public virtual ICollection<UserFavoriteItem> UserFavoriteItems { get; set; } = new List<UserFavoriteItem>();
 		[JsonIgnore]
-		public ICollection<UserItem> UserItems { get; set; } = new List<UserItem>();
+		public virtual ICollection<UserItem> UserItems { get; set; } = new List<UserItem>();
 		[JsonIgnore]
-		public ICollection<UserLoginBonus> UserLoginBonuses { get; set; } = new List<UserLoginBonus>();
+		public virtual ICollection<UserLoginBonus> UserLoginBonuses { get; set; } = new List<UserLoginBonus>();
 		[JsonIgnore]
-		public ICollection<UserMap> UserMaps { get; set; } = new List<UserMap>();
+		public virtual ICollection<UserMap> UserMaps { get; set; } = new List<UserMap>();
 		[JsonIgnore]
-		public ICollection<UserMusicDetail> UserMusicDetails { get; set; } = new List<UserMusicDetail>();
+		public virtual ICollection<UserMusicDetail> UserMusicDetails { get; set; } = new List<UserMusicDetail>();
 		[JsonIgnore]
-		public ICollection<UserRegion> UserRegions { get; set; } = new List<UserRegion>();
+		public virtual ICollection<UserRegion> UserRegions { get; set; } = new List<UserRegion>();
 		[JsonIgnore]
-		public ICollection<UserScoreRanking> UserScoreRankings { get; set; } = new List<UserScoreRanking>();
+		public virtual ICollection<UserScoreRanking> UserScoreRankings { get; set; } = new List<UserScoreRanking>();
 		[JsonIgnore]
-		public ICollection<UserPlaylog> UserPlaylogs { get; set; } = new List<UserPlaylog>();
+		public virtual ICollection<UserPlaylog> UserPlaylogs { get; set; } = new List<UserPlaylog>();
 		[JsonIgnore]
-		public ICollection<UserCourse> UserCourses { get; set; } = new List<UserCourse>();
+		public virtual ICollection<UserCourse> UserCourses { get; set; } = new List<UserCourse>();
 		[JsonIgnore]
-		public ICollection<UserFriendSeasonRanking> UserFriendSeasonRankings { get; set; } = new List<UserFriendSeasonRanking>();
+		public virtual ICollection<UserFriendSeasonRanking> UserFriendSeasonRankings { get; set; } = new List<UserFriendSeasonRanking>();
 		[JsonIgnore]
-		public ICollection<UserCharge> UserCharges { get; set; } = new List<UserCharge>();
+		public virtual ICollection<UserCharge> UserCharges { get; set; } = new List<UserCharge>();
 		[JsonIgnore]
-		public ICollection<UserChargelog> UserChargelogs { get; set; } = new List<UserChargelog>();
+		public virtual ICollection<UserChargelog> UserChargelogs { get; set; } = new List<UserChargelog>();
 		[JsonIgnore]
-		public ICollection<UserGamePlaylog> UserGamePlaylogs { get; set; } = new List<UserGamePlaylog>();
+		public virtual ICollection<UserGamePlaylog> UserGamePlaylogs { get; set; } = new List<UserGamePlaylog>();
 
 		[JsonIgnore]
-		public UserOption UserOption { get; set; }
+		public virtual UserOption UserOption { get; set; }
 		[JsonIgnore]
-		public UserRating UserRating { get; set; }
+		public virtual UserRating UserRating { get; set; }
 		[JsonIgnore]
-		public UserExtend UserExtend { get; set; }
+		public virtual UserExtend UserExtend { get; set; }
 		[JsonIgnore]
-		public UserActivity UserActivity { get; set; }
+		public virtual UserActivity UserActivity { get; set; }
 
 		[JsonIgnore]
 		public bool IsGuest => (Id & 0x1000000000001L) == 281474976710657L;
@@ -98,21 +99,21 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		[Column(nameof(charaSlot))]
 		[MaxLength(256)]
-		private string __charaSlot { get; set; }
+		public string __charaSlot { get; set; }
 		[NotMapped]
 		public int[] charaSlot
 		{
-			get => __charaSlot.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+			get => string.IsNullOrWhiteSpace(__charaSlot) ? new int[0] : __charaSlot?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 			set => __charaSlot = string.Join(",", value);
 		}
 
 		[Column(nameof(charaLockSlot))]
 		[MaxLength(256)]
-		private string __charaLockSlot { get; set; }
+		public string __charaLockSlot { get; set; }
 		[NotMapped]
 		public int[] charaLockSlot
 		{
-			get => __charaLockSlot.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+			get => string.IsNullOrWhiteSpace(__charaLockSlot) ? new int[0] : __charaLockSlot?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 			set => __charaLockSlot = string.Join(",", value);
 		}
 
@@ -126,7 +127,8 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		public int mapStock { get; set; }
 
-		public string eventWatchedDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime eventWatchedDate { get; set; }
 
 		public string lastGameId { get; set; }
 
@@ -134,9 +136,11 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		public string lastDataVersion { get; set; }
 
-		public string lastLoginDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime lastLoginDate { get; set; }
 
-		public string lastPlayDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime lastPlayDate { get; set; }
 
 		public int lastPlayCredit { get; set; }
 
@@ -170,17 +174,22 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		public string firstDataVersion { get; set; }
 
-		public string firstPlayDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime firstPlayDate { get; set; }
 
 		public string compatibleCmVersion { get; set; }
 
-		public string dailyBonusDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime dailyBonusDate { get; set; }
 
-		public string dailyCourseBonusDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime dailyCourseBonusDate { get; set; }
 
-		public string lastPairLoginDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime lastPairLoginDate { get; set; }
 
-		public string lastTrialPlayDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime lastTrialPlayDate { get; set; }
 
 		public int playVsCount { get; set; }
 

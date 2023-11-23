@@ -19,7 +19,7 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UserRegionResponseVO> GetUserRegion(UserRegionRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
-				.Include(x => x.UserRegions)
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserRegionResponseVO();

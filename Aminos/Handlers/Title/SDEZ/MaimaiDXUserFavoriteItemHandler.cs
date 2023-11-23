@@ -19,8 +19,7 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UserFavoriteItemResponseVO> GetUserFavoriteItem(UserFavoriteItemRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
-				.Include(
-					x => x.UserFavoriteItems)
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserFavoriteItemResponseVO();

@@ -1,4 +1,7 @@
-﻿namespace Aminos.Models.Title.SDEZ
+﻿using Aminos.Utils.Json;
+using System.Text.Json.Serialization;
+
+namespace Aminos.Models.Title.SDEZ
 {
 	public class UserPortrait
 	{
@@ -14,7 +17,8 @@
 
 		public string clientId { get; set; }
 
-		public string uploadDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime uploadDate { get; set; }
 
 		public string fileName { get; set; }
 	}

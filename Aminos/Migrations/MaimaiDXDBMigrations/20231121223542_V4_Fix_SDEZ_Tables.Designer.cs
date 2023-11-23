@@ -3,6 +3,7 @@ using System;
 using Aminos.Databases.Title.SDEZ;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aminos.Migrations.MaimaiDXDBMigrations
 {
     [DbContext(typeof(MaimaiDXDB))]
-    partial class MaimaiDXDBModelSnapshot : ModelSnapshot
+    [Migration("20231121223542_V4_Fix_SDEZ_Tables")]
+    partial class V4_Fix_SDEZ_Tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
@@ -434,16 +437,6 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.Property<ulong?>("UserRatingId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("__charaLockSlot")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("charaLockSlot");
-
-                    b.Property<string>("__charaSlot")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("charaSlot");
-
                     b.Property<string>("accessCode")
                         .HasColumnType("TEXT");
 
@@ -695,16 +688,6 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("__encountMapNpcList")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("encountMapNpcList");
-
-                    b.Property<string>("__selectedCardList")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT")
-                        .HasColumnName("selectedCardList");
 
                     b.Property<int>("categoryIndex")
                         .HasColumnType("INTEGER");

@@ -5,6 +5,7 @@ using Aminos.Models.General.Tables;
 using Aminos.Models.Title.SDEZ.Requests;
 using Aminos.Models.Title.SDEZ.Responses;
 using Aminos.Models.Title.SDEZ.Tables;
+using Aminos.Utils.MethodExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Handlers.Title.SDEZ
@@ -48,18 +49,25 @@ namespace Aminos.Handlers.Title.SDEZ
 				};
 			}
 
-			if (await maimaiDxDB.UserDetails.AnyAsync(x => x.Id == userData.Id))
-				maimaiDxDB.Entry(userData).State = EntityState.Modified;
+			userData.Id = request.userId;
+			if ((await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == request.userId)) is UserDetail storedUserDetail)
+			{
+				maimaiDxDB.CopyValuesWithoutKeys(storedUserDetail, userData);
+				userData = storedUserDetail;
+			}
 			else
+			{
 				await maimaiDxDB.UserDetails.AddAsync(userData);
+			}
 			userData.isNetMember = 1;
+			await maimaiDxDB.SaveChangesAsync();
 
 			#endregion
 
 			#region General Card
 
 			var accessCode = userData.accessCode;
-			if (!await aminosDB.Cards.AnyAsync(x => x.AccessCode == accessCode))
+			if (!await aminosDB.Cards.AnyAsync(x => x.Luid == accessCode))
 			{
 				var rand = new Random();
 				var extId = rand.Next(99999999).ToString();
@@ -75,18 +83,25 @@ namespace Aminos.Handlers.Title.SDEZ
 				};
 
 				await aminosDB.Cards.AddAsync(card);
+				await aminosDB.SaveChangesAsync();
 			}
 
 			#endregion
-
-			foreach (var collection in maimaiDxDB.Entry(userData).Collections)
-				await collection.LoadAsync();
 
 			#region UserExtend
 
 			var userExtend = request.upsertUserAll.userExtend.FirstOrDefault();
 			if (userExtend != null)
-				userData.UserExtend = userExtend;
+			{
+				if (userData.UserExtend != null)
+				{
+					userExtend.Id = userData.UserExtend.Id;
+					maimaiDxDB.CopyValuesWithoutKeys(userData.UserExtend, userExtend);
+				}
+				else
+					userData.UserExtend = userExtend;
+			}
+			await maimaiDxDB.SaveChangesAsync();
 
 			#endregion
 
@@ -94,20 +109,28 @@ namespace Aminos.Handlers.Title.SDEZ
 
 			var userOption = request.upsertUserAll.userOption?.FirstOrDefault();
 			if (userOption != null)
-				userData.UserOption = userOption;
+			{
+				if (userData.UserOption != null)
+				{
+					userOption.Id = userData.UserOption.Id;
+					maimaiDxDB.CopyValuesWithoutKeys(userData.UserOption, userOption);
+				}
+				else
+					userData.UserOption = userOption;
+			}
+			await maimaiDxDB.SaveChangesAsync();
 
 			#endregion
 
-			void SimpleRepalceEntites<T>(IEnumerable<T> inList, ICollection<T> existList, Func<T, int> specIdGetter, Action<T, T> idCopyFunc) where T : class
+			ValueTask SimpleRepalceEntites<T>(IEnumerable<T> inList, ICollection<T> existList, Func<T, T, bool> childCmp) where T : class
 			{
 				if (inList != null)
 				{
 					foreach (var inEntity in inList)
 					{
-						if (existList.FirstOrDefault(x => specIdGetter(x) == specIdGetter(inEntity)) is T storedEntity)
+						if (existList.FirstOrDefault(x => childCmp(x, inEntity)) is T storedEntity)
 						{
-							idCopyFunc(inEntity, storedEntity);
-							maimaiDxDB.Attach(inEntity).State = EntityState.Modified;
+							maimaiDxDB.CopyValuesWithoutKeys(storedEntity, inEntity);
 						}
 						else
 						{
@@ -115,15 +138,15 @@ namespace Aminos.Handlers.Title.SDEZ
 						}
 					}
 				}
+				return ValueTask.CompletedTask;
 			}
 
 			#region UserCharacterList
 
-			SimpleRepalceEntites(
+			await SimpleRepalceEntites(
 				request.upsertUserAll.userCharacterList,
 				userData.UserCharacters,
-				a => a.characterId,
-				(a, b) => a.Id = b.Id);
+				(a, b) => a.characterId == b.characterId);
 
 			#endregion
 
@@ -135,21 +158,19 @@ namespace Aminos.Handlers.Title.SDEZ
 
 			#region UserMapList
 
-			SimpleRepalceEntites(
+			await SimpleRepalceEntites(
 				request.upsertUserAll.userMapList,
 				userData.UserMaps,
-				a => a.mapId,
-				(a, b) => a.Id = b.Id);
+				(a, b) => a.mapId == b.mapId);
 
 			#endregion
 
 			#region UserLoginBonusList
 
-			SimpleRepalceEntites(
+			await SimpleRepalceEntites(
 				request.upsertUserAll.userLoginBonusList,
 				userData.UserLoginBonuses,
-				a => a.bonusId,
-				(a, b) => a.Id = b.Id);
+				(a, b) => a.bonusId == b.bonusId);
 
 			#endregion
 
@@ -157,65 +178,117 @@ namespace Aminos.Handlers.Title.SDEZ
 
 			var userRating = request.upsertUserAll.userRatingList?.FirstOrDefault();
 			if (userRating != null)
-				userData.UserRating = userRating;
+			{
+				if (userData.UserRating != null)
+				{
+					maimaiDxDB.CopyValuesWithoutKeys(userData.UserRating, userRating);
+
+					void process(IEnumerable<UserRate> inRates, ICollection<UserRate> storedRates)
+					{
+						foreach (var inRate in inRates)
+						{
+							if (storedRates.FirstOrDefault(x => x.musicId == inRate.musicId && x.level == inRate.level) is
+								UserRate storedRate)
+							{
+								maimaiDxDB.CopyValuesWithoutKeys(storedRate, inRate);
+							}
+							else
+								storedRates.Add(inRate);
+						}
+					}
+
+					process(userRating.ratingList, userData.UserRating.ratingList);
+					process(userRating.newRatingList, userData.UserRating.newRatingList);
+					process(userRating.nextNewRatingList, userData.UserRating.nextNewRatingList);
+					process(userRating.nextRatingList, userData.UserRating.nextRatingList);
+
+					maimaiDxDB.CopyValuesWithoutKeys(userData.UserRating.udemae, userRating.udemae);
+				}
+				else
+					userData.UserRating = userRating;
+			}
 
 			#endregion
 
 			#region UserItemList
 
-			SimpleRepalceEntites(
+			await SimpleRepalceEntites(
 				request.upsertUserAll.userItemList,
 				userData.UserItems,
-				a => a.itemId,
-				(a, b) => a.Id = b.Id);
+				(a, b) => a.itemId == b.itemId && a.itemKind == b.itemKind);
 
 			#endregion
 
 			#region UserMusicDetailList
 
-			SimpleRepalceEntites(
+			await SimpleRepalceEntites(
 				request.upsertUserAll.userMusicDetailList,
 				userData.UserMusicDetails,
-				a => a.musicId,
-				(a, b) => a.Id = b.Id);
+				(a, b) => a.musicId == b.musicId && a.level == b.level);
 
 			#endregion
 
 			#region UserCourseList
 
-			SimpleRepalceEntites(
+			await SimpleRepalceEntites(
 				request.upsertUserAll.userCourseList,
 				userData.UserCourses,
-				a => a.courseId,
-				(a, b) => a.Id = b.Id);
+				(a, b) => a.courseId == b.courseId);
 
 			#endregion
 
 			#region UserFriendSeasonRankingList
 
-			SimpleRepalceEntites(
+			await SimpleRepalceEntites(
 				request.upsertUserAll.userFriendSeasonRankingList,
 				userData.UserFriendSeasonRankings,
-				a => a.seasonId,
-				(a, b) => a.Id = b.Id);
+				(a, b) => a.seasonId == b.seasonId);
 
 			#endregion
 
 			#region UserFavoriteList
 
-			SimpleRepalceEntites(
+			await SimpleRepalceEntites(
 				request.upsertUserAll.userFavoriteList,
 				userData.UserFavorites,
-				a => (int)a.Id,
-				(a, b) => a.Id = b.Id);
+				(a, b) => a.Id == b.Id);
 
 			#endregion
 
 			#region UserActivityList
 
 			var userActivity = request.upsertUserAll.userActivityList?.FirstOrDefault();
-			if (userOption != null)
+			if (userActivity != null)
+			{
 				userData.UserActivity = userActivity;
+				userActivity.Id = userData.UserActivity.Id;
+				maimaiDxDB.CopyValuesWithoutKeys(userData.UserActivity, userActivity);
+				if (userData.UserActivity != null)
+				{
+					foreach (var inAct in userActivity.musicList)
+					{
+						if (userData.UserActivity.musicList.FirstOrDefault(x => x.id == inAct.id && x.kind == inAct.kind) is UserAct storedAct)
+						{
+							inAct.UserActId = storedAct.UserActId;
+							maimaiDxDB.CopyValuesWithoutKeys(storedAct, inAct);
+						}
+						else
+							userData.UserActivity.musicList.Add(inAct);
+					}
+
+					foreach (var inAct in userActivity.playList)
+					{
+						if (userData.UserActivity.playList.FirstOrDefault(x => x.id == inAct.id && x.kind == inAct.kind) is UserAct storedAct)
+						{
+							inAct.UserActId = storedAct.UserActId;
+							maimaiDxDB.CopyValuesWithoutKeys(storedAct, inAct);
+						}
+						else
+							userData.UserActivity.playList.Add(inAct);
+					}
+				}
+				await maimaiDxDB.SaveChangesAsync();
+			}
 
 			#endregion
 
@@ -224,17 +297,16 @@ namespace Aminos.Handlers.Title.SDEZ
 			var user2pPlaylog = request.upsertUserAll.user2pPlaylog;
 			if (user2pPlaylog != null)
 			{
-				var userData1 = await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == user2pPlaylog.userId1);
-				var userData2 = await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == user2pPlaylog.userId2);
-
-				if (userData1.Id > userData2.Id)
-					(userData1, userData2) = (userData2, userData1);
-
-				if (user2pPlaylog.User2pPlaylogDetails != null)
+				if (user2pPlaylog.User2pPlaylogDetails?.Count > 0)
 				{
+					var userData1 = await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == user2pPlaylog.userId1);
+					var userData2 = await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == user2pPlaylog.userId2);
+
+					if (userData1.Id > userData2.Id)
+						(userData1, userData2) = (userData2, userData1);
+
 					foreach (var upsertDetail in user2pPlaylog.User2pPlaylogDetails)
 					{
-						var state = EntityState.Added;
 						upsertDetail.UserDetail1 = userData1;
 						upsertDetail.UserDetail2 = userData2;
 
@@ -245,10 +317,13 @@ namespace Aminos.Handlers.Title.SDEZ
 							&& x.musicId == upsertDetail.musicId
 						)) is User2pPlaylogDetail storedDetail)
 						{
-							state = EntityState.Modified;
-							upsertDetail.Id = storedDetail.Id;
+							maimaiDxDB.CopyValuesWithoutKeys(storedDetail, upsertDetail);
 						}
-						maimaiDxDB.Entry(upsertDetail).State = state;
+						else
+						{
+							await maimaiDxDB.User2pPlaylogDetails.AddAsync(upsertDetail);
+						}
+						await maimaiDxDB.SaveChangesAsync();
 					}
 				}
 			}
@@ -257,15 +332,12 @@ namespace Aminos.Handlers.Title.SDEZ
 
 			#region UserGamePlaylogList
 
-			SimpleRepalceEntites(
+			await SimpleRepalceEntites(
 				request.upsertUserAll.userGamePlaylogList,
 				userData.UserGamePlaylogs,
-				a => (int)a.Id,
-				(a, b) => a.Id = b.Id);
+				(a, b) => a.playlogId == b.playlogId);
 
 			#endregion
-
-			await maimaiDxDB.SaveChangesAsync();
 
 			return new()
 			{

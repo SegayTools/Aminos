@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
@@ -9,6 +10,7 @@ namespace Aminos.Models.Title.SDEZ.Tables
 	public class UserCharacter
 	{
 		[Key]
+		[JsonIgnore]
 		public ulong Id { get; set; }
 
 		public int characterId { get; set; }

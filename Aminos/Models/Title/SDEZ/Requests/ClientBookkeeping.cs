@@ -1,4 +1,7 @@
-﻿namespace Aminos.Models.Title.SDEZ.Requests
+﻿using Aminos.Utils.Json;
+using System.Text.Json.Serialization;
+
+namespace Aminos.Models.Title.SDEZ.Requests
 {
 	public class ClientBookkeeping
 	{
@@ -6,7 +9,8 @@
 
 		public string clientId { get; set; }
 
-		public string updateDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime updateDate { get; set; }
 
 		public int creditSetting0 { get; set; }
 

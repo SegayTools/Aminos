@@ -17,7 +17,6 @@ namespace Aminos.Handlers.Title.SDEZ
 	{
 		private readonly ILogger<MaimaiDXUserPortraitHandler> logger;
 		private readonly MaimaiDXDB maimaiDxDB;
-		private readonly IFileProvider fileProvider;
 		private bool enable;
 		private int divMaxLength;
 
@@ -25,16 +24,16 @@ namespace Aminos.Handlers.Title.SDEZ
 
 		private string picSavePath;
 
-		public MaimaiDXUserPortraitHandler(ILogger<MaimaiDXUserPortraitHandler> logger, MaimaiDXDB maimaiDxDB, IFileProvider fileProvider)
+		public MaimaiDXUserPortraitHandler(ILogger<MaimaiDXUserPortraitHandler> logger, IFileProvider fileProvider, MaimaiDXDB maimaiDxDB)
 		{
 			this.logger = logger;
 			this.maimaiDxDB = maimaiDxDB;
-			this.fileProvider = fileProvider;
 
 			enable = true;//todo 加个开关随时关闭启动
 			divMaxLength = 10;
 
 			picSavePath = Path.GetFullPath(fileProvider.GetFileInfo(PicSaveFolderName).PhysicalPath);
+			Directory.CreateDirectory(picSavePath);
 		}
 
 		public async ValueTask<UpsertResponseVO> UploadUserPortrait(UploadUserPortraitRequestVO request)
@@ -60,11 +59,11 @@ namespace Aminos.Handlers.Title.SDEZ
 				}
 
 				var tmp_filename = Path.Combine(picSavePath, $"{userId}-up.tmp");
-				if (divNumber == 0)
+				if (divNumber == 0 && File.Exists(tmp_filename))
 					File.Delete(tmp_filename);
 
 				var imageData = Convert.FromBase64String(divData);
-				using (var fs = File.Open(tmp_filename, FileMode.Append, FileAccess.ReadWrite))
+				using (var fs = File.Open(tmp_filename, FileMode.Append, FileAccess.Write))
 					await fs.WriteAsync(imageData);
 
 				logger.LogInformation($"received user {userId} photo data {divNumber + 1}/{divLength}");
@@ -78,10 +77,10 @@ namespace Aminos.Handlers.Title.SDEZ
 					var userPortaitMetaJson = JsonSerializer.Serialize(userPhoto);
 					var json_filename = Path.Combine(picSavePath, $"{userId}-up.json");
 
-					using (var fs = File.Open(tmp_filename, FileMode.Truncate, FileAccess.ReadWrite))
+					using (var fs = File.Open(json_filename, FileMode.Create, FileAccess.Write))
 						await fs.WriteAsync(Encoding.UTF8.GetBytes(userPortaitMetaJson));
 
-					logger.LogInformation($"saved user {userId} photo data");
+					logger.LogInformation($"saved user {userId} photo data: {filename}");
 				}
 			}
 
@@ -100,22 +99,18 @@ namespace Aminos.Handlers.Title.SDEZ
 			var list = new List<UserPortrait>();
 
 			var filePath = Path.Combine(picSavePath, userDetail.Id + "-up.jpg");
-			var fileInfo = fileProvider.GetFileInfo(filePath);
+			var templateJsonFilePath = Path.Combine(picSavePath, userDetail.Id + "-up.json");
 
-			if (fileInfo.Exists)
+			if (File.Exists(filePath))
 			{
-				var templateJsonFilePath = Path.Combine(picSavePath, userDetail.Id + "-up.json");
-				var templateJsonFileInfo = fileProvider.GetFileInfo(templateJsonFilePath);
-
-				if (templateJsonFileInfo.Exists)
+				if (File.Exists(templateJsonFilePath))
 				{
-					using var jsonStream = templateJsonFileInfo.CreateReadStream();
-					var jsonContent = await new StreamReader(jsonStream).ReadToEndAsync();
+					var jsonContent = await File.ReadAllTextAsync(templateJsonFilePath);
 
 					using var bufferDisp = ArrayPool<byte>.Shared.RentWithDisposable(10240);
 					var buffer = bufferDisp.Memory;
 
-					using var fileStream = fileInfo.CreateReadStream();
+					using var fileStream = File.OpenRead(filePath);
 					while (true)
 					{
 						var read = await fileStream.ReadAsync(buffer);

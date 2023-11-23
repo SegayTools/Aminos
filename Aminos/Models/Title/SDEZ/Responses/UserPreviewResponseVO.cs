@@ -1,4 +1,7 @@
-﻿namespace Aminos.Models.Title.SDEZ.Responses
+﻿using Aminos.Utils.Json;
+using System.Text.Json.Serialization;
+
+namespace Aminos.Models.Title.SDEZ.Responses
 {
 	public class UserPreviewResponseVO
 	{
@@ -14,9 +17,11 @@
 
 		public string lastRomVersion { get; set; }
 
-		public string lastLoginDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime lastLoginDate { get; set; }
 
-		public string lastPlayDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime lastPlayDate { get; set; }
 
 		public int playerRating { get; set; }
 
@@ -36,24 +41,13 @@
 
 		public int isNetMember { get; set; }
 
-		public string dailyBonusDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime dailyBonusDate { get; set; }
 
 		public int headPhoneVolume { get; set; }
 
 		public bool isInherit { get; set; }
 
 		public int banState { get; set; }
-
-		public bool IsNewUser()
-		{
-			if (!string.IsNullOrEmpty(userName))
-				return string.IsNullOrEmpty(lastPlayDate);
-			return true;
-		}
-
-		public bool IsInheritUser()
-		{
-			return isInherit;
-		}
 	}
 }

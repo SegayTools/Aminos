@@ -15,11 +15,11 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		public int rating { get; set; }
 
-		public ICollection<UserRate> ratingList { get; set; } = new List<UserRate>();
-		public ICollection<UserRate> newRatingList { get; set; } = new List<UserRate>();
-		public ICollection<UserRate> nextRatingList { get; set; } = new List<UserRate>();
-		public ICollection<UserRate> nextNewRatingList { get; set; } = new List<UserRate>();
+		public virtual ICollection<UserRate> ratingList { get; set; } = new List<UserRate>();
+		public virtual ICollection<UserRate> newRatingList { get; set; } = new List<UserRate>();
+		public virtual ICollection<UserRate> nextRatingList { get; set; } = new List<UserRate>();
+		public virtual ICollection<UserRate> nextNewRatingList { get; set; } = new List<UserRate>();
 
-		public UserUdemae udemae { get; set; }
+		public virtual UserUdemae udemae { get; set; }
 	}
 }

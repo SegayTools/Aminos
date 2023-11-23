@@ -19,7 +19,8 @@ namespace Aminos.Handlers.Title.SDEZ
 
 		public async ValueTask<UserChargeResponseVO> GetUserCharge(UserChargeRequestVO request)
 		{
-			var userDetail = await maimaiDxDB.UserDetails.Include(x => x.UserCharges)
+			var userDetail = await maimaiDxDB.UserDetails
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserChargeResponseVO();
@@ -32,7 +33,7 @@ namespace Aminos.Handlers.Title.SDEZ
 
 		public async ValueTask<UpsertResponseVO> UpsertUserChargelog(UserChargelogRequestVO request)
 		{
-			var userDetail = await maimaiDxDB.UserDetails.Include(x => x.UserCharges)
+			var userDetail = await maimaiDxDB.UserDetails
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var userCharge = request.userCharge;

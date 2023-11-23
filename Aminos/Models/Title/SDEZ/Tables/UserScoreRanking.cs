@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Aminos.Utils.Json;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -19,6 +20,7 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		public int ranking { get; set; }
 
-		public string rankingDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime rankingDate { get; set; }
 	}
 }

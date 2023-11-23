@@ -19,7 +19,7 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UserLoginBonusResponseVO> GetUserLoginBonus(UserLoginBonusRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
-				.Include(x => x.UserLoginBonuses)
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserLoginBonusResponseVO();
@@ -29,7 +29,8 @@ namespace Aminos.Handlers.Title.SDEZ
 				.Take(request.maxCount)
 				.ToArray();
 			response.nextIndex = request.nextIndex + response.userLoginBonusList.LongLength;
-
+			if (response.userLoginBonusList.Length == 0)
+				response.nextIndex = 0;
 			return response;
 		}
 	}

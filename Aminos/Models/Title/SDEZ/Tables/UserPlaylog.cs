@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Aminos.Utils.Json;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -27,9 +28,11 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		public long loginDate { get; set; }
 
-		public string playDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime playDate { get; set; }
 
-		public string userPlayDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime userPlayDate { get; set; }
 
 		public int type { get; set; }
 

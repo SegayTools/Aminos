@@ -2,7 +2,7 @@
 {
 	public class DownloadOrderResponse : QueryPathSerializeBase
 	{
-		public string stat { get; set; }
+		public int stat { get; set; }
 		public string serial { get; set; }
 	}
 }

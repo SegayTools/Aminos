@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Aminos.Utils.Json;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -25,16 +26,20 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		public uint playCount { get; set; }
 
-		public string clearDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime clearDate { get; set; }
 
-		public string lastPlayDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime lastPlayDate { get; set; }
 
 		public uint bestAchievement { get; set; }
 
-		public string bestAchievementDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime bestAchievementDate { get; set; }
 
 		public uint bestDeluxscore { get; set; }
 
-		public string bestDeluxscoreDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime bestDeluxscoreDate { get; set; }
 	}
 }

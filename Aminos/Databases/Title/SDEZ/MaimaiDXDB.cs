@@ -1,5 +1,6 @@
 ﻿using Aminos.Models.Title.SDEZ.Tables;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Aminos.Databases.Title.SDEZ
 {
@@ -7,7 +8,7 @@ namespace Aminos.Databases.Title.SDEZ
 	{
 		public MaimaiDXDB(DbContextOptions<MaimaiDXDB> options, IServiceProvider serviceProvider) : base(options)
 		{
-
+			var tracker = ChangeTracker;
 		}
 
 		public DbSet<GameEvent> GameEvents { get; set; }
@@ -19,6 +20,12 @@ namespace Aminos.Databases.Title.SDEZ
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
+		}
+
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		{
+			base.OnConfiguring(optionsBuilder);
+			optionsBuilder.UseLazyLoadingProxies();
 		}
 	}
 }

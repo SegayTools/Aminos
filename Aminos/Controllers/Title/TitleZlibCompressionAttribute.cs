@@ -10,7 +10,7 @@ namespace Aminos.Controllers.Title
 			var stream = context.HttpContext.Response.Body;
 			var zlibStream = new ZLibStream(stream, CompressionMode.Compress);
 			context.HttpContext.Response.Body = zlibStream;
-			context.HttpContext.Response.Headers.ContentEncoding = "deflat";
+			context.HttpContext.Response.Headers.ContentEncoding = "deflate";
 
 			return base.OnResultExecutionAsync(context, next);
 		}

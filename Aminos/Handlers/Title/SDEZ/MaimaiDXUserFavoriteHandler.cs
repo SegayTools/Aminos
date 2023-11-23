@@ -2,6 +2,7 @@
 using Aminos.Kernels.Injections.Attrbutes;
 using Aminos.Models.Title.SDEZ.Requests;
 using Aminos.Models.Title.SDEZ.Responses;
+using Aminos.Models.Title.SDEZ.Tables;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Handlers.Title.SDEZ
@@ -19,13 +20,12 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UserFavoriteResponseVO> GetUserFavorite(UserFavoriteRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
-				.Include(
-					x => x.UserFavorites)
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserFavoriteResponseVO();
 			response.userId = request.userId;
-			response.userFavoriteData = userDetail.UserFavorites.Where(x => x.itemKind == request.itemKind).FirstOrDefault();
+			response.userFavoriteData = userDetail.UserFavorites.Where(x => x.itemKind == request.itemKind).FirstOrDefault() ?? new UserFavorite();
 
 			return response;
 		}

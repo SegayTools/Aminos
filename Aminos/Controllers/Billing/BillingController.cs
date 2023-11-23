@@ -92,19 +92,5 @@ namespace Aminos.Controllers.Billing
 
 			return Convert.ToHexString(rsaResult);
 		}
-
-		private Dictionary<string, string> SplitQueryString(string queryString)
-		{
-			var map = new Dictionary<string, string>();
-			foreach (var kvp in queryString.Split("&"))
-			{
-				var s = kvp.Split('=');
-				var key = s.ElementAtOrDefault(0);
-				var value = s.ElementAtOrDefault(1);
-
-				map[key] = value;
-			}
-			return map;
-		}
 	}
 }

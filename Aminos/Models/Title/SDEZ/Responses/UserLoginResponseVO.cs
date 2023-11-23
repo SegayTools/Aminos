@@ -1,10 +1,14 @@
-﻿namespace Aminos.Models.Title.SDEZ.Responses
+﻿using Aminos.Utils.Json;
+using System.Text.Json.Serialization;
+
+namespace Aminos.Models.Title.SDEZ.Responses
 {
 	public class UserLoginResponseVO
 	{
 		public int returnCode { get; set; }
 
-		public string lastLoginDate { get; set; }
+		[JsonConverter(typeof(TitleString2DateTimeConverter))]
+		public DateTime lastLoginDate { get; set; }
 
 		public int loginCount { get; set; }
 

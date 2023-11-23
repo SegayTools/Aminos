@@ -303,5 +303,19 @@ namespace Aminos.Controllers.Title.SDEZ
 			var response = await handler.GetGameNgMusicId(request);
 			return Json(response);
 		}
+
+		[HttpPost("GetUserRecommendRateMusicApi")]
+		public async ValueTask<IActionResult> GetUserRecommendRateMusicApi(UserRecommendRateMusicRequestVO request, MaimaiDXUserRecommendRateMusicHandler handler)
+		{
+			var response = await handler.GetUserRecommendRateMusic(request);
+			return Json(response);
+		}
+
+		[HttpPost("GetUserRecommendSelectMusicApi")]
+		public async ValueTask<IActionResult> GetUserRecommendSelectMusicApi(UserRecommendSelectionMusicRequestVO request, MaimaiDXUserRecommendSelectionMusicHandler handler)
+		{
+			var response = await handler.GetUserRecommendSelectionMusic(request);
+			return Json(response);
+		}
 	}
 }

@@ -5,13 +5,15 @@ using System.Text.Json.Serialization;
 
 namespace Aminos.Models.Title.SDEZ.Tables
 {
-	[Index(nameof(Id))]
+	[Index(nameof(UserActId))]
 	[Table("MaimaiDX_UserActs")]
 	public class UserAct
 	{
 		[Key]
-		[JsonPropertyName("id")]
-		public ulong Id { get; set; }
+		[JsonIgnore]
+		public ulong UserActId { get; set; }
+
+		public ulong id { get; set; }
 
 		public int kind { get; set; }
 

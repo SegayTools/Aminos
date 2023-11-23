@@ -19,7 +19,7 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UserFriendSeasonRankingResponseVO> GetUserFriendSeasonRanking(UserFriendSeasonRankingRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
-				.Include(x => x.UserFriendSeasonRankings)
+				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			var response = new UserFriendSeasonRankingResponseVO();
@@ -28,6 +28,8 @@ namespace Aminos.Handlers.Title.SDEZ
 				.Skip((int)request.userId).Take(request.maxCount)
 				.ToArray();
 			response.nextIndex = request.nextIndex + response.userFriendSeasonRankingList.LongLength;
+			if (response.userFriendSeasonRankingList.Length == 0)
+				response.nextIndex = 0;
 
 			return response;
 		}

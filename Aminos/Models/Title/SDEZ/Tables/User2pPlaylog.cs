@@ -14,7 +14,7 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		[JsonInclude]
 		[JsonPropertyName("user2pPlaylogDetailList")]
-		public ICollection<User2pPlaylogDetail> User2pPlaylogDetails { get; set; } = new List<User2pPlaylogDetail>();
+		public virtual ICollection<User2pPlaylogDetail> User2pPlaylogDetails { get; set; } = new List<User2pPlaylogDetail>();
 
 		public ulong userId1 { get; set; }
 

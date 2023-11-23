@@ -43,21 +43,21 @@ namespace Aminos.Models.Title.SDEZ.Tables
 
 		[Column(nameof(selectedCardList))]
 		[MaxLength(256)]
-		private string __selectedCardList { get; set; }
+		public string __selectedCardList { get; set; }
 		[NotMapped]
 		public int[] selectedCardList
 		{
-			get => __selectedCardList.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+			get => string.IsNullOrWhiteSpace(__selectedCardList) ? new int[0] : __selectedCardList?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
 			set => __selectedCardList = string.Join(",", value);
 		}
 
 		[Column(nameof(encountMapNpcList))]
 		[MaxLength(256)]
-		private string __encountMapNpcList { get; set; }
+		public string __encountMapNpcList { get; set; }
 		[NotMapped]
 		public MapEncountNpc[] encountMapNpcList
 		{
-			get => __selectedCardList.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(x =>
+			get => string.IsNullOrWhiteSpace(__encountMapNpcList) ? new MapEncountNpc[0] : __encountMapNpcList?.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(x =>
 			{
 				var split = x.Split(",");
 				return new MapEncountNpc()
@@ -66,7 +66,7 @@ namespace Aminos.Models.Title.SDEZ.Tables
 					npcId = int.Parse(split.ElementAtOrDefault(1) ?? "0")
 				};
 			}).ToArray();
-			set => __selectedCardList = string.Join(";", value.Select(x => $"{x.musicId},{x.npcId}"));
+			set => __encountMapNpcList = string.Join(";", value.Select(x => $"{x.musicId},{x.npcId}"));
 		}
 	}
 }

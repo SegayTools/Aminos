@@ -19,7 +19,9 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UserExtendResponseVO> GetUserExtend(UserExtendRequestVO request)
 		{
 			var response = new UserExtendResponseVO();
-			response.userExtend = (await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == request.userId)).UserExtend;
+			response.userExtend = (await maimaiDxDB.UserDetails
+				
+				.FirstOrDefaultAsync(x => x.Id == request.userId)).UserExtend;
 			response.userId = request.userId;
 
 			return response;
