@@ -15,14 +15,18 @@ namespace Aminos.Handlers.Title.SDEZ
 			this.maimaiDxDB = maimaiDxDB;
 		}
 
-		public ValueTask<UpsertResponseVO> UpsertClientBookkeeping(ClientBookkeepingRequestVO request)
+		public async ValueTask<UpsertResponseVO> UpsertClientBookkeeping(ClientBookkeepingRequestVO request)
 		{
-			//todo 实现一下
+			var booking = request.clientBookkeeping;
+			maimaiDxDB.Update(booking);
+
+			await maimaiDxDB.SaveChangesAsync();
+
 			var response = new UpsertResponseVO();
 			response.apiName = nameof(MaimaiDXClientBookkeepHandler);
 			response.returnCode = 1;
 
-			return ValueTask.FromResult(response);
+			return response;
 		}
 	}
 }

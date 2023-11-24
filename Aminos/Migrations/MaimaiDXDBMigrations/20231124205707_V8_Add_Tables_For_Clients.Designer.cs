@@ -3,6 +3,7 @@ using System;
 using Aminos.Databases.Title.SDEZ;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aminos.Migrations.MaimaiDXDBMigrations
 {
     [DbContext(typeof(MaimaiDXDB))]
-    partial class MaimaiDXDBModelSnapshot : ModelSnapshot
+    [Migration("20231124205707_V8_Add_Tables_For_Clients")]
+    partial class V8_Add_Tables_For_Clients
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
