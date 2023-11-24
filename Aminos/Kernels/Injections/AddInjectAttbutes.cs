@@ -13,19 +13,19 @@ namespace Aminos.Kernels.Injections
 			{
 				foreach (var attr in type.GetCustomAttributes<RegisterInjectableAttribute>())
 				{
-					switch (attr.ServiceLifetime)
+					var targetType = attr.TargetInjectType;
+
+					Func<Type, Type, IServiceCollection> caller = attr.ServiceLifetime switch
 					{
-						case ServiceLifetime.Singleton:
-							services.AddSingleton(attr.TargetInjectType, type);
-							break;
-						case ServiceLifetime.Scoped:
-							services.AddScoped(attr.TargetInjectType, type);
-							break;
-						case ServiceLifetime.Transient:
-							services.AddTransient(attr.TargetInjectType, type);
-							break;
-						default:
-							break;
+						ServiceLifetime.Singleton => services.AddSingleton,
+						ServiceLifetime.Transient => services.AddTransient,
+						ServiceLifetime.Scoped => services.AddScoped,
+						_ => default
+					};
+
+					if (caller != null)
+					{
+						caller(targetType, type);
 					}
 				}
 			}

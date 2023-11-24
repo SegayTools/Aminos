@@ -1,4 +1,5 @@
 ﻿using Aminos.Databases.Title.SDEZ;
+using Aminos.Kernels.Files;
 using Aminos.Kernels.Injections.Attrbutes;
 using Aminos.Models.Title.SDEZ;
 using Aminos.Models.Title.SDEZ.Requests;
@@ -22,9 +23,9 @@ namespace Aminos.Handlers.Title.SDEZ
 
 		public const string PicSaveFolderName = "MaimaiDXUserPortraits";
 
-		private string picSavePath;
+		private string pictureSaveFolderPath;
 
-		public MaimaiDXUserPortraitHandler(ILogger<MaimaiDXUserPortraitHandler> logger, IFileProvider fileProvider, MaimaiDXDB maimaiDxDB)
+		public MaimaiDXUserPortraitHandler(ILogger<MaimaiDXUserPortraitHandler> logger, IApplicationFilePath applicationPath, MaimaiDXDB maimaiDxDB)
 		{
 			this.logger = logger;
 			this.maimaiDxDB = maimaiDxDB;
@@ -32,8 +33,8 @@ namespace Aminos.Handlers.Title.SDEZ
 			enable = true;//todo 加个开关随时关闭启动
 			divMaxLength = 10;
 
-			picSavePath = Path.GetFullPath(fileProvider.GetFileInfo(PicSaveFolderName).PhysicalPath);
-			Directory.CreateDirectory(picSavePath);
+			pictureSaveFolderPath = Path.Combine(applicationPath.ApplicationDataFolderPath, PicSaveFolderName);
+			Directory.CreateDirectory(pictureSaveFolderPath);
 		}
 
 		public async ValueTask<UpsertResponseVO> UploadUserPortrait(UploadUserPortraitRequestVO request)
@@ -58,7 +59,7 @@ namespace Aminos.Handlers.Title.SDEZ
 					};
 				}
 
-				var tmp_filename = Path.Combine(picSavePath, $"{userId}-up.tmp");
+				var tmp_filename = Path.Combine(pictureSaveFolderPath, $"{userId}-up.tmp");
 				if (divNumber == 0 && File.Exists(tmp_filename))
 					File.Delete(tmp_filename);
 
@@ -70,12 +71,12 @@ namespace Aminos.Handlers.Title.SDEZ
 
 				if (divNumber == (divLength - 1))
 				{
-					var filename = Path.Combine(picSavePath, $"{userId}-up.jpg");
+					var filename = Path.Combine(pictureSaveFolderPath, $"{userId}-up.jpg");
 					File.Move(tmp_filename, filename, true);
 
 					userPhoto.divData = string.Empty;
 					var userPortaitMetaJson = JsonSerializer.Serialize(userPhoto);
-					var json_filename = Path.Combine(picSavePath, $"{userId}-up.json");
+					var json_filename = Path.Combine(pictureSaveFolderPath, $"{userId}-up.json");
 
 					using (var fs = File.Open(json_filename, FileMode.Create, FileAccess.Write))
 						await fs.WriteAsync(Encoding.UTF8.GetBytes(userPortaitMetaJson));
@@ -98,8 +99,8 @@ namespace Aminos.Handlers.Title.SDEZ
 			var response = new GetUserPortraitResponseVO();
 			var list = new List<UserPortrait>();
 
-			var filePath = Path.Combine(picSavePath, userDetail.Id + "-up.jpg");
-			var templateJsonFilePath = Path.Combine(picSavePath, userDetail.Id + "-up.json");
+			var filePath = Path.Combine(pictureSaveFolderPath, userDetail.Id + "-up.jpg");
+			var templateJsonFilePath = Path.Combine(pictureSaveFolderPath, userDetail.Id + "-up.json");
 
 			if (File.Exists(filePath))
 			{

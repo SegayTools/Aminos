@@ -60,7 +60,6 @@ namespace Aminos.Handlers.Title.SDEZ
 				await maimaiDxDB.UserDetails.AddAsync(userData);
 			}
 			userData.isNetMember = 1;
-			await maimaiDxDB.SaveChangesAsync();
 
 			#endregion
 
@@ -101,7 +100,6 @@ namespace Aminos.Handlers.Title.SDEZ
 				else
 					userData.UserExtend = userExtend;
 			}
-			await maimaiDxDB.SaveChangesAsync();
 
 			#endregion
 
@@ -118,7 +116,6 @@ namespace Aminos.Handlers.Title.SDEZ
 				else
 					userData.UserOption = userOption;
 			}
-			await maimaiDxDB.SaveChangesAsync();
 
 			#endregion
 
@@ -260,34 +257,34 @@ namespace Aminos.Handlers.Title.SDEZ
 			var userActivity = request.upsertUserAll.userActivityList?.FirstOrDefault();
 			if (userActivity != null)
 			{
-				userData.UserActivity = userActivity;
-				userActivity.Id = userData.UserActivity.Id;
-				maimaiDxDB.CopyValuesWithoutKeys(userData.UserActivity, userActivity);
 				if (userData.UserActivity != null)
 				{
-					foreach (var inAct in userActivity.musicList)
+					maimaiDxDB.CopyValuesWithoutKeys(userData.UserActivity, userActivity);
+
+					foreach (var inAct in userActivity.musicList.ToArray())
 					{
 						if (userData.UserActivity.musicList.FirstOrDefault(x => x.id == inAct.id && x.kind == inAct.kind) is UserAct storedAct)
 						{
-							inAct.UserActId = storedAct.UserActId;
 							maimaiDxDB.CopyValuesWithoutKeys(storedAct, inAct);
 						}
 						else
 							userData.UserActivity.musicList.Add(inAct);
 					}
 
-					foreach (var inAct in userActivity.playList)
+					foreach (var inAct in userActivity.playList.ToArray())
 					{
 						if (userData.UserActivity.playList.FirstOrDefault(x => x.id == inAct.id && x.kind == inAct.kind) is UserAct storedAct)
 						{
-							inAct.UserActId = storedAct.UserActId;
 							maimaiDxDB.CopyValuesWithoutKeys(storedAct, inAct);
 						}
 						else
 							userData.UserActivity.playList.Add(inAct);
 					}
 				}
-				await maimaiDxDB.SaveChangesAsync();
+				else
+				{
+					userData.UserActivity = userActivity;
+				}
 			}
 
 			#endregion
@@ -323,7 +320,6 @@ namespace Aminos.Handlers.Title.SDEZ
 						{
 							await maimaiDxDB.User2pPlaylogDetails.AddAsync(upsertDetail);
 						}
-						await maimaiDxDB.SaveChangesAsync();
 					}
 				}
 			}
@@ -339,6 +335,7 @@ namespace Aminos.Handlers.Title.SDEZ
 
 			#endregion
 
+			await maimaiDxDB.SaveChangesAsync();
 			return new()
 			{
 				returnCode = 1,

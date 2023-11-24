@@ -26,7 +26,5 @@ namespace Aminos.Models.Title.SDEZ.Tables
 		public int param3 { get; set; }
 
 		public int param4 { get; set; }
-
-		public int userId { get; set; }
 	}
 }

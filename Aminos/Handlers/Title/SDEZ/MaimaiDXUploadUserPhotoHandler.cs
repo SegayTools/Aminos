@@ -1,4 +1,5 @@
 ﻿using Aminos.Databases.Title.SDEZ;
+using Aminos.Kernels.Files;
 using Aminos.Kernels.Injections.Attrbutes;
 using Aminos.Models.Title.SDEZ.Requests;
 using Aminos.Models.Title.SDEZ.Responses;
@@ -15,12 +16,17 @@ namespace Aminos.Handlers.Title.SDEZ
 		private readonly IFileProvider fileProvider;
 
 		public const string PicSavePath = "MaimaiDXUserPhotos";
+		private string picSaveFolderPath;
+		private string picTempSaveFolderPath;
 
-		public MaimaiDXUploadUserPhotoHandler(ILogger<MaimaiDXUploadUserPhotoHandler> logger, MaimaiDXDB maimaiDxDB, IFileProvider fileProvider)
+		public MaimaiDXUploadUserPhotoHandler(ILogger<MaimaiDXUploadUserPhotoHandler> logger, MaimaiDXDB maimaiDxDB, IApplicationFilePath applicationPath)
 		{
 			this.logger = logger;
 			this.maimaiDxDB = maimaiDxDB;
-			this.fileProvider = fileProvider;
+			picSaveFolderPath = Path.Combine(applicationPath.ApplicationDataFolderPath, PicSavePath);
+			picTempSaveFolderPath = Path.Combine(picSaveFolderPath, "temp");
+			Directory.CreateDirectory(picSaveFolderPath);
+			Directory.CreateDirectory(picTempSaveFolderPath);
 		}
 
 		public async ValueTask<UpsertResponseVO> UploadUserPhoto(UserPhotoRequestVO request)
@@ -36,10 +42,7 @@ namespace Aminos.Handlers.Title.SDEZ
 			var divData = userPhoto.divData;
 
 			var imageData = Convert.FromBase64String(divData);
-			var picSavePhysicalPath = Path.GetFullPath(fileProvider.GetFileInfo(PicSavePath).PhysicalPath);
-			var tempFolder = Path.Combine(picSavePhysicalPath, "temp");
-			Directory.CreateDirectory(tempFolder);
-			var tempFilePath = Path.Combine(tempFolder, $"{userId}-{trackNo}.tmp");
+			var tempFilePath = Path.Combine(picTempSaveFolderPath, $"{userId}-{trackNo}.tmp");
 
 			if (divNumber == 0 && File.Exists(tempFilePath))
 				File.Delete(tempFilePath);
@@ -49,7 +52,7 @@ namespace Aminos.Handlers.Title.SDEZ
 
 			if (divNumber == (divLength - 1))
 			{
-				var userFolder = Path.Combine(picSavePhysicalPath, userId.ToString());
+				var userFolder = Path.Combine(picSaveFolderPath, userId.ToString());
 				Directory.CreateDirectory(userFolder);
 				var newFilePath = Path.Combine(userFolder, $"{DateTime.Now:yyyy-MM-dd HH-mm-ss} {trackNo}.jpg");
 				File.Move(tempFilePath, newFilePath, true);

@@ -10,6 +10,7 @@
 aminos*.db*
 _build/
 _site/
+data/
 Aminos/logs/
 Properties/
 
