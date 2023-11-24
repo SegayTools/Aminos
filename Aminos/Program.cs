@@ -259,6 +259,11 @@ namespace Aminos
 				options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")),
 			ServiceLifetime.Scoped);
 
+			builder.Services.AddLogging(options =>
+			{
+				options.AddSeq("http://localhost:5341/", "wSkYZUo2uMdeChLfusYI");
+			});
+
 			builder.Services.AddInjectsByAttributes(typeof(Program).Assembly);
 			builder.Services.AddHostedService<AimeDBService>();
 			builder.Services.AddRequestDecompression(option =>

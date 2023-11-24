@@ -1,16 +1,19 @@
 ﻿using Aminos.Models.AimeDB;
 using Aminos.Utils.MethodExtensions;
 using System.Buffers;
+using System.Linq;
 
 namespace Aminos.Services.AimeDB.Streams
 {
 	public class AimeDBPacketStreamReaderWriter
 	{
 		private readonly Stream baseStream;
+		private readonly ILogger logger;
 
-		public AimeDBPacketStreamReaderWriter(Stream baseStream)
+		public AimeDBPacketStreamReaderWriter(Stream baseStream, ILogger logger)
 		{
 			this.baseStream = baseStream;
+			this.logger = logger;
 		}
 
 		public async ValueTask<AimeDBPacket> ReadPacket(CancellationToken cancellationToken)
@@ -34,6 +37,7 @@ namespace Aminos.Services.AimeDB.Streams
 				Encryption.Decrypt(contentBuffer.Span, packet.Buffer.Span[16..]);
 			}
 
+			logger.LogDebug($"ReadPacket() recv packet:{packet} raw:{{{Convert.ToHexString(packet.Buffer.Span).ToLower()}}}");
 			return packet;
 		}
 
@@ -48,6 +52,7 @@ namespace Aminos.Services.AimeDB.Streams
 			Encryption.Encrypt(packet.Buffer.Span, sendPacket.Buffer.Span);
 
 			await baseStream.WriteAsync(sendPacket.Buffer, cancellationToken);
+			logger.LogDebug($"WritePacket() send packet:{packet} raw:{{{Convert.ToHexString(packet.Buffer.Span).ToLower()}}}");
 		}
 	}
 }

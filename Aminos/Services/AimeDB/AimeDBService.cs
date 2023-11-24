@@ -1,6 +1,7 @@
 ﻿using Aminos.Models.AimeDB;
 using Aminos.Services.AimeDB.CommandHandlers;
 using Aminos.Services.AimeDB.Streams;
+using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Net.Sockets;
 
@@ -8,15 +9,16 @@ namespace Aminos.Services.AimeDB
 {
 	public class AimeDBService : BackgroundService
 	{
-		private readonly ILogger<AimeDBService> logger;
+		private readonly ILoggerFactory loggerFactory;
 		private readonly IServiceScope scope;
 		private readonly IEnumerable<ICommandHander> commandHandlers;
 
 		private const int PORT = 22345;
+		private int clientGenId = 0;
 
-		public AimeDBService(ILogger<AimeDBService> logger, IServiceProvider provider)
+		public AimeDBService(ILoggerFactory loggerFactory, IServiceProvider provider)
 		{
-			this.logger = logger;
+			this.loggerFactory = loggerFactory;
 
 			scope = provider.CreateScope();
 			commandHandlers = scope.ServiceProvider.GetServices<ICommandHander>();
@@ -29,13 +31,13 @@ namespace Aminos.Services.AimeDB
 			if (stoppingToken.IsCancellationRequested)
 				return;
 			tcpListener.Start();
+			var logger = loggerFactory.CreateLogger<AimeDBService>();
 			logger.LogInformation($"AimeDB server started on port {PORT}.");
 			while (!stoppingToken.IsCancellationRequested)
 			{
 				try
 				{
 					var client = await tcpListener.AcceptTcpClientAsync(stoppingToken);
-					using var loggerScope = logger.BeginScope($"Accept a client from IP({client.Client.RemoteEndPoint})");
 					var _ = Task.Run(() =>
 					{
 						try
@@ -60,8 +62,9 @@ namespace Aminos.Services.AimeDB
 
 		private async void ProcessClient(TcpClient client, CancellationToken stoppingToken)
 		{
+			var logger = loggerFactory.CreateLogger($"AimeDBClient-{clientGenId++}");
 			using var stream = client.GetStream();
-			var packetStream = new AimeDBPacketStreamReaderWriter(stream);
+			var packetStream = new AimeDBPacketStreamReaderWriter(stream, logger);
 
 			var headerBuffer = new byte[16];
 			while (client.Connected && !stoppingToken.IsCancellationRequested)
@@ -70,16 +73,15 @@ namespace Aminos.Services.AimeDB
 					continue;
 
 				using var packet = await packetStream.ReadPacket(stoppingToken);
+				using var loggerScope = logger.BeginScope("Recv packet:" + packet.ToString());
 
-				logger.LogDebug($"got packet header: {packet}");
-
-				await ProcessPacket(packetStream, packet, stoppingToken);
+				await ProcessPacket(logger, packetStream, packet, stoppingToken);
 			}
 			client.Close();
-			logger.LogDebug($"called Close()");
+			logger.LogDebug($"ProcessClient() done");
 		}
 
-		private async Task ProcessPacket(AimeDBPacketStreamReaderWriter stream, AimeDBPacket reqPacket, CancellationToken token)
+		private async Task ProcessPacket(ILogger logger, AimeDBPacketStreamReaderWriter stream, AimeDBPacket reqPacket, CancellationToken token)
 		{
 			if (commandHandlers.FirstOrDefault(x => x.HandleCommandId == reqPacket.CommandID) is not ICommandHander handler)
 			{

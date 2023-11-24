@@ -68,5 +68,7 @@ namespace Aminos.Models.AimeDB
 			bufferDisp?.Dispose();
 			bufferDisp = null;
 		}
+
+		public override string ToString() => $"CommandID: {CommandID}, GameID: {GameID}, KeychipID: {KeychipID}, TotalPacketLength: {TotalPacketLength}, StoreID: {StoreID}, Result: {Result}  ";
 	}
 }
