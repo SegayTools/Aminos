@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.RequestDecompression;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Logging;
 using System.IO.Compression;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
@@ -229,10 +230,7 @@ namespace Aminos
 			// Add services to the container.
 			builder.Services.AddControllers();
 			builder.Services.AddSingleton<IAllNetHandler, DefaultAllNetHandler>();
-			builder.Services.AddLogging(logging =>
-			{
-				logging.SetMinimumLevel(LogLevel.Trace);
-			});
+
 			builder.Services.AddW3CLogging(o =>
 			{
 				o.LoggingFields = W3CLoggingFields.All;
@@ -268,9 +266,11 @@ namespace Aminos
 				var defaultDeflateProvider = option.DecompressionProviders["deflate"];
 				option.DecompressionProviders["deflate"] = new ZlibOrGzipDecompressionProvider(defaultDeflateProvider);
 			});
+
 			var app = builder.Build();
 
-			await CheckAndMigrateDatabase(app);
+			await CheckDBMigrations<AminosDB>(app.Services);
+			await CheckDBMigrations<MaimaiDXDB>(app.Services);
 
 			//app.UseHttpsRedirection();
 			app.UseAuthorization();
@@ -282,9 +282,25 @@ namespace Aminos
 			await app.RunAsync();
 		}
 
-		private static Task CheckAndMigrateDatabase(WebApplication app)
+		private static async ValueTask CheckDBMigrations<T>(IServiceProvider provider) where T : DbContext
 		{
-			return Task.CompletedTask;
+			var loggerFactory = provider.GetService<ILoggerFactory>();
+			var logger = loggerFactory.CreateLogger(typeof(T));
+
+			using var scope = provider.CreateScope();
+			using var db = scope.ServiceProvider.GetRequiredService<T>();
+
+			var applieds = (await db.Database.GetAppliedMigrationsAsync()).ToArray();
+			var pendings = (await db.Database.GetPendingMigrationsAsync()).ToArray();
+
+			logger.LogInformation($"Applied migrations:");
+			foreach (var item in applieds)
+				logger.LogInformation($" * {item}");
+			logger.LogInformation($"Pending migrations:");
+			foreach (var item in pendings)
+				logger.LogInformation($" * {item}");
+
+			await db.Database.MigrateAsync();
 		}
 	}
 }

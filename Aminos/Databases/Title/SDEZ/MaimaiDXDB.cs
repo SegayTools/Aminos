@@ -1,14 +1,17 @@
 ﻿using Aminos.Models.Title.SDEZ.Tables;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Logging;
 
 namespace Aminos.Databases.Title.SDEZ
 {
 	public class MaimaiDXDB : DbContext
 	{
-		public MaimaiDXDB(DbContextOptions<MaimaiDXDB> options, IServiceProvider serviceProvider) : base(options)
+		private readonly ILogger logger;
+
+		public MaimaiDXDB(ILoggerFactory loggerFactory, DbContextOptions<MaimaiDXDB> options) : base(options)
 		{
-			var tracker = ChangeTracker;
+			logger = loggerFactory.CreateLogger<MaimaiDXDB>();
 		}
 
 		public DbSet<GameEvent> GameEvents { get; set; }
