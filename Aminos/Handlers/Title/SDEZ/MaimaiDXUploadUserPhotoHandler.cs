@@ -1,14 +1,15 @@
 ﻿using Aminos.Databases.Title.SDEZ;
-using Aminos.Kernels.Files;
-using Aminos.Kernels.Injections.Attrbutes;
+using Aminos.Services.Injections.Attrbutes;
 using Aminos.Models.Title.SDEZ.Requests;
 using Aminos.Models.Title.SDEZ.Responses;
+using Aminos.Services.Files;
+using Aminos.Services.Injections.Attrbutes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
 namespace Aminos.Handlers.Title.SDEZ
 {
-	[RegisterInjectable(typeof(MaimaiDXUploadUserPhotoHandler))]
+    [RegisterInjectable(typeof(MaimaiDXUploadUserPhotoHandler))]
 	public class MaimaiDXUploadUserPhotoHandler
 	{
 		private readonly ILogger<MaimaiDXUploadUserPhotoHandler> logger;

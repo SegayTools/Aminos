@@ -1,6 +1,6 @@
 ﻿using Aminos.Databases;
 using Aminos.Databases.Title.SDEZ;
-using Aminos.Kernels.Injections.Attrbutes;
+using Aminos.Services.Injections.Attrbutes;
 using Aminos.Models.General.Tables;
 using Aminos.Models.Title.SDEZ.Requests;
 using Aminos.Models.Title.SDEZ.Responses;

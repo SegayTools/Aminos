@@ -1,5 +1,5 @@
 ﻿using Aminos.Databases;
-using Aminos.Kernels.Injections.Attrbutes;
+using Aminos.Services.Injections.Attrbutes;
 using Aminos.Models.AimeDB;
 using Aminos.Models.General.Tables;
 using Aminos.Services.AimeDB.Streams;

@@ -1,4 +1,4 @@
-﻿using Aminos.Kernels.Injections.Attrbutes;
+﻿using Aminos.Services.Injections.Attrbutes;
 using Aminos.Models.AimeDB;
 using Aminos.Services.AimeDB.Streams;
 using Aminos.Utils.MethodExtensions;

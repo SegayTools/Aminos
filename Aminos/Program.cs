@@ -2,8 +2,8 @@ using Aminos.Databases;
 using Aminos.Databases.Title.SDEZ;
 using Aminos.Handlers.AllNet;
 using Aminos.Handlers.AllNet.Default;
-using Aminos.Kernels.Injections;
 using Aminos.Services.AimeDB;
+using Aminos.Services.Injections;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.RequestDecompression;
@@ -17,7 +17,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Aminos
 {
-	public class Program
+    public class Program
 	{
 		public class ZlibOrGzipDecompressionProvider : IDecompressionProvider
 		{

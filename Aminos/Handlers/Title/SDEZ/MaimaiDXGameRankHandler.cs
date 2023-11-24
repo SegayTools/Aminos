@@ -1,4 +1,4 @@
-﻿using Aminos.Kernels.Injections.Attrbutes;
+﻿using Aminos.Services.Injections.Attrbutes;
 using Aminos.Models.Title.SDEZ.Requests;
 using Aminos.Models.Title.SDEZ.Responses;
 using Aminos.Models.Title.SDEZ.Tables;
