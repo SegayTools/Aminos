@@ -6,13 +6,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="data\**" />
     <Compile Remove="logs\**" />
+    <Content Remove="data\**" />
     <Content Remove="logs\**" />
+    <EmbeddedResource Remove="data\**" />
     <EmbeddedResource Remove="logs\**" />
+    <None Remove="data\**" />
     <None Remove="logs\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="aminos.dev.db" />
+    <None Remove="aminos.dev.db-shm" />
+    <None Remove="aminos.dev.db-wal" />
     <None Remove="Resources\Billing\billing.der" />
     <None Remove="Resources\Billing\billing.private.txt" />
     <None Remove="Resources\Billing\server.p12" />
