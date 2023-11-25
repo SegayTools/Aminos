@@ -2,6 +2,7 @@
 using Aminos.Models.General.Tables;
 using Aminos.Services.Injections.Attrbutes;
 using Aminos.Utils;
+using System.Collections.Concurrent;
 
 namespace Aminos.Authorization.DefaultImpl
 {
@@ -12,8 +13,8 @@ namespace Aminos.Authorization.DefaultImpl
 
 		private record AuthorizationCached(DateTime ExpiredDate);
 
-		private static Dictionary<string, AuthorizationCached> cached = new();
-		private static HashSet<string> bad = new();
+		private static ConcurrentDictionary<string, AuthorizationCached> cached = new();
+		private static ConcurrentBag<string> bad = new();
 
 		private readonly AminosDB aminosDB;
 		private readonly ILogger<DefaultKeychipSafeHandleAuthorization> logger;

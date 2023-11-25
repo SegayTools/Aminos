@@ -7,7 +7,7 @@ namespace Aminos.Controllers.Title.SDEZ
 	[ApiController]
 	[Route("{safeHandle}/SDEZ/{version}/Maimai2Servlet")]
 	[TitleZlibCompression]
-	[VerifyKeychip]
+	[TypeFilter(typeof(VerifyKeychipAttribute))]
 	public class MaimaiDXController : TitleControllerBase
 	{
 		[HttpPost("GetGameEventApi")]

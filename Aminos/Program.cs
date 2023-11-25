@@ -9,12 +9,15 @@ using Aminos.Utils;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.RateLimiting;
 
 namespace Aminos
 {
@@ -58,17 +61,20 @@ namespace Aminos
 
 			builder.Services.AddAuthorization(options =>
 			{
-				options.AddPolicy(AuthRolePolicyString.UserRole,
-					policy => policy.RequireRole(AuthRolePolicyString.UserRole));
+				options.AddPolicy(AuthRolePolicyString.OwnerRole,
+					policy => policy.RequireRole(
+						AuthRolePolicyString.OwnerRole));
 				options.AddPolicy(AuthRolePolicyString.AdminRole,
 					policy => policy
-							.RequireRole(AuthRolePolicyString.UserRole)
-							.RequireRole(AuthRolePolicyString.AdminRole));
-				options.AddPolicy(AuthRolePolicyString.OwnerRole,
+							.RequireRole(
+						AuthRolePolicyString.OwnerRole,
+						AuthRolePolicyString.AdminRole));
+				options.AddPolicy(AuthRolePolicyString.UserRole,
 					policy => policy
-							.RequireRole(AuthRolePolicyString.UserRole)
-							.RequireRole(AuthRolePolicyString.AdminRole)
-							.RequireRole(AuthRolePolicyString.OwnerRole));
+							.RequireRole(
+						AuthRolePolicyString.UserRole,
+						AuthRolePolicyString.AdminRole,
+						AuthRolePolicyString.OwnerRole));
 			});
 
 			builder.Services.AddW3CLogging(o =>
@@ -90,6 +96,17 @@ namespace Aminos
 					HttpLoggingFields.ResponseHeaders |
 					HttpLoggingFields.ResponseStatusCode |
 					HttpLoggingFields.ResponseBody;
+			});
+
+			builder.Services.AddRateLimiter(o =>
+			{
+				o.AddFixedWindowLimiter("AntiBruteForce", o2 =>
+				{
+					o2.PermitLimit = 5;
+					o2.Window = TimeSpan.FromSeconds(30);
+					o2.QueueProcessingOrder = QueueProcessingOrder.NewestFirst;
+					o2.QueueLimit = 3;
+				});
 			});
 
 			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -121,11 +138,12 @@ namespace Aminos
 			await CheckDBMigrations<AminosDB>(app.Services);
 			await CheckDBMigrations<MaimaiDXDB>(app.Services);
 
-			//app.UseHttpsRedirection();
+			app.UseRateLimiter();
 			app.UseAuthorization();
 			app.UseRequestDecompression();
 			app.UseW3CLogging();
 			app.UseHttpLogging();
+
 			app.MapControllers();
 
 			await app.RunAsync();

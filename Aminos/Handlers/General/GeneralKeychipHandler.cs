@@ -71,6 +71,18 @@ namespace Aminos.Handlers.General
 			}
 		}
 
+		public async ValueTask<CommonApiResponse> Update(UserAccount userAccount, string keychipId, string newName, bool newEnable)
+		{
+			if (userAccount.Keychips.FirstOrDefault(x => x.Id == keychipId) is not Keychip keychip)
+				return new CommonApiResponse(false, "此用户不存在此keychip");
+
+			keychip.Name = newName;
+			keychip.Enable = newEnable;
+
+			await aminosDB.SaveChangesAsync();
+			return new CommonApiResponse(true);
+		}
+
 		public async ValueTask<CommonApiResponse> Delete(UserAccount userAccount, string keychipId)
 		{
 			if (userAccount is null)
@@ -80,7 +92,7 @@ namespace Aminos.Handlers.General
 			{
 				try
 				{
-					userAccount.Keychips.Remove(keychip);
+					aminosDB.Entry(keychip).State = EntityState.Deleted;
 					await aminosDB.SaveChangesAsync();
 
 					return new CommonApiResponse(true);
@@ -93,6 +105,14 @@ namespace Aminos.Handlers.General
 			}
 
 			return new CommonApiResponse(false, "此用户不存在此keychip");
+		}
+
+		public async ValueTask<CommonApiResponse> List(UserAccount userAccount)
+		{
+			if (userAccount is null)
+				return new CommonApiResponse(false, "无法获取用户信息");
+
+			return new CommonApiResponse<IEnumerable<Keychip>>(true, userAccount.Keychips.ToArray());
 		}
 
 		private async ValueTask<string> GenerateNewRandomKeyChip()

@@ -7,9 +7,11 @@ using Aminos.Services.Injections.Attrbutes;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -22,17 +24,19 @@ namespace Aminos.Handlers.General
 	{
 		private readonly AminosDB aminosDB;
 		private readonly ILogger<GeneralUserAccountHandler> logger;
-		private readonly MD5 md5;
+		private static readonly MD5 md5 = MD5.Create();
+		private static readonly SHA512 sha512 = SHA512.Create();
 
 		public GeneralUserAccountHandler(AminosDB aminosDB, ILogger<GeneralUserAccountHandler> logger)
 		{
 			this.aminosDB = aminosDB;
 			this.logger = logger;
-			md5 = MD5.Create();
 		}
 
 		public async ValueTask<CommonApiResponse> Login(string userName, string passwordHash, HttpContext context)
 		{
+			passwordHash = RehashPasswordHash(passwordHash);
+
 			var user = await aminosDB.UserAccounts.FirstOrDefaultAsync(x => x.Name == userName && passwordHash == x.PasswordHash);
 			var hash = Convert.ToHexString(md5.ComputeHash(Encoding.UTF8.GetBytes(user + passwordHash)));
 
@@ -53,7 +57,10 @@ namespace Aminos.Handlers.General
 					new Claim(ClaimTypes.Role, roleString)
 				};
 
-				var userPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
+				var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+				var userPrincipal = new ClaimsPrincipal(identity);
+
 				var authProperties = new AuthenticationProperties()
 				{
 					IsPersistent = true,
@@ -75,14 +82,56 @@ namespace Aminos.Handlers.General
 				return new CommonApiResponse(false);
 		}
 
+		public async ValueTask<CommonApiResponse> Update(UserAccount curUser, string newEmail, string newName)
+		{
+			if (curUser is null)
+				return new CommonApiResponse(false, "用户未登录");
+
+			curUser.Email = newEmail;
+			curUser.Name = newName;
+
+			await aminosDB.SaveChangesAsync();
+			return new CommonApiResponse(true);
+		}
+
+		public async ValueTask<CommonApiResponse> UpdatePassword(UserAccount curUser, string newPasswordHash)
+		{
+			if (curUser is null)
+				return new CommonApiResponse(false, "用户未登录");
+
+			newPasswordHash = RehashPasswordHash(newPasswordHash);
+			curUser.PasswordHash = newPasswordHash;
+			await aminosDB.SaveChangesAsync();
+			return new CommonApiResponse(true);
+		}
+
+		public async ValueTask<CommonApiResponse> ChangeUserRole(UserAccount curUser, Guid targetUserGuid, AuthRolePolicy newRole)
+		{
+			if (curUser is null)
+				return new CommonApiResponse(false, "用户未登录");
+			if ((await aminosDB.UserAccounts.FindAsync(targetUserGuid)) is not UserAccount target)
+				return new CommonApiResponse(false, "找不到目标用户");
+			if (curUser.Role != AuthRolePolicy.Admin)
+				return new CommonApiResponse(false, "当前用户没权执行");
+
+			var old = target.Role;
+			target.Role = newRole;
+			await aminosDB.SaveChangesAsync();
+
+			logger.LogInformation($"User {curUser.Name}(id:{curUser.Id}) has modified {target.Name}(id:{target.Id})'s role from {old} to {newRole}");
+			return new CommonApiResponse(true);
+		}
+
 		public async ValueTask<CommonApiResponse> Register(string userName, string passwordHash, string email)
 		{
+			passwordHash = RehashPasswordHash(passwordHash);
+
 			if (await aminosDB.UserAccounts.AnyAsync(x => x.Name == userName))
 				return new CommonApiResponse(false, "用户名已被使用");
 			if (await aminosDB.UserAccounts.AnyAsync(x => x.Email == email))
 				return new CommonApiResponse(false, "邮箱已被登记");
 
-			var newUser = new Models.General.Tables.UserAccount()
+			var newUser = new UserAccount()
 			{
 				RegisterDate = DateTime.Now,
 				Email = email,
@@ -94,6 +143,7 @@ namespace Aminos.Handlers.General
 			try
 			{
 				await aminosDB.AddAsync(newUser);
+				await aminosDB.SaveChangesAsync();
 				return new CommonApiResponse(true);
 			}
 			catch (Exception e)
@@ -101,6 +151,11 @@ namespace Aminos.Handlers.General
 				var trackId = logger.LogErrorAndGetTrackId(e, $"数据库添加用户失败:{JsonSerializer.Serialize(newUser)}");
 				return new CommonApiInternalExceptionResponse(trackId);
 			}
+		}
+
+		public async ValueTask<CommonApiResponse> Get(UserAccount user)
+		{
+			return new CommonApiResponse<UserAccount>(true, user);
 		}
 
 		public async ValueTask<CommonApiResponse> Logout(HttpContext context)
@@ -115,6 +170,11 @@ namespace Aminos.Handlers.General
 				var trackId = logger.LogErrorAndGetTrackId(e, $"调用SignOutAsync()失败");
 				return new CommonApiInternalExceptionResponse(trackId);
 			}
+		}
+
+		private string RehashPasswordHash(string passwordHash)
+		{
+			return Convert.ToHexString(sha512.ComputeHash(md5.ComputeHash(Encoding.UTF8.GetBytes(passwordHash))));
 		}
 	}
 }

@@ -26,12 +26,12 @@ namespace Aminos.Controllers.General
 			return new JsonResult(obj, JsonSerializeOption);
 		}
 
-		public async ValueTask<UserAccount> GetUser()
+		public async ValueTask<UserAccount> GetCurrentRequestUser()
 		{
-			var userId = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "UserId");
-			if (userId is null)
+			var userIdStr = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "UserId").Value;
+			if (string.IsNullOrWhiteSpace(userIdStr))
 				return default;
-
+			var userId = new Guid(userIdStr);
 			return await aminosDB.UserAccounts.FindAsync(userId);
         }
 	}

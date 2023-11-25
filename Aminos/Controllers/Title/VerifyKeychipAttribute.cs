@@ -9,7 +9,16 @@ namespace Aminos.Controllers.Title
 {
     public class VerifyKeychipAttribute : ActionFilterAttribute
     {
-        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+		private readonly AminosDB aminosDB;
+		private readonly IKeychipSafeHandleAuthorization authorize;
+
+		public VerifyKeychipAttribute(AminosDB aminosDB, IKeychipSafeHandleAuthorization authorize)
+		{
+			this.aminosDB = aminosDB;
+			this.authorize = authorize;
+		}
+
+		public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var serviceProvider = context.HttpContext.RequestServices;
 
@@ -18,7 +27,6 @@ namespace Aminos.Controllers.Title
                 result = false;
             else
             {
-                var authorize = serviceProvider.GetService<IKeychipSafeHandleAuthorization>();
                 result = await authorize.AuthorizeVerfiy(safeHandle);
                 if (!result)
                 {
@@ -31,7 +39,6 @@ namespace Aminos.Controllers.Title
 
                     if (!string.IsNullOrWhiteSpace(keychipPart))
                     {
-                        var aminosDB = serviceProvider.GetService<AminosDB>();
                         if (await aminosDB.Keychips.FindAsync(keychipPart) is Keychip keychip && keychip.Enable)
                             result = true;
                     }
