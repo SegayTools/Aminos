@@ -34,7 +34,7 @@ namespace Aminos.Controllers.AllNet
 			var resp = new DownloadOrderResponse()
 			{
 				stat = 1,
-				serial = "A69E01A8888"
+				serial = string.Empty
 			};
 			return Content(resp.GenerateQueryPath() + "\n", "text/plain");
 		}

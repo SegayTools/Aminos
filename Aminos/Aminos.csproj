@@ -47,6 +47,7 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Models\AimeDB\Requests\" />
+    <Folder Include="Models\General\Responses\" />
   </ItemGroup>
 
 </Project>

@@ -7,6 +7,7 @@ using Aminos.Services.AimeDB;
 using Aminos.Services.Injections;
 using Aminos.Utils;
 using Aminos.Utils.MethodExtensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
@@ -57,17 +58,17 @@ namespace Aminos
 
 			builder.Services.AddAuthorization(options =>
 			{
-				options.AddPolicy($"{AuthPolicyConsts.User}_Role",
-					policy => policy.RequireRole(AuthPolicyConsts.User));
-				options.AddPolicy($"{AuthPolicyConsts.Admin}_Role",
+				options.AddPolicy(AuthRolePolicyString.UserRole,
+					policy => policy.RequireRole(AuthRolePolicyString.UserRole));
+				options.AddPolicy(AuthRolePolicyString.AdminRole,
 					policy => policy
-							.RequireRole(AuthPolicyConsts.User)
-							.RequireRole(AuthPolicyConsts.Admin));
-				options.AddPolicy($"{AuthPolicyConsts.Owner}_Role",
+							.RequireRole(AuthRolePolicyString.UserRole)
+							.RequireRole(AuthRolePolicyString.AdminRole));
+				options.AddPolicy(AuthRolePolicyString.OwnerRole,
 					policy => policy
-							.RequireRole(AuthPolicyConsts.User)
-							.RequireRole(AuthPolicyConsts.Admin)
-							.RequireRole(AuthPolicyConsts.Owner));
+							.RequireRole(AuthRolePolicyString.UserRole)
+							.RequireRole(AuthRolePolicyString.AdminRole)
+							.RequireRole(AuthRolePolicyString.OwnerRole));
 			});
 
 			builder.Services.AddW3CLogging(o =>
@@ -90,6 +91,12 @@ namespace Aminos
 					HttpLoggingFields.ResponseStatusCode |
 					HttpLoggingFields.ResponseBody;
 			});
+
+			builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+				.AddCookie(options =>
+				{
+					options.ClaimsIssuer = "AminosIssuer";
+				});
 
 			builder.Services.AddDbContext<AminosDB>(options =>
 				options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Scoped);
