@@ -7,10 +7,13 @@ namespace Aminos.Controllers.Title
 	{
 		public override Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
 		{
-			var stream = context.HttpContext.Response.Body;
-			var zlibStream = new ZLibStream(stream, CompressionMode.Compress);
-			context.HttpContext.Response.Body = zlibStream;
-			context.HttpContext.Response.Headers.ContentEncoding = "deflate";
+			if (context.HttpContext.Response.StatusCode == 200)
+			{
+				var stream = context.HttpContext.Response.Body;
+				var zlibStream = new ZLibStream(stream, CompressionMode.Compress);
+				context.HttpContext.Response.Body = zlibStream;
+				context.HttpContext.Response.Headers.ContentEncoding = "deflate";
+			}
 
 			return base.OnResultExecutionAsync(context, next);
 		}

@@ -1,14 +1,30 @@
-﻿using Aminos.Models.AllNet.Requests;
+﻿using Aminos.Authorization;
+using Aminos.Databases;
+using Aminos.Models.AllNet.Requests;
 using Aminos.Models.AllNet.Responses;
+using Aminos.Models.General.Tables;
+using Aminos.Services.Injections.Attrbutes;
 using Aminos.Utils;
 
 namespace Aminos.Handlers.AllNet.Default
 {
+	[RegisterInjectable(typeof(IAllNetHandler))]
 	internal class DefaultAllNetHandler : IAllNetHandler
 	{
+		private readonly AminosDB aminosDB;
+		private readonly IKeychipSafeHandleAuthorization safeHandleAuthorization;
+
+		public DefaultAllNetHandler(AminosDB aminosDB, IKeychipSafeHandleAuthorization safeHandleAuthorization)
+		{
+			this.aminosDB = aminosDB;
+			this.safeHandleAuthorization = safeHandleAuthorization;
+		}
+
 		public async ValueTask<PowerOnResponseBase> HandlePowerOn(PowerOnRequest request, ConnectionInfo connectionInfo)
 		{
-			if (!await CheckKeychipIfValid(request.serial))
+			var keychip = await aminosDB.Keychips.FindAsync(request.serial);
+
+			if (!await CheckKeychipIfValid(keychip))
 				return default;
 
 			var response = request.format_ver.StartsWith("2") ? HandlePowerOnAsV2(request) : HandlePowerOnAsV3(request);
@@ -17,7 +33,7 @@ namespace Aminos.Handlers.AllNet.Default
 			var localHost = connectionInfo.LocalIpAddress.MapToIPv4().ToString();
 
 			response.host = localHost;
-			response.uri = GenerateGameUrl(request, connectionInfo);
+			response.uri = await GenerateGameUrl(request, connectionInfo, keychip);
 			response.place_id = GetPlaceName(request);
 
 			return response;
@@ -29,18 +45,16 @@ namespace Aminos.Handlers.AllNet.Default
 			return "123";
 		}
 
-		public string ConvertSerialToIdentityStr(string serial) => SimpleCryptography.Encrypt(serial).Replace("=", "_");
-		public string ConvertIdentityStrToSerial(string identityStr) => SimpleCryptography.Decrypt(identityStr.Replace("_", "="));
-
-		private string GenerateGameUrl(PowerOnRequest request, ConnectionInfo connectionInfo)
+		private async ValueTask<string> GenerateGameUrl(PowerOnRequest request, ConnectionInfo connectionInfo, Keychip keychip)
 		{
 			var gameId = request.game_id;
 			var host = connectionInfo.LocalIpAddress.MapToIPv4().ToString();
 			var port = connectionInfo.LocalPort;
 			var ver = request.ver;
-			var identityStr = ConvertSerialToIdentityStr(request.serial);
 
-			var url = $"http://{host}:{port}/{identityStr}/";
+			var safeHandle = await safeHandleAuthorization.GenerateSafeHandle(keychip);
+
+			var url = $"http://{host}:{port}/{safeHandle}/";
 			if (!string.IsNullOrWhiteSpace(gameId))
 				url += $"{gameId}/{ver}/";
 
@@ -74,12 +88,12 @@ namespace Aminos.Handlers.AllNet.Default
 			};
 		}
 
-		private ValueTask<bool> CheckKeychipIfValid(string serial)
+		private async ValueTask<bool> CheckKeychipIfValid(Keychip keychip)
 		{
-			if (string.IsNullOrWhiteSpace(serial))
-				return ValueTask.FromResult(false);
+			if (keychip is null)
+				return false;
 
-			return ValueTask.FromResult(true);
+			return keychip.Enable;
 		}
 	}
 }

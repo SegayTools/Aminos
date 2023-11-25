@@ -15,6 +15,8 @@ namespace Aminos.Databases
 		}
 
 		public DbSet<Card> Cards { get; set; }
+		public DbSet<UserAccount> UserAccounts { get; set; }
+		public DbSet<Keychip> Keychips { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

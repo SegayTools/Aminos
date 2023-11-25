@@ -7,13 +7,14 @@ namespace Aminos.Utils
 	public static class SimpleCryptography
 	{
 		private static readonly AesGcm aesGcm;
+		private static Random rand = new Random((int)DateTime.Today.Ticks);
 
 		static SimpleCryptography()
 		{
 			var key = new byte[24];
 			key.AsSpan().WriteValue(0, Encoding.UTF8.GetBytes("阿米诺斯Aminos"));
 			for (int i = 19; i < key.Length; i++)
-				key[i] = (byte)i;
+				key[i] = (byte)rand.Next(byte.MaxValue);
 			aesGcm = new AesGcm(key);
 		}
 

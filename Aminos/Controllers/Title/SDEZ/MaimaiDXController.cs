@@ -5,17 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Aminos.Controllers.Title.SDEZ
 {
 	[ApiController]
-	[Route("{userHash}/SDEZ/{version}/Maimai2Servlet")]
+	[Route("{safeHandle}/SDEZ/{version}/Maimai2Servlet")]
 	[TitleZlibCompression]
+	[VerifyKeychip]
 	public class MaimaiDXController : TitleControllerBase
 	{
-		private readonly ILogger<MaimaiDXController> logger;
-
-		public MaimaiDXController(ILogger<MaimaiDXController> logger)
-		{
-			this.logger = logger;
-		}
-
 		[HttpPost("GetGameEventApi")]
 		public async ValueTask<IActionResult> GetGameEventApi(GameEventRequestVO request, MaimaiDXGameEventHandler handler)
 		{

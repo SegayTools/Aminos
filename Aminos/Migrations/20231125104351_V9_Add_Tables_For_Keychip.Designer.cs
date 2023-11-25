@@ -3,6 +3,7 @@ using System;
 using Aminos.Databases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aminos.Migrations
 {
     [DbContext(typeof(AminosDB))]
-    partial class AminosDBModelSnapshot : ModelSnapshot
+    [Migration("20231125104351_V9_Add_Tables_For_Keychip")]
+    partial class V9_Add_Tables_For_Keychip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
