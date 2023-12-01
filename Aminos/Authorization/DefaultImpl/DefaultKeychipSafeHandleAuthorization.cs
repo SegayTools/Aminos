@@ -1,6 +1,6 @@
 ﻿using Aminos.Databases;
-using Aminos.Models.General.Tables;
-using Aminos.Services.Injections.Attrbutes;
+using Aminos.Core.Models.General.Tables;
+using Aminos.Core.Services.Injections.Attrbutes;
 using Aminos.Utils;
 using System.Collections.Concurrent;
 

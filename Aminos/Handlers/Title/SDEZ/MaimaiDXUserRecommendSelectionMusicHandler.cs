@@ -1,7 +1,7 @@
 ﻿using Aminos.Databases.Title.SDEZ;
-using Aminos.Services.Injections.Attrbutes;
-using Aminos.Models.Title.SDEZ.Requests;
-using Aminos.Models.Title.SDEZ.Responses;
+using Aminos.Core.Services.Injections.Attrbutes;
+using Aminos.Core.Models.Title.SDEZ.Requests;
+using Aminos.Core.Models.Title.SDEZ.Responses;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Handlers.Title.SDEZ
@@ -16,14 +16,14 @@ namespace Aminos.Handlers.Title.SDEZ
 			this.maimaiDxDB = maimaiDxDB;
 		}
 
-		public async Task<UserRecommendSelectionMusicResponseVO> GetUserRecommendSelectionMusic(UserRecommendSelectionMusicRequestVO request)
+		public ValueTask<UserRecommendSelectionMusicResponseVO> GetUserRecommendSelectionMusic(UserRecommendSelectionMusicRequestVO request)
 		{
 			//todo 
 
 			var response = new UserRecommendSelectionMusicResponseVO();
 			response.userRecommendSelectionMusicIdList = new int[0];
 			response.userId = request.userId;
-			return response;
+			return ValueTask.FromResult(response);
 		}
 	}
 }

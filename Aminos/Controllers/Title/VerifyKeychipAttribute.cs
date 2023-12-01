@@ -1,6 +1,6 @@
 ﻿using Aminos.Authorization;
 using Aminos.Databases;
-using Aminos.Models.General.Tables;
+using Aminos.Core.Models.General.Tables;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Text;

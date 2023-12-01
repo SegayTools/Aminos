@@ -1,13 +1,14 @@
 ﻿using Aminos.Databases;
-using Aminos.Services.Injections.Attrbutes;
-using Aminos.Models.AimeDB;
-using Aminos.Models.General.Tables;
+using Aminos.Core.Services.Injections.Attrbutes;
+using Aminos.Core.Models.AimeDB;
+using Aminos.Core.Models.General.Tables;
 using Aminos.Services.AimeDB.Streams;
 using Aminos.Utils;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
+using Aminos.Core.Utils.MethodExtensions;
 
 namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl
 {

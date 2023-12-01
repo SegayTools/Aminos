@@ -1,9 +1,9 @@
 ﻿using Aminos.Authorization;
 using Aminos.Databases;
 using Aminos.Handlers.Title.SDEZ;
-using Aminos.Models.General;
-using Aminos.Models.General.Tables;
-using Aminos.Services.Injections.Attrbutes;
+using Aminos.Core.Models.General;
+using Aminos.Core.Models.General.Tables;
+using Aminos.Core.Services.Injections.Attrbutes;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -153,9 +153,9 @@ namespace Aminos.Handlers.General
 			}
 		}
 
-		public async ValueTask<CommonApiResponse> Get(UserAccount user)
+		public ValueTask<CommonApiResponse> Get(UserAccount user)
 		{
-			return new CommonApiResponse<UserAccount>(true, user);
+			return ValueTask.FromResult<CommonApiResponse>(new CommonApiResponse<UserAccount>(true, user));
 		}
 
 		public async ValueTask<CommonApiResponse> Logout(HttpContext context)

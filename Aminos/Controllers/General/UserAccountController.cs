@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.RateLimiting;
 
 namespace Aminos.Controllers.General
 {
-	[Route("api/Account")]
+    [Route("api/Account")]
 	[ApiController]
-	public class UserAccountController : GeneralAPIControllerBase
+	public class UserAccountController : CommonWebAPIControllerBase
 	{
 		private readonly GeneralUserAccountHandler handler;
 

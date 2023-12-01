@@ -1,9 +1,9 @@
 ﻿using Aminos.Authorization;
 using Aminos.Databases;
 using Aminos.Handlers.Title.SDEZ;
-using Aminos.Models.General;
-using Aminos.Models.General.Tables;
-using Aminos.Services.Injections.Attrbutes;
+using Aminos.Core.Models.General;
+using Aminos.Core.Models.General.Tables;
+using Aminos.Core.Services.Injections.Attrbutes;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -107,12 +107,12 @@ namespace Aminos.Handlers.General
 			return new CommonApiResponse(false, "此用户不存在此keychip");
 		}
 
-		public async ValueTask<CommonApiResponse> List(UserAccount userAccount)
+		public ValueTask<CommonApiResponse> List(UserAccount userAccount)
 		{
 			if (userAccount is null)
-				return new CommonApiResponse(false, "无法获取用户信息");
+				return ValueTask.FromResult(new CommonApiResponse(false, "无法获取用户信息"));
 
-			return new CommonApiResponse<IEnumerable<Keychip>>(true, userAccount.Keychips.ToArray());
+			return ValueTask.FromResult<CommonApiResponse>(new CommonApiResponse<IEnumerable<Keychip>>(true, userAccount.Keychips.ToArray()));
 		}
 
 		private async ValueTask<string> GenerateNewRandomKeyChip()

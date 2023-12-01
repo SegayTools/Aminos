@@ -1,0 +1,123 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AminosUI.Views.Pages.User.UserLoginPageView"
+             xmlns:vm="clr-namespace:AminosUI.ViewModels.Pages.User;assembly=AminosUI"
+             x:DataType="vm:UserLoginPageViewModel">
+  <Design.DataContext>
+    <vm:UserLoginPageViewModel/>
+  </Design.DataContext>
+  <i:Interaction.Behaviors>
+    <ia:DataTriggerBehavior Binding="{Binding PageState}" Value="0">
+      <ia:DataTriggerBehavior.Actions>
+        <ia:ChangePropertyAction TargetObject="LoginStateContent" PropertyName="IsVisible" Value="True"/>
+        <ia:ChangePropertyAction TargetObject="RegisterStateContent" PropertyName="IsVisible" Value="False"/>
+        <ia:ChangePropertyAction TargetObject="ForgetPasswordStateContent" PropertyName="IsVisible" Value="False"/>
+      </ia:DataTriggerBehavior.Actions>
+    </ia:DataTriggerBehavior>
+    <ia:DataTriggerBehavior Binding="{Binding PageState}" Value="1">
+      <ia:DataTriggerBehavior.Actions>
+        <ia:ChangePropertyAction TargetObject="LoginStateContent" PropertyName="IsVisible" Value="False"/>
+        <ia:ChangePropertyAction TargetObject="RegisterStateContent" PropertyName="IsVisible" Value="True"/>
+        <ia:ChangePropertyAction TargetObject="ForgetPasswordStateContent" PropertyName="IsVisible" Value="False"/>
+      </ia:DataTriggerBehavior.Actions>
+    </ia:DataTriggerBehavior>
+    <ia:DataTriggerBehavior Binding="{Binding PageState}" Value="2">
+      <ia:DataTriggerBehavior.Actions>
+        <ia:ChangePropertyAction TargetObject="LoginStateContent" PropertyName="IsVisible" Value="False"/>
+        <ia:ChangePropertyAction TargetObject="RegisterStateContent" PropertyName="IsVisible" Value="False"/>
+        <ia:ChangePropertyAction TargetObject="ForgetPasswordStateContent" PropertyName="IsVisible" Value="True"/>
+      </ia:DataTriggerBehavior.Actions>
+    </ia:DataTriggerBehavior>
+  </i:Interaction.Behaviors>
+
+  <Grid>
+    <StackPanel Name="LoginStateContent" Margin="0,-25,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Label Content="登录" HorizontalAlignment="Center" FontWeight="Bold" FontSize="50"/>
+      <Grid  RowDefinitions="*,*" ColumnDefinitions="Auto,*">
+        <!--账号-->
+        <Label VerticalAlignment="Center" HorizontalAlignment="Right" Content="用户名："/>
+        <TextBox Width="200" Grid.Column="1" Text="{Binding UserName}"/>
+        <!--密码-->
+        <Label Grid.Row="1" Margin="0,10,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Content="密码："/>
+        <TextBox PasswordChar="*" Grid.Row="1"  Margin="0,10,0,0" Width="200" Grid.Column="1" Text="{Binding Password}"/>
+      </Grid>
+      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,10,0,0">
+        <AccessText Text="注册账号" TextDecorations="Underline" Cursor="Hand" Margin="0,0,10,0">
+          <i:Interaction.Behaviors>
+            <ia:EventTriggerBehavior EventName="Tapped">
+              <ia:InvokeCommandAction Command="{Binding SwitchPageStateCommand}" CommandParameter="Register" />
+            </ia:EventTriggerBehavior>
+          </i:Interaction.Behaviors>
+        </AccessText>
+        <AccessText Text="忘记密码" TextDecorations="Underline" Cursor="Hand">
+          <i:Interaction.Behaviors>
+            <ia:EventTriggerBehavior EventName="Tapped">
+              <ia:InvokeCommandAction Command="{Binding SwitchPageStateCommand}" CommandParameter="ForgetPassword" />
+            </ia:EventTriggerBehavior>
+          </i:Interaction.Behaviors>
+        </AccessText>
+      </StackPanel>
+      <Button Command="{Binding LoginCommand}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Padding="0,10,0,10" Margin="0,10,0,10" Content="登录"/>
+    </StackPanel>
+    <StackPanel Name="RegisterStateContent" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Label Content="注册" HorizontalAlignment="Center" FontWeight="Bold" FontSize="50"/>
+      <Grid  RowDefinitions="*,*,*,*" ColumnDefinitions="Auto,*">
+        <!--账号-->
+        <Label VerticalAlignment="Center" HorizontalAlignment="Right" Content="用户名："/>
+        <TextBox Width="200" Grid.Column="1" Text="{Binding UserName}"/>
+        <!--密码-->
+        <Label Grid.Row="1" Margin="0,10,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Content="密码："/>
+        <TextBox PasswordChar="*" Grid.Row="1"  Margin="0,10,0,0" Width="200" Grid.Column="1" Text="{Binding Password}"/>
+        <!--再输入密码-->
+        <Label Grid.Row="2" Margin="0,10,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Content="再输入密码："/>
+        <TextBox PasswordChar="*" Grid.Row="2"  Margin="0,10,0,0" Width="200" Grid.Column="1" Text="{Binding Repassword}"/>
+        <!--邮箱-->
+        <Label Grid.Row="3" VerticalAlignment="Center" Margin="0,10,0,0"  HorizontalAlignment="Right" Content="Email："/>
+        <TextBox Grid.Row="3" Width="200" Grid.Column="1" Margin="0,10,0,0" Text="{Binding Email}"/>
+      </Grid>
+      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,10,0,0">
+        <AccessText Text="已有账号?" Margin="0,0,10,0" TextDecorations="Underline" Cursor="Hand">
+          <i:Interaction.Behaviors>
+            <ia:EventTriggerBehavior EventName="Tapped">
+              <ia:InvokeCommandAction Command="{Binding SwitchPageStateCommand}" CommandParameter="Login" />
+            </ia:EventTriggerBehavior>
+          </i:Interaction.Behaviors>
+        </AccessText>
+      </StackPanel>
+      <Button Command="{Binding RegisterCommand}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Padding="0,10,0,10" Margin="0,10,0,10" Content="注册"/>
+    </StackPanel>
+    <StackPanel Name="ForgetPasswordStateContent" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Label Content="忘记密码" HorizontalAlignment="Center" FontWeight="Bold" FontSize="50"/>
+      <Grid  RowDefinitions="*,*,*,*" ColumnDefinitions="Auto,*,Auto">
+        <!--邮箱-->
+        <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Content="Email："/>
+        <TextBox Grid.Row="0" Width="200" Grid.Column="1" Text="{Binding Email}"/>
+        <Button Command="{Binding SendTokenToEmailCommand}" Grid.Row="0" Content="发送邮件" Margin="10,0,0,0" Grid.Column="2"/>
+        <!--Token-->
+        <Label Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,10,0,0" Content="Token："/>
+        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="1" Margin="0,10,0,0"  Text="{Binding Token}"/>
+        <!--密码-->
+        <Label Grid.Row="2" Margin="0,10,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Content="密码："/>
+        <TextBox PasswordChar="*" Grid.Row="2"  Margin="0,10,0,0" Width="200" Grid.Column="1" Text="{Binding Password}"/>
+        <!--再输入密码-->
+        <Label Grid.Row="3" Margin="0,10,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Content="再输入密码："/>
+        <TextBox PasswordChar="*" Grid.Row="3"  Margin="0,10,0,0" Width="200" Grid.Column="1" Text="{Binding Repassword}"/>
+      </Grid>
+      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,10,0,0">
+        <AccessText Text="已有账号?" TextDecorations="Underline" Cursor="Hand" Margin="0,0,10,0">
+          <i:Interaction.Behaviors>
+            <ia:EventTriggerBehavior EventName="Tapped">
+              <ia:InvokeCommandAction Command="{Binding SwitchPageStateCommand}" CommandParameter="Login" />
+            </ia:EventTriggerBehavior>
+          </i:Interaction.Behaviors>
+        </AccessText>
+      </StackPanel>
+      <Button Command="{Binding ResetPasswordCommand}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Padding="0,10,0,10" Margin="0,10,0,10" Content="提交修改"/>
+    </StackPanel>
+  </Grid>
+</UserControl>

@@ -1,5 +1,5 @@
 ﻿using Aminos.Handlers.Title.SDEZ;
-using Aminos.Models.Title.SDEZ.Requests;
+using Aminos.Core.Models.Title.SDEZ.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aminos.Controllers.Title.SDEZ

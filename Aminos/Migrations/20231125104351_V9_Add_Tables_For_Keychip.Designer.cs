@@ -20,7 +20,7 @@ namespace Aminos.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
 
-            modelBuilder.Entity("Aminos.Models.General.Tables.Card", b =>
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.Card", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace Aminos.Migrations
                     b.ToTable("General.Cards");
                 });
 
-            modelBuilder.Entity("Aminos.Models.General.Tables.Keychip", b =>
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.Keychip", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -81,7 +81,7 @@ namespace Aminos.Migrations
                     b.ToTable("General.Keychips");
                 });
 
-            modelBuilder.Entity("Aminos.Models.General.Tables.UserAccount", b =>
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.UserAccount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -104,23 +104,23 @@ namespace Aminos.Migrations
                     b.ToTable("General.UserAccounts");
                 });
 
-            modelBuilder.Entity("Aminos.Models.General.Tables.Card", b =>
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.Card", b =>
                 {
-                    b.HasOne("Aminos.Models.General.Tables.UserAccount", null)
+                    b.HasOne("Aminos.Core.Models.General.Tables.UserAccount", null)
                         .WithMany("Cards")
                         .HasForeignKey("UserAccountId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.General.Tables.Keychip", b =>
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.Keychip", b =>
                 {
-                    b.HasOne("Aminos.Models.General.Tables.UserAccount", "Owner")
+                    b.HasOne("Aminos.Core.Models.General.Tables.UserAccount", "Owner")
                         .WithMany("Keychips")
                         .HasForeignKey("OwnerId");
 
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Aminos.Models.General.Tables.UserAccount", b =>
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.UserAccount", b =>
                 {
                     b.Navigation("Cards");
 

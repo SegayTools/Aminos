@@ -1,5 +1,6 @@
-﻿using Aminos.Models.Billing.Requests;
-using Aminos.Models.Billing.Responses;
+﻿using Aminos.Core.Models.Billing.Requests;
+using Aminos.Core.Models.Billing.Responses;
+using Aminos.Core.Utils.MethodExtensions;
 using Aminos.Utils;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.AspNetCore.Mvc;

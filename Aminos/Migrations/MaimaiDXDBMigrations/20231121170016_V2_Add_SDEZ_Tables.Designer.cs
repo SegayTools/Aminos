@@ -20,7 +20,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Responses.UserFriendSeasonRanking", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Responses.UserFriendSeasonRanking", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -38,7 +38,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserFriendSeasonRankings");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.GameCharge", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.GameCharge", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,7 +66,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_GameCharges");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.GameEvent", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.GameEvent", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,7 +92,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_GameEvents");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.GameRanking", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.GameRanking", b =>
                 {
                     b.Property<long>("id")
                         .ValueGeneratedOnAdd()
@@ -111,7 +111,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_GameRankings");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.User2pPlaylogDetail", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.User2pPlaylogDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,7 +149,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_User2pPlaylogDetails");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserAct", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserAct", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -194,7 +194,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserActs");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserActivity", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserActivity", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -207,7 +207,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserActivities");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserCard", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserCard", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,7 +243,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserCards");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserCharacter", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserCharacter", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -273,7 +273,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserCharacters");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserCharge", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserCharge", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -303,7 +303,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserCharges");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserChargelog", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserChargelog", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -345,7 +345,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserChargelogs");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserCourse", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserCourse", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -399,7 +399,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserCourses");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserDetail", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -663,7 +663,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserDetails");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserExtend", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserExtend", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -718,7 +718,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserExtends");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserFavorite", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserFavorite", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -746,7 +746,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserFavorites");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserFavoriteItem", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserFavoriteItem", b =>
                 {
                     b.Property<int>("UserFavoriteItemId")
                         .ValueGeneratedOnAdd()
@@ -771,7 +771,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserFavoriteItems");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserGamePlaylog", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserGamePlaylog", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -829,7 +829,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserGamePlaylogs");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserItem", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserItem", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -859,7 +859,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserItems");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserLoginBonus", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserLoginBonus", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -889,7 +889,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserLoginBonuses");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserMap", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserMap", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -922,7 +922,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserMaps");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserMusicDetail", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserMusicDetail", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -967,7 +967,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserMusicDetails");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserOption", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserOption", b =>
                 {
                     b.Property<uint>("Id")
                         .ValueGeneratedOnAdd()
@@ -1124,7 +1124,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserOptions");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserPlaylog", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserPlaylog", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -1466,7 +1466,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserPlaylogs");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserRate", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRate", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -1511,7 +1511,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserRates");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserRating", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -1532,7 +1532,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserRatings");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserRegion", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRegion", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -1559,7 +1559,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserRegions");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserScoreRanking", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserScoreRanking", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -1589,7 +1589,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserScoreRankings");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserUdemae", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserUdemae", b =>
                 {
                     b.Property<ulong>("Id")
                         .ValueGeneratedOnAdd()
@@ -1650,20 +1650,20 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserUdemaes");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Responses.UserFriendSeasonRanking", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Responses.UserFriendSeasonRanking", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserFriendSeasonRankings")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.User2pPlaylogDetail", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.User2pPlaylogDetail", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", "UserDetail1")
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", "UserDetail1")
                         .WithMany()
                         .HasForeignKey("UserDetail1Id");
 
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", "UserDetail2")
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", "UserDetail2")
                         .WithMany()
                         .HasForeignKey("UserDetail2Id");
 
@@ -1672,67 +1672,67 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.Navigation("UserDetail2");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserAct", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserAct", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserActivity", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserActivity", null)
                         .WithMany("musicList")
                         .HasForeignKey("UserActivityId");
 
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserActivity", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserActivity", null)
                         .WithMany("playList")
                         .HasForeignKey("UserActivityId1");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserCard", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserCard", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserCards")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserCharacter", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserCharacter", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserCharacters")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserCharge", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserCharge", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserCharges")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserChargelog", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserChargelog", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserChargelogs")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserCourse", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserCourse", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserCourses")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserDetail", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserActivity", "UserActivity")
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserActivity", "UserActivity")
                         .WithMany()
                         .HasForeignKey("UserActivityId");
 
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserExtend", "UserExtend")
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserExtend", "UserExtend")
                         .WithMany()
                         .HasForeignKey("UserExtendId");
 
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserOption", "UserOption")
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserOption", "UserOption")
                         .WithMany()
                         .HasForeignKey("UserOptionId");
 
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserRating", "UserRating")
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", "UserRating")
                         .WithMany()
                         .HasForeignKey("UserRatingId");
 
@@ -1745,112 +1745,112 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.Navigation("UserRating");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserFavorite", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserFavorite", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserFavorites")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserFavoriteItem", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserFavoriteItem", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserFavoriteItems")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserGamePlaylog", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserGamePlaylog", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserGamePlaylogs")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserItem", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserItem", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserItems")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserLoginBonus", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserLoginBonus", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserLoginBonuses")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserMap", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserMap", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserMaps")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserMusicDetail", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserMusicDetail", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserMusicDetails")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserPlaylog", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserPlaylog", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserPlaylogs")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserRate", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRate", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserRating", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", null)
                         .WithMany("newRatingList")
                         .HasForeignKey("UserRatingId");
 
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserRating", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", null)
                         .WithMany("nextNewRatingList")
                         .HasForeignKey("UserRatingId1");
 
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserRating", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", null)
                         .WithMany("nextRatingList")
                         .HasForeignKey("UserRatingId2");
 
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserRating", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", null)
                         .WithMany("ratingList")
                         .HasForeignKey("UserRatingId3");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserRating", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserUdemae", "udemae")
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserUdemae", "udemae")
                         .WithMany()
                         .HasForeignKey("udemaeId");
 
                     b.Navigation("udemae");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserRegion", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRegion", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserRegions")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserScoreRanking", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserScoreRanking", b =>
                 {
-                    b.HasOne("Aminos.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserScoreRankings")
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserActivity", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserActivity", b =>
                 {
                     b.Navigation("musicList");
 
                     b.Navigation("playList");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserDetail", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", b =>
                 {
                     b.Navigation("UserCards");
 
@@ -1885,7 +1885,7 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.Navigation("UserScoreRankings");
                 });
 
-            modelBuilder.Entity("Aminos.Models.Title.SDEZ.Tables.UserRating", b =>
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", b =>
                 {
                     b.Navigation("newRatingList");
 

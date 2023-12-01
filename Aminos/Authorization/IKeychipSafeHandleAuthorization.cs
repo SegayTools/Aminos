@@ -1,4 +1,4 @@
-﻿using Aminos.Models.General.Tables;
+﻿using Aminos.Core.Models.General.Tables;
 using Microsoft.AspNetCore.Identity;
 
 namespace Aminos.Authorization

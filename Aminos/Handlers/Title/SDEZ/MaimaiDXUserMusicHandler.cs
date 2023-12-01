@@ -1,7 +1,7 @@
 ﻿using Aminos.Databases.Title.SDEZ;
-using Aminos.Services.Injections.Attrbutes;
-using Aminos.Models.Title.SDEZ.Requests;
-using Aminos.Models.Title.SDEZ.Responses;
+using Aminos.Core.Services.Injections.Attrbutes;
+using Aminos.Core.Models.Title.SDEZ.Requests;
+using Aminos.Core.Models.Title.SDEZ.Responses;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Handlers.Title.SDEZ

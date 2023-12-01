@@ -1,10 +1,11 @@
 ﻿using Aminos.Authorization;
 using Aminos.Databases;
-using Aminos.Models.AllNet.Requests;
-using Aminos.Models.AllNet.Responses;
-using Aminos.Models.General.Tables;
-using Aminos.Services.Injections.Attrbutes;
+using Aminos.Core.Models.AllNet.Requests;
+using Aminos.Core.Models.AllNet.Responses;
+using Aminos.Core.Models.General.Tables;
+using Aminos.Core.Services.Injections.Attrbutes;
 using Aminos.Utils;
+using Aminos.Core.Models.General;
 
 namespace Aminos.Handlers.AllNet.Default
 {
@@ -88,12 +89,12 @@ namespace Aminos.Handlers.AllNet.Default
 			};
 		}
 
-		private async ValueTask<bool> CheckKeychipIfValid(Keychip keychip)
+		private ValueTask<bool> CheckKeychipIfValid(Keychip keychip)
 		{
 			if (keychip is null)
-				return false;
+				return ValueTask.FromResult(false);
 
-			return keychip.Enable;
+			return ValueTask.FromResult(keychip.Enable);
 		}
 	}
 }

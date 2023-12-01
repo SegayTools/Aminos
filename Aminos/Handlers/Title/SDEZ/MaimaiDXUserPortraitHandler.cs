@@ -1,8 +1,8 @@
 ﻿using Aminos.Databases.Title.SDEZ;
-using Aminos.Services.Injections.Attrbutes;
-using Aminos.Models.Title.SDEZ;
-using Aminos.Models.Title.SDEZ.Requests;
-using Aminos.Models.Title.SDEZ.Responses;
+using Aminos.Core.Services.Injections.Attrbutes;
+using Aminos.Core.Models.Title.SDEZ;
+using Aminos.Core.Models.Title.SDEZ.Requests;
+using Aminos.Core.Models.Title.SDEZ.Responses;
 using Aminos.Services.Files;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +10,12 @@ using Microsoft.Extensions.FileProviders;
 using System.Buffers;
 using System.Text;
 using System.Text.Json;
+using Aminos.Core.Models.Title.SDEZ.Tables;
+using Aminos.Core.Utils.MethodExtensions;
 
 namespace Aminos.Handlers.Title.SDEZ
 {
-    [RegisterInjectable(typeof(MaimaiDXUserPortraitHandler))]
+	[RegisterInjectable(typeof(MaimaiDXUserPortraitHandler))]
 	public class MaimaiDXUserPortraitHandler
 	{
 		private readonly ILogger<MaimaiDXUserPortraitHandler> logger;
@@ -92,6 +94,12 @@ namespace Aminos.Handlers.Title.SDEZ
 			};
 		}
 
+		private string GetUserPortraitImageFile(ulong userId)
+		{
+			var filePath = Path.Combine(pictureSaveFolderPath, userId + "-up.jpg");
+			return filePath;
+		}
+
 		public async ValueTask<GetUserPortraitResponseVO> GetUserPortrait(GetUserPortraitRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == request.userId);
@@ -99,7 +107,7 @@ namespace Aminos.Handlers.Title.SDEZ
 			var response = new GetUserPortraitResponseVO();
 			var list = new List<UserPortrait>();
 
-			var filePath = Path.Combine(pictureSaveFolderPath, userDetail.Id + "-up.jpg");
+			var filePath = GetUserPortraitImageFile(userDetail.Id);
 			var templateJsonFilePath = Path.Combine(pictureSaveFolderPath, userDetail.Id + "-up.json");
 
 			if (File.Exists(filePath))
@@ -140,6 +148,16 @@ namespace Aminos.Handlers.Title.SDEZ
 			response.length = list.Count;
 
 			return response;
+		}
+
+		public async ValueTask<byte[]> GetUserPortraitImageData(ulong targetUserId)
+		{
+			var filePath = GetUserPortraitImageFile(targetUserId);
+
+			if (File.Exists(filePath))
+				return await File.ReadAllBytesAsync(filePath);
+
+			return default;
 		}
 	}
 }

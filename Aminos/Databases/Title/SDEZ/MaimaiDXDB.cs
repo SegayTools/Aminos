@@ -1,4 +1,4 @@
-﻿using Aminos.Models.Title.SDEZ.Tables;
+﻿using Aminos.Core.Models.Title.SDEZ.Tables;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Logging;

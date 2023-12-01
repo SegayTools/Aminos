@@ -1,10 +1,11 @@
 ﻿using Aminos.Handlers.AllNet;
-using Aminos.Models.AllNet.Requests;
-using Aminos.Models.AllNet.Responses;
+using Aminos.Core.Models.AllNet.Requests;
+using Aminos.Core.Models.AllNet.Responses;
 using Aminos.Utils;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using Aminos.Core.Utils.MethodExtensions;
 
 namespace Aminos.Controllers.AllNet
 {

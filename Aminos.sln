@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34302.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aminos", "Aminos\Aminos.csproj", "{A8CC6B21-536A-4FD5-8B6B-73B529EE6DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aminos", "Aminos\Aminos.csproj", "{A8CC6B21-536A-4FD5-8B6B-73B529EE6DBB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AminosUI", "AminosUI\AminosUI.csproj", "{EAEBFBAE-5C2A-4B97-A8E8-35BB3C47DE01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AminosUI.Android", "AminosUI.Android\AminosUI.Android.csproj", "{C5F139AF-8C15-4204-BFD8-BC511DAFCEBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AminosUI.Desktop", "AminosUI.Desktop\AminosUI.Desktop.csproj", "{0E5F7F48-098A-459F-91E8-13CD92444CAD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AminosUI.Browser", "AminosUI.Browser\AminosUI.Browser.csproj", "{788A2976-D36C-423D-8D3B-9AB5651C0944}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aminos.Core", "Aminos.Core\Aminos.Core.csproj", "{E8E69789-8094-450B-BA57-D5BA2EC59816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +25,28 @@ Global
 		{A8CC6B21-536A-4FD5-8B6B-73B529EE6DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8CC6B21-536A-4FD5-8B6B-73B529EE6DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8CC6B21-536A-4FD5-8B6B-73B529EE6DBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAEBFBAE-5C2A-4B97-A8E8-35BB3C47DE01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAEBFBAE-5C2A-4B97-A8E8-35BB3C47DE01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAEBFBAE-5C2A-4B97-A8E8-35BB3C47DE01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAEBFBAE-5C2A-4B97-A8E8-35BB3C47DE01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F139AF-8C15-4204-BFD8-BC511DAFCEBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5F139AF-8C15-4204-BFD8-BC511DAFCEBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5F139AF-8C15-4204-BFD8-BC511DAFCEBC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C5F139AF-8C15-4204-BFD8-BC511DAFCEBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5F139AF-8C15-4204-BFD8-BC511DAFCEBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5F139AF-8C15-4204-BFD8-BC511DAFCEBC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0E5F7F48-098A-459F-91E8-13CD92444CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E5F7F48-098A-459F-91E8-13CD92444CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E5F7F48-098A-459F-91E8-13CD92444CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E5F7F48-098A-459F-91E8-13CD92444CAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{788A2976-D36C-423D-8D3B-9AB5651C0944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{788A2976-D36C-423D-8D3B-9AB5651C0944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{788A2976-D36C-423D-8D3B-9AB5651C0944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{788A2976-D36C-423D-8D3B-9AB5651C0944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8E69789-8094-450B-BA57-D5BA2EC59816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8E69789-8094-450B-BA57-D5BA2EC59816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8E69789-8094-450B-BA57-D5BA2EC59816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8E69789-8094-450B-BA57-D5BA2EC59816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

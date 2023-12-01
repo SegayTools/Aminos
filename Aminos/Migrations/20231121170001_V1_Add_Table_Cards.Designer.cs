@@ -20,7 +20,7 @@ namespace Aminos.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
 
-            modelBuilder.Entity("Aminos.Models.General.Tables.Card", b =>
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.Card", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

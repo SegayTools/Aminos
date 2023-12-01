@@ -1,7 +1,7 @@
-﻿using Aminos.Services.Injections.Attrbutes;
-using Aminos.Models.Title.SDEZ.Requests;
-using Aminos.Models.Title.SDEZ.Responses;
-using Aminos.Models.Title.SDEZ.Tables;
+﻿using Aminos.Core.Services.Injections.Attrbutes;
+using Aminos.Core.Models.Title.SDEZ.Requests;
+using Aminos.Core.Models.Title.SDEZ.Responses;
+using Aminos.Core.Models.Title.SDEZ.Tables;
 
 namespace Aminos.Handlers.Title.SDEZ
 {

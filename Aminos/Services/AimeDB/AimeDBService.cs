@@ -1,4 +1,4 @@
-﻿using Aminos.Models.AimeDB;
+﻿using Aminos.Core.Models.AimeDB;
 using Aminos.Services.AimeDB.CommandHandlers;
 using Aminos.Services.AimeDB.Streams;
 using Microsoft.Extensions.Logging;

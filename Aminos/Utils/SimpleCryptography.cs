@@ -1,4 +1,5 @@
-﻿using Aminos.Utils.MethodExtensions;
+﻿using Aminos.Core.Utils.MethodExtensions;
+using Aminos.Utils.MethodExtensions;
 using System.Security.Cryptography;
 using System.Text;
 

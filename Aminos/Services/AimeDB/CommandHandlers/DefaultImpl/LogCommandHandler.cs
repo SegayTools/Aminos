@@ -1,5 +1,5 @@
-﻿using Aminos.Services.Injections.Attrbutes;
-using Aminos.Models.AimeDB;
+﻿using Aminos.Core.Services.Injections.Attrbutes;
+using Aminos.Core.Models.AimeDB;
 using Aminos.Services.AimeDB.Streams;
 
 namespace Aminos.Services.AimeDB.CommandHandlers.DefaultImpl

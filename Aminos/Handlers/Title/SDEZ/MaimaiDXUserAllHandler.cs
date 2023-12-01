@@ -1,10 +1,10 @@
 ﻿using Aminos.Databases;
 using Aminos.Databases.Title.SDEZ;
-using Aminos.Services.Injections.Attrbutes;
-using Aminos.Models.General.Tables;
-using Aminos.Models.Title.SDEZ.Requests;
-using Aminos.Models.Title.SDEZ.Responses;
-using Aminos.Models.Title.SDEZ.Tables;
+using Aminos.Core.Services.Injections.Attrbutes;
+using Aminos.Core.Models.General.Tables;
+using Aminos.Core.Models.Title.SDEZ.Requests;
+using Aminos.Core.Models.Title.SDEZ.Responses;
+using Aminos.Core.Models.Title.SDEZ.Tables;
 using Aminos.Utils.MethodExtensions;
 using Microsoft.EntityFrameworkCore;
 

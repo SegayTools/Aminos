@@ -1,4 +1,5 @@
-﻿using Aminos.Models.AimeDB;
+﻿using Aminos.Core.Models.AimeDB;
+using Aminos.Core.Utils.MethodExtensions;
 using Aminos.Utils.MethodExtensions;
 using System.Buffers;
 using System.Linq;

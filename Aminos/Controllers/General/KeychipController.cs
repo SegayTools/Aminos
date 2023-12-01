@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.RateLimiting;
 
 namespace Aminos.Controllers.General
 {
-	[Route("api/Keychip")]
+    [Route("api/Keychip")]
 	[ApiController]
 	[Authorize(AuthRolePolicyString.AdminRole)]
-	public class KeychipController : GeneralAPIControllerBase
+	public class KeychipController : CommonWebAPIControllerBase
 	{
 		private readonly GeneralKeychipHandler handler;
 

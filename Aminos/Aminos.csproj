@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -8,12 +8,16 @@
   <ItemGroup>
     <Compile Remove="data\**" />
     <Compile Remove="logs\**" />
+    <Compile Remove="Models\**" />
     <Content Remove="data\**" />
     <Content Remove="logs\**" />
+    <Content Remove="Models\**" />
     <EmbeddedResource Remove="data\**" />
     <EmbeddedResource Remove="logs\**" />
+    <EmbeddedResource Remove="Models\**" />
     <None Remove="data\**" />
     <None Remove="logs\**" />
+    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,8 +50,10 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Models\AimeDB\Requests\" />
-    <Folder Include="Models\General\Responses\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aminos.Core\Aminos.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿using Aminos.Services.Injections.Attrbutes;
+﻿using Aminos.Core.Services.Injections.Attrbutes;
 using Aminos.Services.Files;
 
 namespace Aminos.Services.Files.DefaultImpls

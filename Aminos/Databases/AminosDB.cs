@@ -1,5 +1,5 @@
 ﻿using Aminos.Databases.Title.SDEZ;
-using Aminos.Models.General.Tables;
+using Aminos.Core.Models.General.Tables;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
