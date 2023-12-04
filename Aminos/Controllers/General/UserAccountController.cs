@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.RateLimiting;
 
 namespace Aminos.Controllers.General
 {
-    [Route("api/Account")]
+	[Route("api/Account")]
 	[ApiController]
 	public class UserAccountController : CommonWebAPIControllerBase
 	{
@@ -40,11 +40,18 @@ namespace Aminos.Controllers.General
 		}
 
 		[HttpPost("UpdatePassword")]
-		public async ValueTask<IActionResult> UpdatePassword([FromForm] string newPasswordHash)
+		public async ValueTask<IActionResult> UpdatePassword([FromForm] string newPasswordHash, [FromForm] string token)
 		{
 			var user = await GetCurrentRequestUser();
 
-			var result = await handler.UpdatePassword(user, newPasswordHash);
+			var result = await handler.UpdatePassword(user, newPasswordHash, token);
+			return Json(result);
+		}
+
+		[HttpPost("SendToken")]
+		public async ValueTask<IActionResult> SendToken([FromForm] string email)
+		{
+			var result = await handler.SendToken(email);
 			return Json(result);
 		}
 
@@ -63,6 +70,15 @@ namespace Aminos.Controllers.General
 			var user = await GetCurrentRequestUser();
 
 			var result = await handler.Get(user);
+			return Json(result);
+		}
+
+		[HttpGet("GetActivities")]
+		public async ValueTask<IActionResult> GetActivities([FromQuery] int takeCount, [FromQuery] int skipCount)
+		{
+			var user = await GetCurrentRequestUser();
+
+			var result = await handler.GetActivities(user, skipCount, takeCount);
 			return Json(result);
 		}
 

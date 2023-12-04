@@ -1,65 +1,66 @@
-﻿using Aminos.Core.Services.Injections;
+﻿using System;
+using Aminos.Core.Services.Injections;
 using AminosUI.ViewModels;
 using AminosUI.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Notification;
-using Avalonia.Notification.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace AminosUI;
 
-public partial class App : Application
+public class App : Application
 {
-	private IServiceProvider serviceProvider;
-	public IServiceProvider Service => serviceProvider;
+    public IServiceProvider RootServiceProvider { get; private set; }
 
-	public override void Initialize()
-	{
-		AvaloniaXamlLoader.Load(this);
-	}
+    public override void Initialize()
+    {
+        AvaloniaXamlLoader.Load(this);
+    }
 
-	public override void OnFrameworkInitializationCompleted()
-	{
-		InitServiceProvider();
+    public override void OnFrameworkInitializationCompleted()
+    {
+        InitServiceProvider();
+        var mainViewModel = ActivatorUtilities.CreateInstance<MainViewModel>(RootServiceProvider);
 
-		if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-		{
-			desktop.MainWindow = new MainWindow
-			{
-				DataContext = ActivatorUtilities.CreateInstance<MainViewModel>(Service)
-			};
-		}
-		else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-		{
-			singleViewPlatform.MainView = new MainView
-			{
-				DataContext = ActivatorUtilities.CreateInstance<MainViewModel>(Service)
-			};
-		}
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            desktop.MainWindow = new MainWindow
+            {
+                DataContext = mainViewModel
+            };
+        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
+            singleViewPlatform.MainView = new MainView
+            {
+                DataContext = mainViewModel
+            };
 
-		base.OnFrameworkInitializationCompleted();
-	}
+        base.OnFrameworkInitializationCompleted();
+    }
 
-	private void InitServiceProvider()
-	{
-		if (Service is not null)
-			throw new Exception("InitServiceProvider() has been called.");
+    private void InitServiceProvider()
+    {
+        if (RootServiceProvider is not null)
+            throw new Exception("InitServiceProvider() has been called.");
 
-		var serviceCollection = new ServiceCollection();
+        var serviceCollection = new ServiceCollection();
 
-		serviceCollection.AddLogging(o =>
-		{
-			o.AddDebug();
-			o.SetMinimumLevel(LogLevel.Debug);
-		});
-		serviceCollection.AddHttpClient();
-		serviceCollection.AddInjectsByAttributes(typeof(App).Assembly);
-		serviceCollection.AddSingleton<INotificationMessageManager, NotificationMessageManager>();
+        serviceCollection.AddLogging(o =>
+        {
+            o.AddDebug();
+            o.SetMinimumLevel(LogLevel.Debug);
+        });
+        serviceCollection.AddHttpClient();
+        serviceCollection.AddKeyedScoped<IServiceCollection>("AppBuild", (provider, o) =>
+        {
+            if (o is string key && key == "AppBuild")
+                return serviceCollection;
+            throw new Exception("Not allow get IServiceCollection objects.");
+        });
+        serviceCollection.AddInjectsByAttributes(typeof(App).Assembly);
+        serviceCollection.AddSingleton<INotificationMessageManager, NotificationMessageManager>();
 
-		serviceProvider = serviceCollection.BuildServiceProvider();
-	}
+        RootServiceProvider = serviceCollection.BuildServiceProvider();
+    }
 }

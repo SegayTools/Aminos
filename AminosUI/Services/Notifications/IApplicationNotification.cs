@@ -11,10 +11,11 @@ namespace AminosUI.Services.Notifications
 	public interface IApplicationNotification
 	{
 		INotificationMessageManager MessageManager { get; }
-		IDisposable ShowLoadingNotification(string message, out CancellationToken cancellationToken);
+		IDisposable BeginLoadingNotification(string message, out CancellationToken cancellationToken);
 
 		void ShowInfomation(string message);
 		void ShowWarnning(string message);
 		void ShowError(Exception e, string message);
+		void ShowError(string message);
 	}
 }

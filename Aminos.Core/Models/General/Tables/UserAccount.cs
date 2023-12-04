@@ -12,6 +12,8 @@ namespace Aminos.Core.Models.General.Tables
 		public virtual ICollection<Card> Cards { get; set; } = new List<Card>();
 		[JsonIgnore]
 		public virtual ICollection<Keychip> Keychips { get; set; } = new List<Keychip>();
+		[JsonIgnore]
+		public virtual ICollection<Activity> Activities { get; set; } = new List<Activity>();
 
 		[Key]
 		public Guid Id { get; set; }
@@ -24,6 +26,8 @@ namespace Aminos.Core.Models.General.Tables
 		public DateTime RegisterDate { get; set; }
 
 		public DateTime LastLoginWebDate { get; set; }
+		
+		public DateTime LastPlayDate { get; set; }
 
 		public AuthRolePolicy Role { get; set; }
 

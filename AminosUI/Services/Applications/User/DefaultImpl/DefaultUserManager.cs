@@ -1,56 +1,108 @@
-﻿using Aminos.Core.Models.General;
+﻿using System;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Aminos.Core.Models.General;
 using Aminos.Core.Models.General.Tables;
-using Aminos.Core.Models.Title.SDEZ.Tables;
 using Aminos.Core.Services.Injections.Attrbutes;
 using AminosUI.Services.Applications.Network;
 using AminosUI.Utils.MethodExtensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Intrinsics.Arm;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace AminosUI.Services.Applications.User.DefaultImpl
+namespace AminosUI.Services.Applications.User.DefaultImpl;
+
+[RegisterInjectable(typeof(IUserManager), ServiceLifetime.Singleton)]
+internal class DefaultUserManager : IUserManager
 {
-	[RegisterInjectable(typeof(IUserManager))]
-	internal class DefaultUserManager : IUserManager
-	{
-		private readonly IApplicationHttpFactory applicationHttpFactory;
-		private readonly MD5 md5;
+    private readonly IApplicationHttpFactory applicationHttpFactory;
+    private readonly MD5 md5;
 
-		public UserAccount CurrentUser => throw new NotImplementedException();
+    public DefaultUserManager(IApplicationHttpFactory applicationHttpFactory)
+    {
+        this.applicationHttpFactory = applicationHttpFactory;
+        md5 = MD5.Create();
+    }
 
-		public DefaultUserManager(IApplicationHttpFactory applicationHttpFactory)
-		{
-			this.applicationHttpFactory = applicationHttpFactory;
-			md5 = MD5.Create();
-		}
+    public UserAccount CurrentUser { get; private set; }
 
-		public async ValueTask<bool> Login(string username, string password)
-		{
-			var passwordHash = HashPassword(password);
+    public async ValueTask<CommonApiResponse> Login(string username, string password,
+        CancellationToken cancellationToken)
+    {
+        var passwordHash = HashPassword(password);
 
-			var resp = await applicationHttpFactory.Post<CommonApiResponse>("api/Account/Login", new
-			{
-				passwordHash,
-				username
-			});
+        var resp = await applicationHttpFactory.PostAsCommonApi<UserAccount>("api/Account/Login", new
+        {
+            passwordHash,
+            username
+        }, cancellationToken);
 
-			return resp.isSuccess;
-		}
+        if (resp.isSuccess)
+            CurrentUser = resp.obj;
 
-		private string HashPassword(string password)
-		{
-			return Convert.ToHexString(md5.ComputeHash(Encoding.UTF8.GetBytes(password + "2857")));
-		}
+        return resp;
+    }
 
-		public async ValueTask<bool> Logout()
-		{
-			var resp = await applicationHttpFactory.Post<CommonApiResponse>("api/Account/Logout");
+    public async ValueTask<CommonApiResponse> Logout(CancellationToken cancellationToken)
+    {
+        var resp = await applicationHttpFactory.PostAsCommonApi("api/Account/Logout", default,
+            cancellationToken);
 
-			return resp.isSuccess;
-		}
-	}
+        if (resp.isSuccess)
+        {
+            CurrentUser = default;
+            applicationHttpFactory.ResetAll();
+        }
+
+        return resp;
+    }
+
+    public async ValueTask<CommonApiResponse> Register(string userName, string password, string email,
+        CancellationToken cancellation)
+    {
+        var passwordHash = HashPassword(password);
+
+        var resp = await applicationHttpFactory.PostAsCommonApi("api/Account/Register", new
+        {
+            userName,
+            passwordHash,
+            email
+        }, cancellation);
+
+        if (resp.isSuccess)
+        {
+            CurrentUser = default;
+            applicationHttpFactory.ResetAll();
+        }
+
+        return resp;
+    }
+
+    public async ValueTask<CommonApiResponse> ResetPassword(string newPassword, CancellationToken cancellation)
+    {
+        var passwordHash = HashPassword(newPassword);
+
+        var resp = await applicationHttpFactory.PostAsCommonApi("api/Account/UpdatePassword", new
+        {
+            newPasswordHash = passwordHash
+        }, cancellation);
+
+        if (resp.isSuccess)
+        {
+            CurrentUser = default;
+            applicationHttpFactory.ResetAll();
+        }
+
+        return resp;
+    }
+
+    public async ValueTask<CommonApiResponse> SendToken(string email, CancellationToken cancellation)
+    {
+        throw new NotImplementedException();
+    }
+
+    private string HashPassword(string password)
+    {
+        return Convert.ToHexString(md5.ComputeHash(Encoding.UTF8.GetBytes(password + "2857")));
+    }
 }

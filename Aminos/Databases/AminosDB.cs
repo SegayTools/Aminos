@@ -7,16 +7,15 @@ namespace Aminos.Databases
 {
 	public class AminosDB : DbContext
 	{
-		private readonly ILogger logger;
-
-		public AminosDB(ILoggerFactory loggerFactory, DbContextOptions<AminosDB> options) : base(options)
+		public AminosDB(DbContextOptions<AminosDB> options) : base(options)
 		{
-			logger = loggerFactory.CreateLogger<AminosDB>();
+
 		}
 
 		public DbSet<Card> Cards { get; set; }
 		public DbSet<UserAccount> UserAccounts { get; set; }
 		public DbSet<Keychip> Keychips { get; set; }
+		public DbSet<Announcement> Announcements { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

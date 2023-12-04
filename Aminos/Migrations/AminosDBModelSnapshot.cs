@@ -15,7 +15,67 @@ namespace Aminos.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "7.0.14")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true);
+
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.Activity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("UserAccountId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("UserAccountId");
+
+                    b.ToTable("General.Activities");
+                });
+
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.Announcement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("UserAccountId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("UserAccountId");
+
+                    b.ToTable("General.Announcements");
+                });
 
             modelBuilder.Entity("Aminos.Core.Models.General.Tables.Card", b =>
                 {
@@ -90,6 +150,9 @@ namespace Aminos.Migrations
                     b.Property<DateTime>("LastLoginWebDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("LastPlayDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -105,6 +168,22 @@ namespace Aminos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("General.UserAccounts");
+                });
+
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.Activity", b =>
+                {
+                    b.HasOne("Aminos.Core.Models.General.Tables.UserAccount", null)
+                        .WithMany("Activities")
+                        .HasForeignKey("UserAccountId");
+                });
+
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.Announcement", b =>
+                {
+                    b.HasOne("Aminos.Core.Models.General.Tables.UserAccount", "UserAccount")
+                        .WithMany()
+                        .HasForeignKey("UserAccountId");
+
+                    b.Navigation("UserAccount");
                 });
 
             modelBuilder.Entity("Aminos.Core.Models.General.Tables.Card", b =>
@@ -125,6 +204,8 @@ namespace Aminos.Migrations
 
             modelBuilder.Entity("Aminos.Core.Models.General.Tables.UserAccount", b =>
                 {
+                    b.Navigation("Activities");
+
                     b.Navigation("Cards");
 
                     b.Navigation("Keychips");
