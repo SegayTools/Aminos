@@ -1,5 +1,7 @@
 ﻿using System;
 using Aminos.Core.Services.Injections;
+using AminosUI.Utils.MethodExtensions;
+using AminosUI.ValueConverters;
 using AminosUI.ViewModels;
 using AminosUI.Views;
 using Avalonia;
@@ -23,6 +25,8 @@ public class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         InitServiceProvider();
+        Resources["ApplicationUrlConverter"] =
+            ActivatorUtilities.CreateInstance<ApplicationUrlConverter>(RootServiceProvider);
         var mainViewModel = ActivatorUtilities.CreateInstance<MainViewModel>(RootServiceProvider);
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -45,21 +49,21 @@ public class App : Application
             throw new Exception("InitServiceProvider() has been called.");
 
         var serviceCollection = new ServiceCollection();
-
         serviceCollection.AddLogging(o =>
         {
             o.AddDebug();
             o.SetMinimumLevel(LogLevel.Debug);
         });
-        serviceCollection.AddHttpClient();
-        serviceCollection.AddKeyedScoped<IServiceCollection>("AppBuild", (provider, o) =>
+        serviceCollection.AddKeyedScoped("AppBuild", (provider, o) =>
         {
             if (o is string key && key == "AppBuild")
                 return serviceCollection;
             throw new Exception("Not allow get IServiceCollection objects.");
         });
+
         serviceCollection.AddInjectsByAttributes(typeof(App).Assembly);
         serviceCollection.AddSingleton<INotificationMessageManager, NotificationMessageManager>();
+        AppBuilderMethodExtensions.AppBuilderStatic.injectConfigFunc?.Invoke(serviceCollection);
 
         RootServiceProvider = serviceCollection.BuildServiceProvider();
     }

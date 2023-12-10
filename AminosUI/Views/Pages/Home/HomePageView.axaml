@@ -1,0 +1,140 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AminosUI.ViewModels.Pages.Home"
+             xmlns:valueConverters="clr-namespace:AminosUI.ValueConverters"
+             xmlns:ic="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
+             x:DataType="vm:HomePageViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AminosUI.Views.Pages.Home.HomePageView">
+    <Design.DataContext>
+        <vm:HomePageViewModel />
+    </Design.DataContext>
+    <UserControl.Resources>
+        <valueConverters:ServerRunningTimeDisplayerConverter x:Key="ServerRunningTimeDisplayerConverter" />
+    </UserControl.Resources>
+
+    <Grid Margin="15" ColumnDefinitions="*,Auto">
+        <Grid>
+            <StackPanel>
+                <Border CornerRadius="15" Margin="5"
+                        Classes="ContentContainer">
+                    <WrapPanel>
+                        <Border Width="125" Height="100" Margin="10" CornerRadius="7" Classes="ContentContainer">
+                            <Grid RowDefinitions="*,Auto">
+                                <Label Grid.Row="0" MaxWidth="125" FontSize="20" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Content="{Binding ServerRunningStatisticItem.Value,Converter={StaticResource ServerRunningTimeDisplayerConverter}}" />
+                                <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal"
+                                            Margin="0,0,0,10">
+                                    <ic:SymbolIcon Symbol="Clock" FontSize="20" VerticalAlignment="Center" />
+                                    <Label Content="服务器已运行" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <Border Classes="ContentContainer" Width="125" Height="100" Margin="10" CornerRadius="7">
+                            <Grid RowDefinitions="*,Auto">
+                                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <Label MaxWidth="125" FontSize="20" FontWeight="Bold"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Content="{Binding UiVisitedStatisticItem.Value}" />
+                                    <Label MaxWidth="125" FontSize="20" FontWeight="Bold"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Content="次" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal"
+                                            Margin="0,0,0,10">
+                                    <ic:SymbolIcon Symbol="ArrowUpLeft" FontSize="18" VerticalAlignment="Center" />
+                                    <Label Content="总访问次数" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <Border Classes="ContentContainer" Width="125" Height="100" Margin="10" CornerRadius="7">
+                            <Grid RowDefinitions="*,Auto">
+                                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <Label MaxWidth="125" FontSize="20" FontWeight="Bold"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Content="{Binding UserRegisteredStatisticItem.Value}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal"
+                                            Margin="0,0,0,10">
+                                    <ic:SymbolIcon Symbol="CalendarAdd" FontSize="20" VerticalAlignment="Center" />
+                                    <Label Content="已注册用户" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <Border Classes="ContentContainer" Width="125" Height="100" Margin="10" CornerRadius="7">
+                            <Grid RowDefinitions="*,Auto">
+                                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <Label MaxWidth="125" FontSize="20" FontWeight="Bold"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Content="{Binding UserRecentStatisticItem.Value}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal"
+                                            Margin="0,0,0,10">
+                                    <ic:SymbolIcon Symbol="Guardian" FontSize="20" VerticalAlignment="Center" />
+                                    <Label Content="用户活跃数" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </WrapPanel>
+                </Border>
+                <Border
+                    Classes="ContentContainer" CornerRadius="15" Margin="5">
+                    <WrapPanel>
+                        <Border Width="125" Height="100" Margin="10" CornerRadius="7" Classes="ContentContainer">
+                            <Grid RowDefinitions="*,Auto">
+                                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <Label MaxWidth="125" FontSize="20" FontWeight="Bold"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Content="{Binding SdezUserOnlineStatisticItem.Value}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal"
+                                            Margin="0,0,0,10">
+                                    <ic:SymbolIcon Symbol="Person" FontSize="20" VerticalAlignment="Center" />
+                                    <Label Content="MaimaiDx在线" FontWeight="Bold" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </WrapPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" RowDefinitions="Auto,*">
+            <Border CornerRadius="15" Margin="5"
+                    Classes="ContentContainer" Width="250">
+                <StackPanel>
+                    <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
+                        <Svg Path="/Assets/bell-svgrepo-com.svg" Width="20" />
+                        <Label FontSize="18" Margin="0,0,0,-2" FontWeight="Bold" Content="更新公告" />
+                    </StackPanel>
+                    <ItemsControl Name="itemsControl" Margin="0,10,0,0" ItemsSource="{Binding Announcements}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10">
+                                    <Grid Margin="-4,0,0,0" ColumnDefinitions="*,Auto">
+                                        <Label Content="{Binding Time}" />
+                                        <Label Content="{Binding Author}" Grid.Column="1" />
+                                    </Grid>
+                                    <AccessText FontWeight="Bold" Text="{Binding Title}" Margin="0,2,0,0" Cursor="Hand">
+                                        <Interaction.Behaviors>
+                                            <EventTriggerBehavior EventName="Tapped">
+                                                <InvokeCommandAction
+                                                    Command="{Binding #itemsControl.DataContext.ClickAnnouncementCommand}"
+                                                    CommandParameter="{Binding .}" />
+                                            </EventTriggerBehavior>
+                                        </Interaction.Behaviors>
+                                    </AccessText>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,183 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AminosUI.ViewModels.Pages.MaimaiDx"
+             xmlns:controls="clr-namespace:AminosUI.Controls"
+             xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AminosUI.Views.Pages.MaimaiDx.HomePageView"
+             x:DataType="vm:HomePageViewModel">
+    <Design.DataContext>
+        <vm:HomePageViewModel />
+    </Design.DataContext>
+    <ScrollViewer>
+        <StackPanel HorizontalAlignment="Center">
+            <Grid ColumnDefinitions="*,Auto">
+                <StackPanel Background="Aqua" Margin="20" HorizontalAlignment="Center">
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*,*,*,*,*">
+                        <!---->
+                        <Label Content="玩家名称:" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        <Label Grid.Column="1" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"
+                               Content="{Binding UserDetail.userName}" />
+                        <!---->
+                        <Label Grid.Row="1" Content="游戏次数:" HorizontalAlignment="Right" />
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding UserDetail.playCount}" />
+
+                        <!---->
+                        <Label Grid.Row="2" Content="初次游玩:" HorizontalAlignment="Right" />
+                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding UserDetail.lastPlayDate}" />
+
+                        <!---->
+                        <Label Grid.Row="3" Content="Rating:" HorizontalAlignment="Right" />
+                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                            <Label Content="{Binding UserDetail.playerRating}" />
+                            <Label Content="(" />
+                            <Label Content="{Binding UserDetail.playerOldRating}" />
+                            <Label Content="+" />
+                            <Label Content="{Binding UserDetail.playerNewRating}" />
+                            <Label Content=")" />
+                        </StackPanel>
+                    </Grid> 
+                </StackPanel>
+                <Border Grid.Column="1" Margin="20" Background="Aquamarine">
+                    <Image Width="200"
+                           Source="{Binding Bitmap}"
+                           DataContext="{Binding UserDetail.charaSlot[0],Converter={StaticResource ApplicationUrlConverter},
+                           ConverterParameter=authAssets/SDEZ/assets/assetbundle/chara/UI_Chara_{6}.png}" />
+                </Border>
+            </Grid>
+            <Border Classes="ContentContainer">
+                <WrapPanel HorizontalAlignment="Center">
+                    <StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+                        <Label Content="账号状态:" />
+                        <Label Content="{Binding UserDetail.banState}" />
+                    </StackPanel>
+                    <StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+                        <Label Content="胜利次数/对战次数:" />
+                        <Label Content="{Binding UserDetail.winCount}" />
+                        <Label Content="/" />
+                        <Label Content="{Binding UserDetail.playVsCount}" />
+                    </StackPanel>
+                    <StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+                        <Label Content="拼机次数:" />
+                        <Label Content="{Binding UserDetail.playSyncCount}" />
+                    </StackPanel>
+                    <StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+                        <Label Content="上次游戏版本:" />
+                        <Label Content="{Binding UserDetail.lastRomVersion}" />
+                    </StackPanel>
+                    <StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+                        <Label Content="上次opt版本:" />
+                        <Label Content="{Binding UserDetail.lastDataVersion}" />
+                    </StackPanel>
+                    <StackPanel Margin="10,5,10,5" Orientation="Horizontal">
+                        <Label Content="首次游玩时间:" />
+                        <Label Content="{Binding UserDetail.firstPlayDate}" />
+                    </StackPanel>
+                </WrapPanel>
+            </Border>
+            <Border Margin="0,10,0,0" Classes="ContentContainer">
+                <StackPanel>
+                    <Label Content="B50 old" />
+                    <ItemsControl ItemsSource="{Binding Ratings}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <controls:RatingItem Margin="10" DataContext="{Binding .}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Label Content="B50 new" />
+                    <ItemsControl ItemsSource="{Binding NextRatings}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <controls:RatingItem Margin="10" DataContext="{Binding .}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+            <Border Classes="ContentContainer" Margin="0,10,0,0">
+                <Grid RowDefinitions="Auto,*">
+                        <Grid Margin="10" ColumnDefinitions="*,Auto">
+                            <Label FontSize="20" FontWeight="Bold">Rival列表</Label>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <Button Margin="0,0,25,0" Content="添加新的Rival">
+                                    <Button.Flyout>
+                                        <Flyout Placement="Top">
+                                            <StackPanel>
+                                                <TextBox Name="inputAccessCode" Watermark="玩家Id" Width="200" />
+                                                <Button
+                                                    Command="{Binding #container.DataContext.BindCardCommand}"
+                                                    CommandParameter="{Binding #inputAccessCode.Text}"
+                                                    Margin="0,10,0,0" Content="确定" />
+                                            </StackPanel>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                        <ScrollViewer Margin="10,0,10,0" Grid.Row="1">
+                            <ItemsControl
+                                ItemsSource="{Binding Cards}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel ItemWidth="250">
+                                            <ItemsPresenter />
+                                        </WrapPanel>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="5" Classes="ContentContainer">
+                                            <Grid Margin="5" RowDefinitions="*,Auto">
+                                                <StackPanel>
+                                                    <Label FontWeight="Bold" Content="{Binding ExtId}" />
+                                                    <Label Content="{Binding AccessCode}" />
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <avalonia:SymbolIcon Symbol="CalendarAdd" VerticalAlignment="Center"
+                                                                       FontSize="20" />
+                                                        <Label Content="{Binding RegisterTime,StringFormat=注册日期:  {0}}" />
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <avalonia:SymbolIcon Symbol="Clock" VerticalAlignment="Center"
+                                                                       FontSize="20" />
+                                                        <Label Content="{Binding AccessTime,StringFormat=上次使用:  {0}}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Margin="5,10,0,0" Grid.Row="1" Orientation="Horizontal">
+                                                    <Button Content="解绑">
+                                                        <Button.Flyout>
+                                                            <Flyout Placement="Top">
+                                                                <StackPanel>
+                                                                    <Label Content="是否解绑?此操作并不会删除卡片相关数据" />
+                                                                    <Button
+                                                                        Command="{Binding #container.DataContext.UnbindCardCommand}"
+                                                                        CommandParameter="{Binding .}"
+                                                                        Margin="0,10,0,0" Content="确定" />
+                                                                </StackPanel>
+                                                            </Flyout>
+                                                        </Button.Flyout>
+                                                    </Button>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using AminosUI.Services.Applications.User;
+using AminosUI.Services.Applications;
+using AminosUI.Services.Applications.Network;
 using AminosUI.Services.Navigations;
 using AminosUI.Services.Notifications;
+using AminosUI.Services.Persistences;
 using AminosUI.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,14 +16,20 @@ namespace AminosUI.ViewModels.Pages.User;
 
 public partial class UserLoginPageViewModel : PageViewModelBase
 {
+    private readonly IApplicationHttpFactory httpFactory;
+    private readonly ILocalStoreDataPersistence localStore;
     private readonly ILogger<UserLoginPageViewModel> logger;
     private readonly IApplicationNavigation navigation;
     private readonly IApplicationNotification notification;
     private readonly IUserManager userManager;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(RegisterCommand))]
     [NotifyCanExecuteChangedFor(nameof(SendTokenToEmailCommand))]
     private string email;
+
+    [ObservableProperty]
+    private bool enableAutoLogin;
 
     [ObservableProperty]
     private UserLoginPageState pageState = UserLoginPageState.Login;
@@ -49,13 +58,20 @@ public partial class UserLoginPageViewModel : PageViewModelBase
         DesignModeHelper.CheckOnlyForDesignMode();
     }
 
-    public UserLoginPageViewModel(IApplicationNavigation navigation, IUserManager userManager,
-        ILogger<UserLoginPageViewModel> logger, IApplicationNotification notification)
+    public UserLoginPageViewModel(
+        IApplicationNavigation navigation,
+        IUserManager userManager,
+        ILogger<UserLoginPageViewModel> logger,
+        IApplicationNotification notification,
+        IApplicationHttpFactory httpFactory,
+        ILocalStoreDataPersistence localStore)
     {
         this.navigation = navigation;
         this.userManager = userManager;
         this.logger = logger;
         this.notification = notification;
+        this.httpFactory = httpFactory;
+        this.localStore = localStore;
     }
 
     public override string Title => "用户登录";
@@ -88,6 +104,16 @@ public partial class UserLoginPageViewModel : PageViewModelBase
         {
             notification.ShowInfomation($"登录成功！您好，{userManager.CurrentUser.Name}");
             await navigation.NavigatePageAsync<UserInfoPageViewModel>();
+
+            var setting = await localStore.Load<ApplicationSettings>(nameof(ApplicationSettings));
+            setting.EnableAutoLogin = EnableAutoLogin;
+            if (setting.EnableAutoLogin)
+            {
+                var contains = httpFactory.Cookies;
+                setting.Cookies = JsonSerializer.Serialize(contains.GetAllCookies());
+            }
+
+            await localStore.Save(nameof(ApplicationSettings), setting);
         }
         else
         {

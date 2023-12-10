@@ -243,4 +243,13 @@ public class GeneralUserAccountHandler
         public DateTime Expired { get; set; }
         public Guid UserId { get; set; }
     }
+
+    public async ValueTask<CommonApiResponse> GetGameplayLogs(UserAccount curUser, DateTime fromDateTime, DateTime toDateTime)
+    {
+        if (curUser is null)
+            return new CommonApiResponse(false, "用户未登录");
+
+        return new CommonApiResponse<GameplayLog[]>(true,
+            curUser.GameplayLogs.Where(x => x.Time >= fromDateTime && x.Time <= toDateTime).ToArray());
+    }
 }

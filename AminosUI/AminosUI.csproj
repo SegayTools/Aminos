@@ -22,6 +22,7 @@
   <ItemGroup>
     <PackageReference Include="AsyncImageLoader.Avalonia" Version="3.2.1" />
     <PackageReference Include="Avalonia" Version="11.0.5" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.5" />
     <PackageReference Include="Avalonia.Svg.Skia" Version="11.0.0.6" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.5" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.5" />
@@ -33,6 +34,8 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="FluentIcons.Avalonia" Version="1.1.223" />
     <PackageReference Include="FluentIcons.Common" Version="1.1.223" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc2" />
+    <PackageReference Include="MessagePack" Version="2.5.140" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
@@ -48,7 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Pages\MaimaiDx\" />
     <Folder Include="Views\Pages\Setting\" />
   </ItemGroup>
 

@@ -94,7 +94,7 @@ public class GeneralKeychipHandler
         return new CommonApiResponse(false, "此用户不存在此keychip");
     }
 
-    public ValueTask<CommonApiResponse> List(UserAccount userAccount)
+    public ValueTask<CommonApiResponse> GetKeychips(UserAccount userAccount)
     {
         if (userAccount is null)
             return ValueTask.FromResult(new CommonApiResponse(false, "无法获取用户信息"));

@@ -1,25 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
+﻿using MessagePack;
 
-namespace Aminos.Core.Models.Title.SDEZ.Tables
+namespace Aminos.Core.Models.Title.SDEZ.Tables;
+
+[MessagePackObject]
+public class UserRating
 {
-	[Index(nameof(Id))]
-	[Table("MaimaiDX_UserRatings")]
-	public class UserRating
-	{
-		[Key]
-		[JsonIgnore]
-		public ulong Id { get; set; }
+    [Key(0)]
+    public int rating { get; set; }
 
-		public int rating { get; set; }
+    [Key(1)]
+    public List<UserRate> ratingList { get; set; } = new();
+    [Key(2)]
+    public List<UserRate> newRatingList { get; set; } = new();
+    [Key(3)]
+    public List<UserRate> nextRatingList { get; set; } = new();
+    [Key(4)]
+    public List<UserRate> nextNewRatingList { get; set; } = new();
 
-		public virtual ICollection<UserRate> ratingList { get; set; } = new List<UserRate>();
-		public virtual ICollection<UserRate> newRatingList { get; set; } = new List<UserRate>();
-		public virtual ICollection<UserRate> nextRatingList { get; set; } = new List<UserRate>();
-		public virtual ICollection<UserRate> nextNewRatingList { get; set; } = new List<UserRate>();
-
-		public virtual UserUdemae udemae { get; set; }
-	}
+    [Key(5)]
+    public virtual UserUdemae udemae { get; set; }
 }

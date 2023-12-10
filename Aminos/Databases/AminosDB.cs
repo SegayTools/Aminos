@@ -16,6 +16,7 @@ namespace Aminos.Databases
 		public DbSet<UserAccount> UserAccounts { get; set; }
 		public DbSet<Keychip> Keychips { get; set; }
 		public DbSet<Announcement> Announcements { get; set; }
+		public DbSet<GameplayLog> GameplayLogs { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

@@ -8,9 +8,11 @@ namespace AminosUI.Utils
 {
 	internal class DesignModeHelper
 	{
+		public static bool IsDesignMode => Avalonia.Controls.Design.IsDesignMode;
+		
 		public static void CheckOnlyForDesignMode()
 		{
-			if (!Avalonia.Controls.Design.IsDesignMode)
+			if (!IsDesignMode)
 				throw new Exception("Only use in DesignMode.");
 		}
 	}

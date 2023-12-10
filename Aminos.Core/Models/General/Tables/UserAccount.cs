@@ -14,6 +14,8 @@ namespace Aminos.Core.Models.General.Tables
 		public virtual ICollection<Keychip> Keychips { get; set; } = new List<Keychip>();
 		[JsonIgnore]
 		public virtual ICollection<Activity> Activities { get; set; } = new List<Activity>();
+		[JsonIgnore]
+		public virtual ICollection<GameplayLog> GameplayLogs { get; set; } = new List<GameplayLog>();
 
 		[Key]
 		public Guid Id { get; set; }

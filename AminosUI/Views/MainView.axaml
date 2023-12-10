@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:AminosUI.ViewModels"
              xmlns:ct="clr-namespace:AminosUI.Controls.ControlTemplates"
              xmlns:notification="clr-namespace:Avalonia.Notification.Controls;assembly=Notification.Avalonia"
+             xmlns:ic="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AminosUI.Views.MainView"
              x:DataType="vm:MainViewModel">
@@ -24,7 +25,7 @@
                             Height="32"
                             Margin="8 10"
                             Command="{Binding TriggerPaneCommand}">
-                        <PathIcon Height="11" Data="{StaticResource LineHorizontal3Regular}" />
+                        <ic:SymbolIcon Symbol="AppsList" FontSize="20" IsFilled="True" VerticalAlignment="Center" />
                     </Button>
                     <ListBox Margin="5 0" Padding="0" ItemsSource="{Binding TopItems}"
                              SelectedItem="{Binding SelectedListItem}">
@@ -36,7 +37,8 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type ct:ListItemTemplate}">
                                 <StackPanel Spacing="15" Orientation="Horizontal">
-                                    <Svg Path="{Binding Svg}" Width="20" />
+                                    <ic:SymbolIcon Symbol="{Binding IconSymbol}" FontSize="20"
+                                                   VerticalAlignment="Center" />
                                     <TextBlock Text="{Binding Label}" />
                                 </StackPanel>
                             </DataTemplate>
@@ -55,7 +57,8 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="{x:Type ct:ListItemTemplate}">
                                 <StackPanel Spacing="15" Orientation="Horizontal">
-                                    <Svg Path="{Binding Svg}" Width="20" />
+                                    <ic:SymbolIcon Symbol="{Binding IconSymbol}" FontSize="20"
+                                                   VerticalAlignment="Center" />
                                     <TextBlock Text="{Binding Label}" />
                                 </StackPanel>
                             </DataTemplate>
@@ -68,10 +71,10 @@
         <SplitView.Content>
             <Border CornerRadius="12 0 0 0">
                 <Grid>
+                    <TransitioningContentControl Content="{Binding MainPageContent}" />
                     <Grid ColumnDefinitions="*,2*,*">
                         <notification:NotificationMessageContainer Grid.Column="1" Manager="{Binding MessageManager}" />
                     </Grid>
-                    <TransitioningContentControl Content="{Binding MainPageContent}" />
                 </Grid>
             </Border>
         </SplitView.Content>

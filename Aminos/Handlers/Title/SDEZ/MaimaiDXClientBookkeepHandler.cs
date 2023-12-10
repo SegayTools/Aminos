@@ -2,6 +2,7 @@
 using Aminos.Core.Services.Injections.Attrbutes;
 using Aminos.Core.Models.Title.SDEZ.Requests;
 using Aminos.Core.Models.Title.SDEZ.Responses;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Handlers.Title.SDEZ
 {
@@ -18,7 +19,11 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UpsertResponseVO> UpsertClientBookkeeping(ClientBookkeepingRequestVO request)
 		{
 			var booking = request.clientBookkeeping;
-			maimaiDxDB.Update(booking);
+			var exist = await maimaiDxDB.ClientBookkeepings.FirstOrDefaultAsync(x => x.Id == booking.Id);
+			if (exist is not null)
+				maimaiDxDB.Entry(exist).CurrentValues.SetValues(booking);
+			else
+				await maimaiDxDB.ClientBookkeepings.AddAsync(booking);
 
 			await maimaiDxDB.SaveChangesAsync();
 

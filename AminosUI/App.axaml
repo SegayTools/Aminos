@@ -7,11 +7,16 @@
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.Resources>
+        <!--Strings-->
+
+        <!--Converters-->
+        <valueConverters:AchievementDisplayConverter x:Key="AchievementDisplayConverter" />
         <valueConverters:GAvatarUrlValveConverter x:Key="GAvatarUrlValveConverter" />
     </Application.Resources>
 
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
         <StyleInclude Source="avares://AminosUI/Assets/Icons.axaml" />
         <StyleInclude Source="avares://Notification.Avalonia/Themes/Generic.xaml" />
         <Style Selector="Border.ContentContainer">

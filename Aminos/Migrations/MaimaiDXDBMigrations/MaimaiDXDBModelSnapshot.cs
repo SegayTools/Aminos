@@ -57,6 +57,34 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserFriendSeasonRankings");
                 });
 
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.CharaData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Disable")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Genre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCopyright")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("MaimaiDX_CharaDatas");
+                });
+
             modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.ClientBookkeeping", b =>
                 {
                     b.Property<string>("Id")
@@ -231,6 +259,55 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("Client_Testmodes");
                 });
 
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.EventData", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("AlwaysOpen")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("ExpiredDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("InfoType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("MaimaiDX_EventDatas");
+                });
+
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.FrameData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Genre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormText")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("MaimaiDX_FrameDatas");
+                });
+
             modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.GameCharge", b =>
                 {
                     b.Property<ulong>("Id")
@@ -302,6 +379,164 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.HasIndex("id");
 
                     b.ToTable("MaimaiDX_GameRankings");
+                });
+
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.IconData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Disable")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventNameId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Genre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormText")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventNameId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("MaimaiDX_IconDatas");
+                });
+
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.MusicData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AddVersion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Artist")
+                        .HasColumnType("TEXT");
+
+                    b.Property<float>("Bpm")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("DotNetListView")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Dresscode")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventName2Id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventNameId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("GenreName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("LockType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ReleaseTagName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RightsInfoName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SortName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("SubEventNameId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SubLockType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UtageKanjiName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UtagePlayStyle")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("__fixedOptions")
+                        .HasMaxLength(2048)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("FixedOptions");
+
+                    b.Property<string>("__notesData")
+                        .HasMaxLength(2048)
+                        .HasColumnType("TEXT")
+                        .HasColumnName("NotesData");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventName2Id");
+
+                    b.HasIndex("EventNameId");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("SubEventNameId");
+
+                    b.ToTable("MaimaiDX_MusicDatas");
+                });
+
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.TitleData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Disable")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EventNameId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Genre")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormText")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RareType")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventNameId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("MaimaiDX_TitleDatas");
                 });
 
             modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.User2pPlaylogDetail", b =>
@@ -606,18 +841,20 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.Property<uint?>("UserOptionId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<ulong?>("UserRatingId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("__charaLockSlot")
+                    b.Property<byte[]>("__charaLockSlot")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT")
+                        .HasColumnType("BLOB")
                         .HasColumnName("charaLockSlot");
 
-                    b.Property<string>("__charaSlot")
+                    b.Property<byte[]>("__charaSlot")
                         .HasMaxLength(256)
-                        .HasColumnType("TEXT")
+                        .HasColumnType("BLOB")
                         .HasColumnName("charaSlot");
+
+                    b.Property<byte[]>("__userRating")
+                        .HasMaxLength(8192)
+                        .HasColumnType("BLOB")
+                        .HasColumnName("userRating");
 
                     b.Property<string>("accessCode")
                         .HasColumnType("TEXT");
@@ -859,8 +1096,6 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.HasIndex("UserExtendId");
 
                     b.HasIndex("UserOptionId");
-
-                    b.HasIndex("UserRatingId");
 
                     b.ToTable("MaimaiDX_UserDetails");
                 });
@@ -1680,72 +1915,6 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserPlaylogs");
                 });
 
-            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRate", b =>
-                {
-                    b.Property<ulong>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<ulong?>("UserRatingId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<ulong?>("UserRatingId1")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<ulong?>("UserRatingId2")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<ulong?>("UserRatingId3")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("achievement")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("level")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("musicId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("romVersion")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id");
-
-                    b.HasIndex("UserRatingId");
-
-                    b.HasIndex("UserRatingId1");
-
-                    b.HasIndex("UserRatingId2");
-
-                    b.HasIndex("UserRatingId3");
-
-                    b.ToTable("MaimaiDX_UserRates");
-                });
-
-            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", b =>
-                {
-                    b.Property<ulong>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("rating")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<ulong?>("udemaeId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id");
-
-                    b.HasIndex("udemaeId");
-
-                    b.ToTable("MaimaiDX_UserRatings");
-                });
-
             modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRegion", b =>
                 {
                     b.Property<ulong>("Id")
@@ -1803,72 +1972,50 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.ToTable("MaimaiDX_UserScoreRankings");
                 });
 
-            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserUdemae", b =>
-                {
-                    b.Property<ulong>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("classValue")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("loseNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("maxClassValue")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("maxLoseNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("maxRate")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("maxWinNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("npcLoseNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("npcMaxLoseNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("npcMaxWinNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("npcTotalLoseNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("npcTotalWinNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("npcWinNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("rate")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("totalLoseNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("totalWinNum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<uint>("winNum")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("MaimaiDX_UserUdemaes");
-                });
-
             modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Responses.UserFriendSeasonRanking", b =>
                 {
                     b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
                         .WithMany("UserFriendSeasonRankings")
                         .HasForeignKey("UserDetailId");
+                });
+
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.IconData", b =>
+                {
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.EventData", "EventName")
+                        .WithMany()
+                        .HasForeignKey("EventNameId");
+
+                    b.Navigation("EventName");
+                });
+
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.MusicData", b =>
+                {
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.EventData", "EventName2")
+                        .WithMany()
+                        .HasForeignKey("EventName2Id");
+
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.EventData", "EventName")
+                        .WithMany()
+                        .HasForeignKey("EventNameId");
+
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.EventData", "SubEventName")
+                        .WithMany()
+                        .HasForeignKey("SubEventNameId");
+
+                    b.Navigation("EventName");
+
+                    b.Navigation("EventName2");
+
+                    b.Navigation("SubEventName");
+                });
+
+            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.TitleData", b =>
+                {
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.EventData", "EventName")
+                        .WithMany()
+                        .HasForeignKey("EventNameId");
+
+                    b.Navigation("EventName");
                 });
 
             modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.User2pPlaylogDetail", b =>
@@ -1946,17 +2093,11 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                         .WithMany()
                         .HasForeignKey("UserOptionId");
 
-                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", "UserRating")
-                        .WithMany()
-                        .HasForeignKey("UserRatingId");
-
                     b.Navigation("UserActivity");
 
                     b.Navigation("UserExtend");
 
                     b.Navigation("UserOption");
-
-                    b.Navigation("UserRating");
                 });
 
             modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserFavorite", b =>
@@ -2015,34 +2156,6 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                         .HasForeignKey("UserDetailId");
                 });
 
-            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRate", b =>
-                {
-                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", null)
-                        .WithMany("newRatingList")
-                        .HasForeignKey("UserRatingId");
-
-                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", null)
-                        .WithMany("nextNewRatingList")
-                        .HasForeignKey("UserRatingId1");
-
-                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", null)
-                        .WithMany("nextRatingList")
-                        .HasForeignKey("UserRatingId2");
-
-                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", null)
-                        .WithMany("ratingList")
-                        .HasForeignKey("UserRatingId3");
-                });
-
-            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", b =>
-                {
-                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserUdemae", "udemae")
-                        .WithMany()
-                        .HasForeignKey("udemaeId");
-
-                    b.Navigation("udemae");
-                });
-
             modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRegion", b =>
                 {
                     b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
@@ -2097,17 +2210,6 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
                     b.Navigation("UserRegions");
 
                     b.Navigation("UserScoreRankings");
-                });
-
-            modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserRating", b =>
-                {
-                    b.Navigation("newRatingList");
-
-                    b.Navigation("nextNewRatingList");
-
-                    b.Navigation("nextRatingList");
-
-                    b.Navigation("ratingList");
                 });
 #pragma warning restore 612, 618
         }

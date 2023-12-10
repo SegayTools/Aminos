@@ -47,12 +47,12 @@ namespace Aminos.Controllers.General
 			return Json(result);
 		}
 
-		[HttpGet("List")]
-		public async ValueTask<IActionResult> List()
+		[HttpGet("GetKeychips")]
+		public async ValueTask<IActionResult> GetKeychips()
 		{
 			var user = await GetCurrentRequestUser();
 
-			var result = await handler.List(user);
+			var result = await handler.GetKeychips(user);
 			return Json(result);
 		}
 	}

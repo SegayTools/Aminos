@@ -34,7 +34,7 @@ public class GeneralController : CommonWebAPIControllerBase
         var result = await handler.AddAnnouncement(user, announcement);
         return Json(result);
     }
-    
+
     [HttpPost("DeleteAnnouncement")]
     [Authorize(AuthRolePolicyString.AdminRole)]
     public async ValueTask<IActionResult> DeleteAnnouncement([FromBody] int announcementId)
@@ -50,7 +50,7 @@ public class GeneralController : CommonWebAPIControllerBase
         var result = await handler.GetGeneralStatistic();
         return Json(result);
     }
-    
+
     [HttpGet("GetGameStatistic")]
     public async ValueTask<IActionResult> GetGameStatistic()
     {

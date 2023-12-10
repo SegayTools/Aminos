@@ -20,7 +20,14 @@ namespace Aminos.Handlers.Title.SDEZ
 		{
 			var userDetail = await maimaiDxDB.UserDetails
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
-
+			if (userDetail is null)
+			{
+				return new UserPreviewResponseVO()
+				{
+					
+				};
+			}
+			
 			var response = new UserPreviewResponseVO()
 			{
 				userId = request.userId,

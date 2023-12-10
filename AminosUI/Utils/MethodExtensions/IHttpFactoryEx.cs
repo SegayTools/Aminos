@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +34,21 @@ public static class IHttpFactoryEx
         return string.Join("&", queryStringParameters);
     }
 
-    public static async ValueTask<T> PostAsCommonApi<T>(this IApplicationHttpFactory http,
+    public static async ValueTask<RESP> GetJson<RESP>(this IApplicationHttpFactory http, string url, object body,
+        CancellationToken cancellation = default)
+    {
+        var resp = await http.SendAsync(url, req =>
+        {
+            req.Method = HttpMethod.Get;
+
+            req.Content = JsonContent.Create(body);
+        }, cancellation);
+
+        var str = await resp.Content.ReadAsStringAsync(cancellation);
+        return JsonSerializer.Deserialize<RESP>(str);
+    }
+
+    public static async ValueTask<T> Send<T>(this IApplicationHttpFactory http,
         string url, HttpMethod method,
         object formDataObj, object queryDataObj, CancellationToken cancellation,
         Func<Exception, T> fallbackValueIfException,
@@ -84,7 +99,7 @@ public static class IHttpFactoryEx
     public static ValueTask<CommonApiResponse> PostAsCommonApi(this IApplicationHttpFactory http, string url,
         object formDataObj = default, CancellationToken cancellation = default)
     {
-        return PostAsCommonApi(
+        return Send(
             http,
             url,
             HttpMethod.Post,
@@ -98,7 +113,7 @@ public static class IHttpFactoryEx
     public static ValueTask<CommonApiResponse<T>> PostAsCommonApi<T>(this IApplicationHttpFactory http, string url,
         object formDataObj = default, CancellationToken cancellation = default)
     {
-        return PostAsCommonApi(
+        return Send(
             http,
             url,
             HttpMethod.Post,
@@ -113,7 +128,7 @@ public static class IHttpFactoryEx
     public static ValueTask<CommonApiResponse> GetAsCommonApi(this IApplicationHttpFactory http, string url,
         object queryDataObj = default, CancellationToken cancellation = default)
     {
-        return PostAsCommonApi(
+        return Send(
             http,
             url,
             HttpMethod.Get,
@@ -127,7 +142,7 @@ public static class IHttpFactoryEx
     public static ValueTask<CommonApiResponse<T>> GetAsCommonApi<T>(this IApplicationHttpFactory http, string url,
         object queryDataObj = default, CancellationToken cancellation = default)
     {
-        return PostAsCommonApi(
+        return Send(
             http,
             url,
             HttpMethod.Get,

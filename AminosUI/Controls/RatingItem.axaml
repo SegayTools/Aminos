@@ -1,0 +1,39 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" Width="130" Height="90"
+             xmlns:model="clr-namespace:Aminos.Core.Models.Title.SDEZ.Responses;assembly=Aminos.Core"
+             x:DataType="model:CalculatedRating"
+             x:Class="AminosUI.Controls.RatingItem">
+    <Design.DataContext>
+        <model:CalculatedRating />
+    </Design.DataContext>
+    <Border CornerRadius="7"
+            BoxShadow="5 5 10 0 DarkGray">
+        <Grid>
+            <Image
+                Stretch="UniformToFill"
+                Source="{Binding Bitmap}"
+                DataContext="{Binding MusicData.AssetId,Converter={StaticResource ApplicationUrlConverter},
+                ConverterParameter=/authAssets/SDEZ/assets/assetbundle/jacket_s/UI_Jacket_{6}_s.png}">
+                <Image.Effect>
+                    <BlurEffect Radius="8" />
+                </Image.Effect>
+            </Image>
+            <StackPanel Margin="5,2,5,2">
+                <Label FontWeight="Bold" Content="{Binding MusicData.Name}" />
+                <StackPanel Orientation="Horizontal">
+                    <Label FontSize="13"
+                           Content="{Binding .,Converter={StaticResource AchievementDisplayConverter},StringFormat={}{0}%}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Padding="0" FontSize="13" Content="Base: " />
+                    <Label Padding="0" Content="{Binding LevelDiff}" />
+                    <Label Padding="0" Content="->" />
+                    <Label Padding="0" Content="{Binding RatingValue}" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

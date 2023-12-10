@@ -111,6 +111,31 @@ namespace Aminos.Migrations
                     b.ToTable("General.Cards");
                 });
 
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.GameplayLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("GameId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("UserAccountId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("UserAccountId");
+
+                    b.ToTable("General.GameplayLogs");
+                });
+
             modelBuilder.Entity("Aminos.Core.Models.General.Tables.Keychip", b =>
                 {
                     b.Property<string>("Id")
@@ -193,6 +218,13 @@ namespace Aminos.Migrations
                         .HasForeignKey("UserAccountId");
                 });
 
+            modelBuilder.Entity("Aminos.Core.Models.General.Tables.GameplayLog", b =>
+                {
+                    b.HasOne("Aminos.Core.Models.General.Tables.UserAccount", null)
+                        .WithMany("GameplayLogs")
+                        .HasForeignKey("UserAccountId");
+                });
+
             modelBuilder.Entity("Aminos.Core.Models.General.Tables.Keychip", b =>
                 {
                     b.HasOne("Aminos.Core.Models.General.Tables.UserAccount", "Owner")
@@ -207,6 +239,8 @@ namespace Aminos.Migrations
                     b.Navigation("Activities");
 
                     b.Navigation("Cards");
+
+                    b.Navigation("GameplayLogs");
 
                     b.Navigation("Keychips");
                 });

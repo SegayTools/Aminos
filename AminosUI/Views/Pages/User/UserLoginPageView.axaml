@@ -46,7 +46,8 @@
         <Label Grid.Row="1" Margin="0,10,0,0" VerticalAlignment="Center" HorizontalAlignment="Right" Content="密码："/>
         <TextBox PasswordChar="*" Grid.Row="1"  Margin="0,10,0,0" Width="200" Grid.Column="1" Text="{Binding Password}"/>
       </Grid>
-      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,10,0,0">
+      <CheckBox HorizontalAlignment="Right" IsChecked="{Binding EnableAutoLogin}" Margin="0,5,0,0" Content="自动登录"/>
+      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,5,0,0">
         <AccessText Text="注册账号" TextDecorations="Underline" Cursor="Hand" Margin="0,0,10,0">
           <i:Interaction.Behaviors>
             <ia:EventTriggerBehavior EventName="Tapped">
