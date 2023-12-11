@@ -1,0 +1,25 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:AminosUI.Controls"
+             mc:Ignorable="d" d:DesignWidth="600"
+             x:Class="AminosUI.Controls.UserMusicDetailRankItem">
+    <Border Classes="ContentContainer" VerticalAlignment="Center" CornerRadius="15" Name="container">
+        <Grid Margin="10" ColumnDefinitions="*,Auto">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Rank,Converter={StaticResource DisplayRankConverter}}"
+                           VerticalAlignment="Center" FontSize="24" FontWeight="Bold" />
+                <Image Source="{Binding Bitmap}"
+                       DataContext="{Binding MusicData.AssetId,Converter={StaticResource ApplicationUrlConverter},
+                                    ConverterParameter=/authAssets/SDEZ/assets/assetbundle/icon/UI_Icon_{6}_s.png}" Margin="15,0,15,0" Height="25" />
+                <Label VerticalAlignment="Center" Content="{Binding UserDetail.userName}" />
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Label Content="{Binding UserMusicDetail.AchievementPresentDisplay}" />
+                <Label Content="{Binding UserMusicDetail.deluxscoreMax}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

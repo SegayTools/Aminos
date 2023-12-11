@@ -12,6 +12,10 @@
         <!--Converters-->
         <valueConverters:AchievementDisplayConverter x:Key="AchievementDisplayConverter" />
         <valueConverters:GAvatarUrlValveConverter x:Key="GAvatarUrlValveConverter" />
+        <valueConverters:DiffAssetsLocatorConverter x:Key="DiffAssetsLocatorConverter" />
+        <valueConverters:DxStdAssetsLocatorConverter x:Key="DxStdAssetsLocatorConverter" />
+        <valueConverters:DiffDisplayConverter x:Key="DiffDisplayConverter" />
+        <valueConverters:DisplayRankConverter x:Key="DisplayRankConverter"/>
     </Application.Resources>
 
     <Application.Styles>

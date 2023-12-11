@@ -1,0 +1,72 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" Height="378" Width="248"
+             x:Class="AminosUI.Controls.MusicDisplayItemView">
+
+    <Border Name="container" CornerRadius="7"
+            BoxShadow="5 5 10 0 DarkGray">
+        <Canvas>
+            <!--
+            <Image
+                Stretch="UniformToFill"
+                Source="{Binding Bitmap}"
+                DataContext="{Binding MusicData.AssetId,Converter={StaticResource ApplicationUrlConverter},
+                ConverterParameter=/authAssets/SDEZ/assets/assetbundle/jacket_s/UI_Jacket_{6}_s.png}">
+                <Image.Effect>
+                    <BlurEffect Radius="8" />
+                </Image.Effect>
+            </Image>-->
+
+            <Image Width="248" Height="339" Canvas.Top="39" Canvas.Left="0"
+                   Source="{Binding DisplayDiff,Converter={StaticResource DiffAssetsLocatorConverter},ConverterParameter=Assets/UI_MSS_MBase/UI_MSS_MBase_BSC_Mini.png}" />
+            <Image Width="200" Height="200" Canvas.Top="59" Canvas.Left="24"
+                   Stretch="UniformToFill"
+                   Source="{Binding Bitmap}"
+                   DataContext="{Binding MusicItem.Data.AssetId,Converter={StaticResource ApplicationUrlConverter},
+                ConverterParameter=/authAssets/SDEZ/assets/assetbundle/jacket_s/UI_Jacket_{6}_s.png}" />
+            <Image Width="248" Height="55" Canvas.Top="0" Canvas.Left="0"
+                   Source="{Binding DisplayDiff,Converter={StaticResource DiffAssetsLocatorConverter},ConverterParameter=Assets/UI_MSS_MBase/UI_MSS_MBase_BSC_Tab_01.png}" />
+            <Image Width="119" Height="71" Canvas.Top="218" Canvas.Right="2"
+                   Source="{Binding DisplayDiff,Converter={StaticResource DiffAssetsLocatorConverter},ConverterParameter=Assets/UI_MSS_MBase/UI_MSS_MBase_LvBase_BSC.png}" />
+            <Image Width="248" Height="28" Canvas.Top="260" Canvas.Left="0"
+                   Source="{Binding DisplayDiff,Converter={StaticResource DiffAssetsLocatorConverter},ConverterParameter=Assets/UI_MSS_MBase/UI_MSS_MBase_BSC_Text.png}" />
+            <Image Width="117" Height="32" Canvas.Top="5" Canvas.Left="5"
+                   Source="{Binding MusicItem.Data.IsDeluxe,Converter={StaticResource DxStdAssetsLocatorConverter}}" />
+            <StackPanel Orientation="Horizontal" Canvas.Top="238" Canvas.Left="155">
+                <Label Content="LV" Padding="0" Foreground="White" FontWeight="Bold" VerticalAlignment="Bottom"
+                       FontSize="20" />
+                <Label Padding="0" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"
+                       FontSize="40">
+                    <Label.Content>
+                        <MultiBinding Converter="{StaticResource DiffDisplayConverter}">
+                            <MultiBinding.Bindings>
+                                <Binding Path="MusicItem" />
+                                <Binding Path="DisplayDiff" />
+                            </MultiBinding.Bindings>
+                        </MultiBinding>
+                    </Label.Content>
+                </Label>
+                <Label Padding="0" Foreground="White" FontWeight="Bold" VerticalAlignment="Top"
+                       FontSize="30">
+                    <Label.Content>
+                        <MultiBinding Converter="{StaticResource DiffDisplayConverter}" ConverterParameter="True">
+                            <MultiBinding.Bindings>
+                                <Binding Path="MusicItem" />
+                                <Binding Path="DisplayDiff" />
+                            </MultiBinding.Bindings>
+                        </MultiBinding>
+                    </Label.Content>
+                </Label>
+            </StackPanel>
+            <Label Content="{Binding MusicItem.Data.Name}" Foreground="White" FontSize="20" FontWeight="Bold"
+                   Canvas.Top="285"
+                   Width="248"
+                   HorizontalContentAlignment="Center" Canvas.Left="0" />
+            <Label Content="{Binding MusicItem.Data.Artist}" Foreground="White" FontSize="18" Canvas.Top="305"
+                   Width="248"
+                   HorizontalContentAlignment="Center" Canvas.Left="0" />
+        </Canvas>
+    </Border>
+</UserControl>

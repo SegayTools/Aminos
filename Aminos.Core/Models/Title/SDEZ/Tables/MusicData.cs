@@ -12,6 +12,7 @@ public class MusicData
 {
     [Key]
     public int Id { get; set; }
+
     public int AssetId => Id % 10000;
 
     public string Name { get; set; }
@@ -46,7 +47,7 @@ public class MusicData
     [JsonInclude]
     public NotesDataCollection NotesData
     {
-        get => JsonSerializer.Deserialize<NotesDataCollection>(__notesData);
+        get => __notesData is null ? default : JsonSerializer.Deserialize<NotesDataCollection>(__notesData);
         set => __notesData = JsonSerializer.Serialize(value);
     }
 
@@ -59,9 +60,11 @@ public class MusicData
     [JsonInclude]
     public FixedOptionCollection FixedOptions
     {
-        get => JsonSerializer.Deserialize<FixedOptionCollection>(__fixedOptions);
+        get => __fixedOptions is null ? default : JsonSerializer.Deserialize<FixedOptionCollection>(__fixedOptions);
         set => __fixedOptions = JsonSerializer.Serialize(value);
     }
+
+    public bool IsDeluxe => Id / 10000 % 10 == 1;
 
     public record Note(string FilePath, int Level, int LevelDecimal, string designer, int maxNotes);
 

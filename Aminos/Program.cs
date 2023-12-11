@@ -33,7 +33,6 @@ public class Program
             {
                 var password = "aquaserver";
 
-                // ���� .p12 ֤��
                 var certificate = new X509Certificate2(p12FileBytes, password);
                 config.UseHttps(certificate, conf => { conf.SslProtocols = SslProtocols.Tls11; });
                 config.Protocols = HttpProtocols.Http1;

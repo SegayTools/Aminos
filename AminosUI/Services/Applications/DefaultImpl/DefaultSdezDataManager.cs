@@ -1,5 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Aminos.Core.Models.General;
+using Aminos.Core.Models.Title.SDEZ.Enums;
 using Aminos.Core.Models.Title.SDEZ.Requests;
 using Aminos.Core.Models.Title.SDEZ.Responses;
 using Aminos.Core.Models.Title.SDEZ.Tables;
@@ -46,11 +48,73 @@ public class DefaultSdezDataManager : ISdezDataManager
         return resp?.userExtend;
     }
 
+    public async ValueTask<UserDetail[]> GetUserRivals(ulong userId, CancellationToken cancellationToken)
+    {
+        var resp = await httpFactory.GetAsCommonApi<UserDetail[]>(
+            $"api/SDEZ/GetRivalUserList?userId={userId}", default, cancellationToken);
+        return resp.obj;
+    }
+
+    public async ValueTask<CommonApiResponse> AddRival(ulong userId, ulong rivalUserId,
+        CancellationToken cancellationToken)
+    {
+        var resp = await httpFactory.PostAsCommonApi("api/SDEZ/AddRival", new
+        {
+            userId, rivalUserId
+        }, cancellationToken);
+
+        return resp;
+    }
+
+    public async ValueTask<CommonApiResponse> DeleteRival(ulong userId, ulong rivalUserId,
+        CancellationToken cancellationToken)
+    {
+        var resp = await httpFactory.PostAsCommonApi("api/SDEZ/DeleteRival", new
+        {
+            userId, rivalUserId
+        }, cancellationToken);
+
+        return resp;
+    }
+
+    public async ValueTask<CommonApiResponse<MusicData[]>> GetAllMusicData(CancellationToken cancellationToken)
+    {
+        var resp = await httpFactory.GetAsCommonApi<MusicData[]>("api/SDEZ/GetAllMusicData",
+            default, cancellationToken);
+
+        return resp;
+    }
+
     public async ValueTask<GenerateCalculatedRatingResponse> GetCalculatedRatingResponse(ulong userId,
         CancellationToken cancellationToken)
     {
         var resp = await httpFactory.GetAsCommonApi<GenerateCalculatedRatingResponse>(
             $"api/SDEZ/GetUserCalculatedRatingList?userId={userId}", default, cancellationToken);
         return resp.obj;
+    }
+
+    public async ValueTask<CommonApiResponse<UserMusicDetail[]>> GetUserMusicDetail(ulong userId, int musicId, CancellationToken cancellationToken)
+    {
+        var resp = await httpFactory.GetAsCommonApi<UserMusicDetail[]>(
+            $"api/SDEZ/GetUserMusicDetail", new
+            {
+                userId,
+                musicId
+            }, cancellationToken);
+        return resp;
+    }
+
+    public async ValueTask<CommonApiResponse<CompositeUserMusicDetail[]>> GetMusicDetailRank(int takeCount, MusicDifficultyID level, int skipCount, int musicId,
+        CancellationToken cancellationToken)
+    { 
+        var resp = await httpFactory.GetAsCommonApi<CompositeUserMusicDetail[]>(
+            $"api/SDEZ/GetUserMusicDetail", new
+            {
+                takeCount,
+                level,
+                skipCount,
+                musicId
+            }, cancellationToken);
+        return resp;
     }
 }

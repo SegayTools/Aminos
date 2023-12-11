@@ -1,0 +1,140 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:AminosUI.ViewModels.Pages.MaimaiDx"
+             xmlns:controls="clr-namespace:AminosUI.Controls"
+             x:Class="AminosUI.Views.Pages.MaimaiDx.MusicListPageView"
+             x:DataType="vm:MusicListPageViewModel">
+    <Design.DataContext>
+        <vm:MusicListPageViewModel />
+    </Design.DataContext>
+
+    <Grid Name="container" ColumnDefinitions="*,*">
+        <ScrollViewer Background="Bisque">
+            <ItemsControl ItemsSource="{Binding MusicGroups}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Expander HorizontalAlignment="Stretch" IsExpanded="True" Margin="10" BorderBrush="Transparent"
+                                  Background="Transparent">
+                            <Expander.Header>
+                                <Label Content="{Binding Name}" />
+                            </Expander.Header>
+                            <ItemsControl ItemsSource="{Binding Items}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Viewbox Height="200" Margin="5">
+                                            <controls:MusicDisplayItemView
+                                                DisplayDiff="{Binding #container.DataContext.DisplayDiff}"
+                                                Cursor="Hand"
+                                                MusicItem="{Binding .}">
+                                                <Interaction.Behaviors>
+                                                    <EventTriggerBehavior EventName="Tapped">
+                                                        <InvokeCommandAction
+                                                            Command="{Binding #container.DataContext.MusicDisplayItemTappedCommand}"
+                                                            CommandParameter="{Binding .}" />
+                                                    </EventTriggerBehavior>
+                                                </Interaction.Behaviors>
+                                            </controls:MusicDisplayItemView>
+                                        </Viewbox>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Expander>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <ScrollViewer Background="PaleGoldenrod" Grid.Column="1">
+            <StackPanel>
+                <Border Margin="10" Classes="ContentContainer">
+                    <StackPanel Margin="5">
+                        <Border Background="White" CornerRadius="7" Padding="10,5,10,5" Classes="ContentContainer">
+                            <Label Content="{Binding SelectedItem.Data.Name}" />
+                        </Border>
+
+                        <Grid Margin="0,5,0,0" ColumnDefinitions="*,*">
+                            <StackPanel>
+                                <Grid>
+                                    <Image Width="150" Height="150" Margin="10" Stretch="UniformToFill"
+                                           Source="{Binding Bitmap}"
+                                           DataContext="{Binding SelectedItem.Data.AssetId,Converter={StaticResource ApplicationUrlConverter},
+                                    ConverterParameter=/authAssets/SDEZ/assets/assetbundle/jacket_s/UI_Jacket_{6}_s.png}" />
+                                    <Image Width="57" Margin="-105,-148,0,0"
+                                           Source="{Binding SelectedItem.Data.IsDeluxe,Converter={StaticResource DxStdAssetsLocatorConverter}}" />
+                                </Grid>
+                                <TextBlock Margin="10,0,10,10" FontWeight="Bold" HorizontalAlignment="Left"
+                                           TextWrapping="WrapWithOverflow"
+                                           Text="{Binding SelectedItem.Data.RightsInfoName}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="10">
+                                <Grid ColumnDefinitions="Auto,*" RowDefinitions="*,*,*,*,*,*,*,*">
+                                    <!---->
+                                    <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Content="艺术家:" />
+                                    <Label Grid.Column="1" Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Left"
+                                           Content="{Binding SelectedItem.Data.Artist}" />
+                                    <!---->
+                                    <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Content="谱师:" />
+                                    <Label Grid.Column="1" Grid.Row="1" FontWeight="Bold" HorizontalAlignment="Left"
+                                           Content="{Binding CurrentNote.designer}" />
+                                    <!---->
+                                    <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Content="难度定数:" />
+                                    <StackPanel Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left"
+                                                Orientation="Horizontal">
+                                        <Label FontWeight="Bold" Content="{Binding CurrentNote.Level}" />
+                                        <Label FontWeight="Bold" Content="." />
+                                        <Label FontWeight="Bold" Content="{Binding CurrentNote.LevelDecimal}" />
+                                    </StackPanel>
+                                    <!---->
+                                    <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" Content="物件数:" />
+                                    <Label Grid.Column="1" Grid.Row="3" FontWeight="Bold" HorizontalAlignment="Left"
+                                           Content="{Binding CurrentNote.maxNotes}" />
+                                    <!---->
+                                    <Label Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" Content="初出版本:" />
+                                    <Label Grid.Column="1" Grid.Row="4" FontWeight="Bold" HorizontalAlignment="Left"
+                                           Content="{Binding SelectedItem.Data.AddVersion}" />
+                                    <!---->
+                                    <Label Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" Content="歌曲分类:" />
+                                    <Label Grid.Column="1" Grid.Row="5" FontWeight="Bold" HorizontalAlignment="Left"
+                                           Content="{Binding SelectedItem.Data.GenreName}" />
+                                    <!---->
+                                    <Label Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" Content="Bpm:" />
+                                    <Label Grid.Column="1" Grid.Row="6" FontWeight="Bold" HorizontalAlignment="Left"
+                                           Content="{Binding SelectedItem.Data.Bpm}" />
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Margin="10,0,10,10" Classes="ContentContainer">
+                    <StackPanel Margin="5">
+                        <Label Content="你的最佳成绩:" />
+                        <controls:UserMusicDetailRankItem Margin="0,10,0,10" MusicData="{Binding SelectedItem.Data}"
+                                                          Rank="{Binding CurrentUserRank}"
+                                                          UserMusicDetail="{Binding UserMusicDetail}"
+                                                          UserDetail="{Binding UserDetail}" />
+                        <Label Content="排行榜:" />
+                        <ItemsControl ItemsSource="{Binding MusicDetailRankList}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:UserMusicDetailRankItem Margin="0,5,0,5" Rank="{Binding Rank}"
+                                                                      MusicData="{Binding #container.DataContext.SelectedItem.Data}"
+                                                                      UserMusicDetail="{Binding UserMusicDetail}"
+                                                                      UserDetail="{Binding UserDetail}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

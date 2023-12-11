@@ -109,7 +109,7 @@
                     Classes="ContentContainer" Width="250">
                 <StackPanel>
                     <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
-                        <Svg Path="/Assets/bell-svgrepo-com.svg" Width="20" />
+                        <ic:SymbolIcon Symbol="ServiceBell" />
                         <Label FontSize="18" Margin="0,0,0,-2" FontWeight="Bold" Content="更新公告" />
                     </StackPanel>
                     <ItemsControl Name="itemsControl" Margin="0,10,0,0" ItemsSource="{Binding Announcements}">

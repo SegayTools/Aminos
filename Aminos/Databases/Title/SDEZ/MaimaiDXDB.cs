@@ -18,6 +18,7 @@ public class MaimaiDXDB : DbContext
     public DbSet<ClientTestmode> ClientTestmodes { get; set; }
 
     public DbSet<UserDetail> UserDetails { get; set; }
+    public DbSet<UserMusicDetail> UserMusicDetails { get; set; }
     public DbSet<User2pPlaylogDetail> User2pPlaylogDetails { get; set; }
 
     public DbSet<MusicData> MusicDatas { get; set; }

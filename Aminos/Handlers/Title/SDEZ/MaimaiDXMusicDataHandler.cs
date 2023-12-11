@@ -46,4 +46,9 @@ public class MaimaiDXMusicDataHandler
         await disp.CommitAsync();
         return new CommonApiResponse(true);
     }
+
+    public async ValueTask<CommonApiResponse> GetAllMusicData()
+    {
+        return new CommonApiResponse<MusicData[]>(true, await maimaiDxDB.MusicDatas.ToArrayAsync());
+    }
 }

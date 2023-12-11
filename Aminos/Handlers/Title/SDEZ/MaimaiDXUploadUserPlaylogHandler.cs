@@ -19,7 +19,6 @@ namespace Aminos.Handlers.Title.SDEZ
 		public async ValueTask<UpsertResponseVO> UploadUserPlaylog(UserPlaylogRequestVO request)
 		{
 			var userDetail = await maimaiDxDB.UserDetails
-				
 				.FirstOrDefaultAsync(x => x.Id == request.userId);
 
 			if (userDetail is not null)

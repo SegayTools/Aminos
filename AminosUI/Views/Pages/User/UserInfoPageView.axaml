@@ -76,7 +76,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="{Binding Time}" />
                                             <Label Width="75" Content="{Binding Type}" />
-                                            <Label Width="75" Content="{Binding Content}" />
+                                            <Label Content="{Binding Content}" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>

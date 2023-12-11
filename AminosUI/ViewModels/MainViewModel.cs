@@ -12,12 +12,13 @@ using AminosUI.Services.Persistences;
 using AminosUI.Services.ViewModelFactory;
 using AminosUI.Utils;
 using AminosUI.ViewModels.Pages;
-using AminosUI.ViewModels.Pages.Home;
+using AminosUI.ViewModels.Pages.MaimaiDx;
 using AminosUI.ViewModels.Pages.User;
 using Avalonia.Notification;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using HomePageViewModel = AminosUI.ViewModels.Pages.Home.HomePageViewModel;
 
 namespace AminosUI.ViewModels;
 
@@ -64,7 +65,8 @@ public partial class MainViewModel : ViewModelBase, IApplicationNavigation
     {
         new ListItemTemplate(typeof(HomePageViewModel), "主页", "Home"),
         new ListItemTemplate(typeof(UserInfoPageViewModel), "用户信息", "Person"),
-        new ListItemTemplate(typeof(Pages.MaimaiDx.HomePageViewModel), "maimai DX", "Games")
+        new ListItemTemplate(typeof(Pages.MaimaiDx.HomePageViewModel), "maimai DX 主页", "Games"),
+        new ListItemTemplate(typeof(MusicListPageViewModel), "maimai Dx 曲库", "MusicNote1")
     };
 
     public ObservableCollection<ListItemTemplate> BottomItems { get; } = new();
@@ -106,7 +108,7 @@ public partial class MainViewModel : ViewModelBase, IApplicationNavigation
                         setting.EnableAutoLogin = default;
                         setting.Cookies = default;
                         await localStore.Save(nameof(ApplicationSettings), setting);
-                        
+
                         notification.ShowWarnning("无法自动登录，因为用户凭证已失效");
                     }
                 }

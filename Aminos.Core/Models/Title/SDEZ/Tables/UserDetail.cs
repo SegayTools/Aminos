@@ -77,7 +77,6 @@ public class UserDetail
     public ulong AimeId => Id;
 
     [System.ComponentModel.DataAnnotations.Key]
-    [JsonIgnore]
     public ulong Id { get; set; }
 
     public string accessCode { get; set; }

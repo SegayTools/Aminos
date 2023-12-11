@@ -2144,9 +2144,11 @@ namespace Aminos.Migrations.MaimaiDXDBMigrations
 
             modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserMusicDetail", b =>
                 {
-                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", null)
+                    b.HasOne("Aminos.Core.Models.Title.SDEZ.Tables.UserDetail", "UserDetail")
                         .WithMany("UserMusicDetails")
                         .HasForeignKey("UserDetailId");
+
+                    b.Navigation("UserDetail");
                 });
 
             modelBuilder.Entity("Aminos.Core.Models.Title.SDEZ.Tables.UserPlaylog", b =>

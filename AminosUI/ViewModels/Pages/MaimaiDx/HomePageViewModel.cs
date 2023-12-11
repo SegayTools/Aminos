@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Aminos.Core.Models.Title.SDEZ.Responses;
 using Aminos.Core.Models.Title.SDEZ.Tables;
 using Aminos.Core.Utils.MethodExtensions;
@@ -11,23 +15,21 @@ using AminosUI.Utils;
 using AminosUI.ViewModels.Pages.User;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AminosUI.ViewModels.Pages.MaimaiDx;
 
 public partial class HomePageViewModel : PageViewModelBase
 {
-    public class RivalItem
-    {
-        public int RivalUserId { get; set; }
-        public string UserName { get; set; }
-    }
-    
     private readonly ICardManager cardManager;
     private readonly IApplicationHttpFactory httpFactory;
     private readonly IApplicationNavigation navigation;
     private readonly IApplicationNotification notification;
     private readonly ISdezDataManager sdezDataManager;
     private readonly IUserManager userManager;
+
+    [ObservableProperty]
+    private ObservableCollection<RivalItem> rivals = new();
 
     [ObservableProperty]
     private UserDetail userDetail;
@@ -37,7 +39,7 @@ public partial class HomePageViewModel : PageViewModelBase
 
     [ObservableProperty]
     private UserOption userOption;
-    
+
     public HomePageViewModel()
     {
         DesignModeHelper.CheckOnlyForDesignMode();
@@ -139,11 +141,83 @@ public partial class HomePageViewModel : PageViewModelBase
         UserDetail = userDetail;
         UserOption = userOption;
         UserExtend = userExtend;
+        await RefreshRivalInternal(cancellationToken);
+    }
+
+    private async Task RefreshRivalInternal(CancellationToken cancellationToken)
+    {
+        var rivals = await sdezDataManager.GetUserRivals(UserDetail.Id, cancellationToken);
+        if (rivals is null)
+        {
+            notification.ShowError("获取UserRivals数据失败");
+            return;
+        }
+
+        Rivals.Clear();
+        foreach (var rivalUserDetail in rivals)
+            Rivals.Add(new RivalItem
+            {
+                RivalUserId = rivalUserDetail.Id,
+                LastPlayedDateTime = rivalUserDetail.lastLoginDate,
+                UserName = rivalUserDetail.userName
+            });
+    }
+
+    [RelayCommand(IncludeCancelCommand = true)]
+    private async Task DeleteRivals(IList list, CancellationToken token)
+    {
+        var rivalItems = list.OfType<RivalItem>().ToArray();
+        if (rivalItems.Length == 0)
+        {
+            notification.ShowWarnning("Rival列表并未选择");
+            return;
+        }
+
+        var allGood = true;
+        {
+            using var disp = notification.BeginLoadingNotification("删除Rival", out var cancellationToken);
+            foreach (var item in rivalItems)
+            {
+                var resp = await sdezDataManager.DeleteRival(UserDetail.Id, item.RivalUserId, cancellationToken);
+                if (!resp.isSuccess)
+                    allGood = false;
+            }
+        }
+
+        if (!allGood)
+            notification.ShowWarnning("部分删除Rival请求失败");
+        else
+            notification.ShowInfomation("删除成功");
+
+        await RefreshRivalInternal(token);
+    }
+
+    [RelayCommand(IncludeCancelCommand = true)]
+    private async Task AddRival(string rivalUserIdStr, CancellationToken token)
+    {
+        var rivalUserId = ulong.Parse(rivalUserIdStr);
+        {
+            using var disp = notification.BeginLoadingNotification("添加Rival", out var cancellationToken);
+            var resp = await sdezDataManager.AddRival(UserDetail.Id, rivalUserId, cancellationToken);
+            if (!resp.isSuccess)
+                notification.ShowWarnning($"添加失败:{resp.message}");
+            else
+                notification.ShowInfomation("添加成功");
+        }
+
+        await RefreshRivalInternal(token);
     }
 
     public override void OnViewAfterLoaded(Control control)
     {
         base.OnViewAfterLoaded(control);
         RefreshPage();
+    }
+
+    public class RivalItem
+    {
+        public ulong RivalUserId { get; set; }
+        public string UserName { get; set; }
+        public DateTime LastPlayedDateTime { get; set; }
     }
 }

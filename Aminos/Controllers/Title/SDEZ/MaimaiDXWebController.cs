@@ -1,4 +1,5 @@
 ﻿using Aminos.Authorization;
+using Aminos.Core.Models.Title.SDEZ.Enums;
 using Aminos.Core.Models.Title.SDEZ.Requests;
 using Aminos.Core.Models.Title.SDEZ.Tables;
 using Aminos.Databases;
@@ -66,7 +67,7 @@ public class MaimaiDXWebController : CommonWebAPIControllerBase
         return Json(response);
     }
 
-    [HttpPost("GetMusicData")]
+    [HttpGet("GetMusicData")]
     public async ValueTask<IActionResult> GetMusicData(int[] musicIdList,
         MaimaiDXMusicDataHandler handler)
     {
@@ -76,10 +77,50 @@ public class MaimaiDXWebController : CommonWebAPIControllerBase
         return Json(response);
     }
 
-    [HttpPost("GetRivalUserList")]
+    [HttpGet("GetAllMusicData")]
+    public async ValueTask<IActionResult> GetAllMusicData(MaimaiDXMusicDataHandler handler)
+    {
+        var response = await handler.GetAllMusicData();
+        return Json(response);
+    }
+
+    [HttpGet("GetRivalUserList")]
     public async ValueTask<IActionResult> GetRivalUserList(ulong userId, MaimaiDXUserRivalHandler handler)
     {
         var response = await handler.GetRivalUserList(userId);
+        return Json(response);
+    }
+
+    [HttpPost("AddRival")]
+    public async ValueTask<IActionResult> AddRival([FromForm] ulong userId, [FromForm] ulong rivalUserId,
+        MaimaiDXUserRivalHandler handler)
+    {
+        var response = await handler.AddRival(userId, rivalUserId);
+        return Json(response);
+    }
+
+    [HttpPost("DeleteRival")]
+    public async ValueTask<IActionResult> DeleteRival([FromForm] ulong userId, [FromForm] ulong rivalUserId,
+        MaimaiDXUserRivalHandler handler)
+    {
+        var response = await handler.DeleteRival(userId, rivalUserId);
+        return Json(response);
+    }
+
+    [HttpGet("GetUserMusicDetail")]
+    public async ValueTask<IActionResult> GetUserMusicDetail(ulong userId, int musicId,
+        MaimaiDXUserMusicHandler handler)
+    {
+        var response = await handler.GetUserMusicDetail(userId, musicId);
+        return Json(response);
+    }
+
+    [HttpGet("GetMusicDetailRank")]
+    public async ValueTask<IActionResult> GetMusicDetailRank(int takeCount,
+        int musicId,
+        MaimaiDXUserMusicHandler handler)
+    {
+        var response = await handler.GetMusicDetailRank(musicId, takeCount);
         return Json(response);
     }
 }

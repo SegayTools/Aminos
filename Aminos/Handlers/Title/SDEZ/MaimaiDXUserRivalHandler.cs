@@ -1,6 +1,7 @@
 ﻿using Aminos.Core.Models.General;
 using Aminos.Core.Models.Title.SDEZ.Requests;
 using Aminos.Core.Models.Title.SDEZ.Responses;
+using Aminos.Core.Models.Title.SDEZ.Tables;
 using Aminos.Core.Services.Injections.Attrbutes;
 using Aminos.Databases.Title.SDEZ;
 using Microsoft.EntityFrameworkCore;
@@ -95,7 +96,54 @@ public class MaimaiDXUserRivalHandler
 
     public async Task<CommonApiResponse> GetRivalUserList(ulong userId)
     {
-        
-        return default;
+        var userDetail = await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == userId);
+        if (userDetail is null)
+            return new CommonApiResponse(false, "userId无效");
+
+        var items = userDetail.UserFavoriteItems.Where(x => x.kind == 2).Select(x => x.id).ToArray();
+        var users = (await maimaiDxDB.UserDetails.Where(x => items.Contains(x.Id)).ToArrayAsync()).ToArray();
+
+        return new CommonApiResponse<UserDetail[]>(true, users);
+    }
+
+    public async Task<CommonApiResponse> AddRival(ulong userId, ulong rivalUserId)
+    {
+        var userDetail = await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == userId);
+        if (userDetail is null)
+            return new CommonApiResponse(false, "userId无效");
+        var rivalUserDetail = await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == rivalUserId);
+        if (rivalUserDetail is null)
+            return new CommonApiResponse(false, "rivalUserId无效");
+
+        if (!userDetail.UserFavoriteItems.Any(x => x.id == rivalUserId && x.kind == 2))
+        {
+            userDetail.UserFavoriteItems.Add(new UserFavoriteItem
+            {
+                id = rivalUserId,
+                kind = 2
+            });
+            await maimaiDxDB.SaveChangesAsync();
+        }
+
+        return new CommonApiResponse(true);
+    }
+
+    public async Task<CommonApiResponse> DeleteRival(ulong userId, ulong rivalUserId)
+    {
+        var userDetail = await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == userId);
+        if (userDetail is null)
+            return new CommonApiResponse(false, "userId无效");
+        var rivalUserDetail = await maimaiDxDB.UserDetails.FirstOrDefaultAsync(x => x.Id == rivalUserId);
+        if (rivalUserDetail is null)
+            return new CommonApiResponse(false, "rivalUserId无效");
+
+        var item = userDetail.UserFavoriteItems.FirstOrDefault(x => x.id == rivalUserId && x.kind == 2);
+        if (item is not null)
+        {
+            userDetail.UserFavoriteItems.Remove(item);
+            await maimaiDxDB.SaveChangesAsync();
+        }
+
+        return new CommonApiResponse(true);
     }
 }

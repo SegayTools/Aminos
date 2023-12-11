@@ -255,7 +255,7 @@ public partial class UserInfoPageViewModel : PageViewModelBase
         RefreshKeychips(cancellationToken);
     }
 
-    [RelayCommand]
+    [RelayCommand(IncludeCancelCommand = true)]
     private async Task RemoveKeychips(IList keychips, CancellationToken token)
     {
         var selectedKeychips = keychips.OfType<Keychip>().ToArray();
