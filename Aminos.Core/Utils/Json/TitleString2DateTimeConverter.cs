@@ -12,8 +12,7 @@ namespace Aminos.Core.Utils.Json
 			if (reader.TokenType == JsonTokenType.String)
 			{
 				var dateString = reader.GetString();
-				if (DateTime.TryParseExact(dateString, Format, null, System.Globalization.DateTimeStyles.None, out DateTime result))
-					return result;
+				return ParseStr(dateString);
 			}
 
 			return JsonSerializer.Deserialize<DateTime>(ref reader, options);
@@ -22,6 +21,13 @@ namespace Aminos.Core.Utils.Json
 		public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
 		{
 			writer.WriteStringValue(value.ToString(Format));
+		}
+
+		public static DateTime ParseStr(string dateString)
+		{
+			if (DateTime.TryParseExact(dateString, Format, null, System.Globalization.DateTimeStyles.None, out DateTime result))
+				return result;
+			return default;
 		}
 	}
 }

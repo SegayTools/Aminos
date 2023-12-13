@@ -15,7 +15,7 @@
             <Image
                 Stretch="UniformToFill"
                 Source="{Binding Bitmap}"
-                DataContext="{Binding MusicData.AssetId,Converter={StaticResource ApplicationUrlConverter},
+                DataContext="{Binding MusicData.AssetId,Converter={StaticResource AssetsImageLoadConverter},
                 ConverterParameter=/authAssets/SDEZ/assets/assetbundle/jacket_s/UI_Jacket_{6}_s.png}">
                 <Image.Effect>
                     <BlurEffect Radius="8" />

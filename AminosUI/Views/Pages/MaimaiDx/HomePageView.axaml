@@ -42,7 +42,7 @@
                 <Border Grid.Column="1" Margin="20" Background="Aquamarine">
                     <Image Width="200"
                            Source="{Binding Bitmap}"
-                           DataContext="{Binding UserDetail.charaSlot[0],Converter={StaticResource ApplicationUrlConverter},
+                           DataContext="{Binding UserDetail.charaSlot[0],Converter={StaticResource AssetsImageLoadConverter},
                            ConverterParameter=authAssets/SDEZ/assets/assetbundle/chara/UI_Chara_{6}.png}" />
                 </Border>
             </Grid>

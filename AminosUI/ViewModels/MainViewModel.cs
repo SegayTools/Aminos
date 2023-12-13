@@ -66,7 +66,8 @@ public partial class MainViewModel : ViewModelBase, IApplicationNavigation
         new ListItemTemplate(typeof(HomePageViewModel), "主页", "Home"),
         new ListItemTemplate(typeof(UserInfoPageViewModel), "用户信息", "Person"),
         new ListItemTemplate(typeof(Pages.MaimaiDx.HomePageViewModel), "maimai DX 主页", "Games"),
-        new ListItemTemplate(typeof(MusicListPageViewModel), "maimai Dx 曲库", "MusicNote1")
+        new ListItemTemplate(typeof(MusicListPageViewModel), "maimai Dx 曲库", "MusicNote1"),
+        new ListItemTemplate(typeof(CollectionLookupPageViewModel), "maimai Dx 收藏品", "CollectionsAdd")
     };
 
     public ObservableCollection<ListItemTemplate> BottomItems { get; } = new();

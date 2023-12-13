@@ -93,27 +93,68 @@ public class DefaultSdezDataManager : ISdezDataManager
         return resp.obj;
     }
 
-    public async ValueTask<CommonApiResponse<UserMusicDetail[]>> GetUserMusicDetail(ulong userId, int musicId, CancellationToken cancellationToken)
+    public async ValueTask<CommonApiResponse<UserMusicDetail[]>> GetAllUserMusicDetail(ulong userId,
+        CancellationToken cancellationToken)
     {
         var resp = await httpFactory.GetAsCommonApi<UserMusicDetail[]>(
-            $"api/SDEZ/GetUserMusicDetail", new
+            "api/SDEZ/GetAllUserMusicDetail", new
             {
-                userId,
-                musicId
+                userId
             }, cancellationToken);
         return resp;
     }
 
-    public async ValueTask<CommonApiResponse<CompositeUserMusicDetail[]>> GetMusicDetailRank(int takeCount, MusicDifficultyID level, int skipCount, int musicId,
+    public async ValueTask<CommonApiResponse<CompositeUserMusicDetail[]>> GetMusicDetailRank(int takeCount,
+        MusicDifficultyID level, int skipCount, int musicId,
         CancellationToken cancellationToken)
-    { 
+    {
         var resp = await httpFactory.GetAsCommonApi<CompositeUserMusicDetail[]>(
-            $"api/SDEZ/GetUserMusicDetail", new
+            "api/SDEZ/GetMusicDetailRank", new
             {
                 takeCount,
                 level,
                 skipCount,
                 musicId
+            }, cancellationToken);
+        return resp;
+    }
+
+    public async ValueTask<CommonApiResponse<MapBoundMusicData[]>> GetAllMapBoundMusicData(
+        CancellationToken cancellationToken)
+    {
+        var resp = await httpFactory.GetAsCommonApi<MapBoundMusicData[]>(
+            "api/SDEZ/GetAllMapBoundMusicData", default, cancellationToken);
+        return resp;
+    }
+
+    public async ValueTask<CommonApiResponse<AllCollectionData>> GetAllCollectionData(
+        CancellationToken cancellationToken)
+    {
+        var resp = await httpFactory.GetAsCommonApi<AllCollectionData>(
+            "api/SDEZ/GetAllCollectionData", default, cancellationToken);
+        return resp;
+    }
+
+    public async ValueTask<CommonApiResponse<UserItem[]>> GetAllUserItems(ulong userId,
+        CancellationToken cancellationToken)
+    {
+        var resp = await httpFactory.GetAsCommonApi<UserItem[]>(
+            "api/SDEZ/GetAllUserItems", new
+            {
+                userId
+            }, cancellationToken);
+        return resp;
+    }
+
+    public async ValueTask<CommonApiResponse> SaveUserCollectionUsing(ulong userId, ItemKind itemKind, int itemId,
+        CancellationToken cancellationToken)
+    {
+        var resp = await httpFactory.PostAsCommonApi(
+            "api/SDEZ/SaveUserCollectionUsing", new
+            {
+                userId,
+                itemId,
+                itemKind
             }, cancellationToken);
         return resp;
     }

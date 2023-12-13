@@ -78,9 +78,6 @@ public partial class HomePageViewModel : PageViewModelBase
 
     private async void RefreshPage()
     {
-        //todo 
-        return;
-
         #region Announcements
 
         var announcementArr = await httpFactory.GetAsCommonApi<Announcement[]>("api/General/GetAnnouncements",

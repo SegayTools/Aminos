@@ -15,7 +15,11 @@
         <valueConverters:DiffAssetsLocatorConverter x:Key="DiffAssetsLocatorConverter" />
         <valueConverters:DxStdAssetsLocatorConverter x:Key="DxStdAssetsLocatorConverter" />
         <valueConverters:DiffDisplayConverter x:Key="DiffDisplayConverter" />
-        <valueConverters:DisplayRankConverter x:Key="DisplayRankConverter"/>
+        <valueConverters:DisplayRankConverter x:Key="DisplayRankConverter" />
+        <valueConverters:IsNullCheckConverter x:Key="IsNullCheckConverter" />
+        <valueConverters:PlaySyncflagIDConverter x:Key="PlaySyncflagIDConverter" />
+        <valueConverters:PlayComboflagIDConverter x:Key="PlayComboflagIDConverter" />
+        <valueConverters:TitleRareImageConverter x:Key="TitleRareImageConverter" />
     </Application.Resources>
 
     <Application.Styles>

@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using AminosUI.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
@@ -10,6 +10,8 @@ namespace AminosUI.ValueConverters;
 
 public class DiffAssetsLocatorConverter : IValueConverter
 {
+    private static readonly Dictionary<string, Bitmap> cache = new();
+
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (parameter is not string templateStr)
@@ -28,11 +30,17 @@ public class DiffAssetsLocatorConverter : IValueConverter
             MusicDisplayItemView.DisplayDiffType.Utage => "UTG",
             _ => throw new ArgumentOutOfRangeException()
         };
-        
+
         var path = "avares://AminosUI/" + templateStr.Replace("BSC", val);
-        var uri = new Uri(path);
-        var r = AssetLoader.Open(uri);
-        return new Bitmap(r);
+        if (!cache.TryGetValue(path, out var bitmap))
+        {
+            var uri = new Uri(path);
+            var r = AssetLoader.Open(uri);
+            bitmap = new Bitmap(r);
+            cache[path] = bitmap;
+        }
+
+        return bitmap;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

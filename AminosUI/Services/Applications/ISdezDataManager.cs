@@ -17,14 +17,21 @@ public interface ISdezDataManager
     ValueTask<CommonApiResponse> DeleteRival(ulong userId, ulong rivalUserId, CancellationToken cancellationToken);
     ValueTask<CommonApiResponse<MusicData[]>> GetAllMusicData(CancellationToken cancellationToken);
 
-    ValueTask<GenerateCalculatedRatingResponse> GetCalculatedRatingResponse(ulong userId,
+    ValueTask<CommonApiResponse<UserMusicDetail[]>> GetAllUserMusicDetail(ulong userId,
         CancellationToken cancellationToken);
 
-    ValueTask<CommonApiResponse<UserMusicDetail[]>> GetUserMusicDetail(ulong userId, int musicId,
+    ValueTask<GenerateCalculatedRatingResponse> GetCalculatedRatingResponse(ulong userId,
         CancellationToken cancellationToken);
 
     ValueTask<CommonApiResponse<CompositeUserMusicDetail[]>> GetMusicDetailRank(int takeCount, MusicDifficultyID level,
         int skipCount,
         int musicId,
+        CancellationToken cancellationToken);
+
+    ValueTask<CommonApiResponse<MapBoundMusicData[]>> GetAllMapBoundMusicData(CancellationToken cancellationToken);
+    ValueTask<CommonApiResponse<AllCollectionData>> GetAllCollectionData(CancellationToken cancellationToken);
+    ValueTask<CommonApiResponse<UserItem[]>> GetAllUserItems(ulong userId, CancellationToken cancellationToken);
+
+    ValueTask<CommonApiResponse> SaveUserCollectionUsing(ulong userId, ItemKind itemKind, int itemId,
         CancellationToken cancellationToken);
 }

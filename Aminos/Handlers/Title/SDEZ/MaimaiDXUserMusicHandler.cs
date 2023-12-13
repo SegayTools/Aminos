@@ -37,13 +37,13 @@ public class MaimaiDXUserMusicHandler
         return response;
     }
 
-    public async ValueTask<CommonApiResponse> GetUserMusicDetail(ulong userId, int musicId)
+    public async ValueTask<CommonApiResponse> GetAllUserMusicDetail(ulong userId)
     {
         var userDetail = await maimaiDxDB.UserDetails
             .FirstOrDefaultAsync(x => x.Id == userId);
         if (userDetail is null)
-            return new CommonApiResponse(true, "userId无效");
-        var musicDetails = userDetail.UserMusicDetails.Where(x => x.musicId == musicId).ToArray();
+            return new CommonApiResponse(false, "userId无效");
+        var musicDetails = userDetail.UserMusicDetails.ToArray();
 
         return new CommonApiResponse<UserMusicDetail[]>(true, musicDetails);
     }

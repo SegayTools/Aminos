@@ -1,4 +1,5 @@
-﻿using Aminos.Core.Models.Title.SDEZ.Tables;
+﻿using Aminos.Core.Models.Title.SDEZ.Responses;
+using Aminos.Core.Models.Title.SDEZ.Tables;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Databases.Title.SDEZ;
@@ -27,6 +28,8 @@ public class MaimaiDXDB : DbContext
     public DbSet<CharaData> CharaDatas { get; set; }
     public DbSet<IconData> IconDatas { get; set; }
     public DbSet<TitleData> TitleDatas { get; set; }
+    public DbSet<MapBoundMusicData> MapBoundMusicDatas { get; set; }
+    public DbSet<PlateData> PlateDatas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

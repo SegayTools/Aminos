@@ -10,6 +10,10 @@ namespace Aminos.Core.Models.Title.SDEZ.Tables;
 [Table("MaimaiDX_MusicDatas")]
 public class MusicData
 {
+    public virtual EventData EventName { get; set; }
+    public virtual EventData EventName2 { get; set; }
+    public virtual EventData SubEventName { get; set; }
+
     [Key]
     public int Id { get; set; }
 
@@ -25,11 +29,6 @@ public class MusicData
     public int Version { get; set; }
     public string AddVersion { get; set; }
     public bool Dresscode { get; set; }
-
-    public virtual EventData EventName { get; set; }
-    public virtual EventData EventName2 { get; set; }
-    public virtual EventData SubEventName { get; set; }
-
     public int LockType { get; set; }
     public int SubLockType { get; set; }
     public bool DotNetListView { get; set; }
@@ -65,8 +64,13 @@ public class MusicData
     }
 
     public bool IsDeluxe => Id / 10000 % 10 == 1;
+    public bool isUtage => Id / 100000 % 10 >= 1;
 
-    public record Note(string FilePath, int Level, int LevelDecimal, string designer, int maxNotes);
+    public record Note(string FilePath, int Level, int LevelDecimal, string designer, int maxNotes, bool enable)
+    {
+        public string LevelDisplay => $"{Level}{(LevelDecimal >= 5 ? "+" : string.Empty)}";
+    }
+
 
     public class NotesDataCollection
     {

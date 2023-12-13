@@ -1,0 +1,28 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" Width="1080" Height="452"
+             x:Class="AminosUI.Controls.UserCollectionPreview">
+    <Canvas Name="container">
+        <Image Width="1080" Height="452" Stretch="UniformToFill" Source="{Binding Bitmap}"
+               DataContext="{Binding FrameId,Converter={StaticResource AssetsImageLoadConverter},
+                ConverterParameter=/authAssets/SDEZ/assets/assetbundle/frame/UI_Frame_{6}.png}" />
+        <Image Canvas.Top="10" Canvas.Left="10" Height="116" Stretch="UniformToFill"
+               Source="{Binding Bitmap}"
+               DataContext="{Binding PlateId,Converter={StaticResource AssetsImageLoadConverter},
+                ConverterParameter=/authAssets/SDEZ/assets/assetbundle/nameplate/UI_Plate_{6}.png}" />
+        <Image Canvas.Top="18" Canvas.Left="18" Stretch="UniformToFill" Height="100"
+               Source="{Binding Bitmap}"
+               DataContext="{Binding IconId,Converter={StaticResource AssetsImageLoadConverter},
+                ConverterParameter=/authAssets/SDEZ/assets/assetbundle/icon/UI_Icon_{6}.png}" />
+        <Border CornerRadius="7" Width="300" Height="40" Canvas.Top="50" Canvas.Left="120" Background="White">
+            <TextBlock VerticalAlignment="Center" FontSize="30" LetterSpacing="15" FontWeight="Bold" Margin="10,0,0,0"
+                       Text="{Binding UserName}" />
+        </Border>
+        <Image Source="{Binding TitleRare,Converter={StaticResource TitleRareImageConverter}}" Canvas.Top="90"
+               Canvas.Left="120" />
+        <TextBlock Width="250" TextAlignment="Center" Canvas.Top="96" Canvas.Left="132" Text="{Binding TitleString}"
+                   FontWeight="Bold" />
+    </Canvas>
+</UserControl>

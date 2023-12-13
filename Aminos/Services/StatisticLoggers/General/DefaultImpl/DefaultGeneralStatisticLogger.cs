@@ -6,18 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aminos.Services.StatisticLoggers.General.DefaultImpl;
 
-[RegisterInjectable(typeof(IGeneralStatisticLogger), ServiceLifetime.Singleton)]
+[RegisterInjectable(typeof(IGeneralStatisticLogger))]
 public class DefaultGeneralStatisticLogger : IGeneralStatisticLogger
 {
-    private readonly IServiceProvider serviceProvider;
-    private int cachedRecentUserValue;
-    private DateTime cachedTime = DateTime.MinValue;
-    private int cachedTotalUserValue;
-    private int uiVisitCount;
+    private readonly AminosDB aminosDb;
+    private static int cachedRecentUserValue;
+    private static DateTime cachedTime = DateTime.MinValue;
+    private static int cachedTotalUserValue;
+    private static int uiVisitCount;
 
-    public DefaultGeneralStatisticLogger(IServiceProvider serviceProvider)
+    public DefaultGeneralStatisticLogger(AminosDB aminosDB)
     {
-        this.serviceProvider = serviceProvider;
+        aminosDb = aminosDB;
     }
 
     public ValueTask AddUIVisitCount()
@@ -73,12 +73,11 @@ public class DefaultGeneralStatisticLogger : IGeneralStatisticLogger
         var nowTime = DateTime.Now;
         if (cachedTime + TimeSpan.FromMinutes(5) > nowTime)
             return;
-        var aminosDb = serviceProvider.GetService<AminosDB>();
         //一周内算活跃~
         var timeSpan = TimeSpan.FromDays(7);
-        cachedRecentUserValue = await aminosDb.UserAccounts
+        cachedRecentUserValue = (await aminosDb.UserAccounts.ToArrayAsync())
             .Where(x => x.LastPlayDate + timeSpan > nowTime || x.LastLoginWebDate + timeSpan > nowTime)
-            .CountAsync();
+            .Count();
         cachedTotalUserValue = await aminosDb.UserAccounts.CountAsync();
         cachedTime = nowTime;
     }

@@ -16,10 +16,6 @@ public partial class MusicDisplayItemView : UserControl
         Utage = 5
     }
 
-    public static AvaloniaProperty DisplayDiffProperty =
-        AvaloniaProperty.Register<MusicDisplayItemView, DisplayDiffType>(nameof(DisplayDiff),
-            DisplayDiffType.Master, true);
-    
     public static AvaloniaProperty MusicItemProperty =
         AvaloniaProperty.Register<MusicDisplayItemView, MusicDisplayItem>(nameof(MusicItem),
             default, true);
@@ -28,12 +24,6 @@ public partial class MusicDisplayItemView : UserControl
     {
         InitializeComponent();
         container.DataContext = this;
-    }
-
-    public DisplayDiffType DisplayDiff
-    {
-        get => (DisplayDiffType) GetValue(DisplayDiffProperty);
-        set => SetValue(DisplayDiffProperty, value);
     }
     
     public MusicDisplayItem MusicItem

@@ -9,10 +9,10 @@
         <Grid Margin="10" ColumnDefinitions="*,Auto">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding Rank,Converter={StaticResource DisplayRankConverter}}"
-                           VerticalAlignment="Center" FontSize="24" FontWeight="Bold" />
+                           VerticalAlignment="Center" FontSize="24" Width="75" FontWeight="Bold" />
                 <Image Source="{Binding Bitmap}"
-                       DataContext="{Binding MusicData.AssetId,Converter={StaticResource ApplicationUrlConverter},
-                                    ConverterParameter=/authAssets/SDEZ/assets/assetbundle/icon/UI_Icon_{6}_s.png}" Margin="15,0,15,0" Height="25" />
+                       DataContext="{Binding UserDetail.iconId,Converter={StaticResource AssetsImageLoadConverter},
+                                    ConverterParameter=/authAssets/SDEZ/assets/assetbundle/icon/UI_Icon_{6}.png}" Margin="15,0,15,0" Height="40" />
                 <Label VerticalAlignment="Center" Content="{Binding UserDetail.userName}" />
             </StackPanel>
             <StackPanel VerticalAlignment="Center" Grid.Column="1" Orientation="Horizontal"

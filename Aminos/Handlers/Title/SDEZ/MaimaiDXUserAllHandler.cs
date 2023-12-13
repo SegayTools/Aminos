@@ -254,32 +254,10 @@ public class MaimaiDXUserAllHandler
 
         #region UserActivityList
 
-        var userActivity = request.upsertUserAll.userActivityList?.FirstOrDefault();
-        if (userActivity != null)
-        {
-            if (userData.UserActivity != null)
-            {
-                maimaiDxDB.CopyValuesWithoutKeys(userData.UserActivity, userActivity);
-
-                foreach (var inAct in userActivity.musicList.ToArray())
-                    if (userData.UserActivity.musicList.FirstOrDefault(x => x.id == inAct.id && x.kind == inAct.kind) is
-                        UserAct storedAct)
-                        maimaiDxDB.CopyValuesWithoutKeys(storedAct, inAct);
-                    else
-                        userData.UserActivity.musicList.Add(inAct);
-
-                foreach (var inAct in userActivity.playList.ToArray())
-                    if (userData.UserActivity.playList.FirstOrDefault(x => x.id == inAct.id && x.kind == inAct.kind) is
-                        UserAct storedAct)
-                        maimaiDxDB.CopyValuesWithoutKeys(storedAct, inAct);
-                    else
-                        userData.UserActivity.playList.Add(inAct);
-            }
-            else
-            {
-                userData.UserActivity = userActivity;
-            }
-        }
+        await SimpleRepalceEntites(
+            request.upsertUserAll.userActivityList,
+            userData.UserActivities,
+            (a, b) => a.Id == b.Id);
 
         #endregion
 

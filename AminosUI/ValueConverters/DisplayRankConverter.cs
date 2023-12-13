@@ -9,8 +9,8 @@ public class DisplayRankConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is not int rank)
-            rank = -1;
-
+            rank = -2;
+        rank++;
         return rank switch
         {
             1 => "1st",

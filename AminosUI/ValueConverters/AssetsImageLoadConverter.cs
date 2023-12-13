@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Net.Http;
 using System.Text.RegularExpressions;
-using AminosUI.Services.Applications.Network;
+using AminosUI.Services.Applications;
 using AminosUI.Utils;
 using Avalonia.Data.Converters;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AminosUI.ValueConverters;
 
-public partial class ApplicationUrlConverter : IValueConverter
+public partial class AssetsImageLoadConverter : IValueConverter
 {
     private static readonly Regex templateRegex = new(@"\{(\d+)\}");
-    private readonly HttpClient designClient;
-    private readonly IApplicationHttpFactory factory;
+    private readonly IImageLoader imageLoader;
 
-    public ApplicationUrlConverter(IApplicationHttpFactory factory)
+    public AssetsImageLoadConverter(IImageLoader imageLoader)
     {
-        this.factory = factory;
-        if (!DesignModeHelper.IsDesignMode)
-            designClient = new HttpClient();
+        this.imageLoader = imageLoader;
     }
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -39,7 +36,7 @@ public partial class ApplicationUrlConverter : IValueConverter
         var padLength = int.Parse(match.Groups[1].Value);
         var replVal = templateValue;
         if (padLength > 0)
-            replVal = replVal.PadLeft(padLength,'0');
+            replVal = replVal.PadLeft(padLength, '0');
 
         var url = urlTemplate.Replace(match.Value, replVal);
 
@@ -60,9 +57,8 @@ public partial class ApplicationUrlConverter : IValueConverter
         if (DesignModeHelper.IsDesignMode)
             return;
 
-        var resp = await factory.SendAsync(url);
-        var data = await resp.Content.ReadAsByteArrayAsync();
-        if (data.Length == 0)
+        var data = await imageLoader.LoadImage(url, default);
+        if ((data?.Length ?? 0) == 0)
             return;
         var bitmap = new Bitmap(new MemoryStream(data));
         obj.Bitmap = bitmap;

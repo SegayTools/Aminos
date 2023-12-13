@@ -9,11 +9,11 @@ public class CalculatedRating
     {
         Id = 1453,
         Name = "OWEIGHIGESD",
-        NotesData = new MusicData.NotesDataCollection()
+        NotesData = new MusicData.NotesDataCollection
         {
-            Notes = new List<MusicData.Note>()
+            Notes = new List<MusicData.Note>
             {
-                new MusicData.Note(default, 13, 48, default, 130)
+                new(default, 13, 48, default, 130, true)
             }
         }
     };

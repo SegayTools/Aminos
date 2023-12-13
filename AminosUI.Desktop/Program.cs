@@ -29,7 +29,7 @@ internal class Program
             .UsePlatformDetect()
             .WithInterFont()
             .AppendDependencyInject(collection => collection.AddInjectsByAttributes(typeof(Program).Assembly))
-            .LogToTrace(LogEventLevel.Debug);
+            .LogToTrace(LogEventLevel.Warning);
         return builder;
     }
 }

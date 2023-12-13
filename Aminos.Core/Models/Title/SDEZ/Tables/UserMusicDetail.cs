@@ -35,5 +35,5 @@ public class UserMusicDetail
 
     public uint extNum1 { get; set; }
 
-    public string AchievementPresentDisplay => $"{achievement / 1000.0f:F4}%";
+    public string AchievementPresentDisplay => $"{achievement / 10000.0f:F4}%";
 }

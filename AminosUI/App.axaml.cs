@@ -25,8 +25,10 @@ public class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         InitServiceProvider();
-        Resources["ApplicationUrlConverter"] =
-            ActivatorUtilities.CreateInstance<ApplicationUrlConverter>(RootServiceProvider);
+        Resources["AssetsImageLoadConverter"] =
+            ActivatorUtilities.CreateInstance<AssetsImageLoadConverter>(RootServiceProvider);
+        Resources["CollectionImageLoadConverter"] =
+            ActivatorUtilities.CreateInstance<CollectionImageLoadConverter>(RootServiceProvider);
         var mainViewModel = ActivatorUtilities.CreateInstance<MainViewModel>(RootServiceProvider);
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

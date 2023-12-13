@@ -1,0 +1,123 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:AminosUI.ViewModels.Pages.MaimaiDx"
+             xmlns:model="clr-namespace:AminosUI.ViewModels.Pages.MaimaiDx.Model"
+             xmlns:enums="clr-namespace:Aminos.Core.Models.Title.SDEZ.Enums;assembly=Aminos.Core"
+             xmlns:controls="clr-namespace:AminosUI.Controls"
+             xmlns:avalonia="clr-namespace:FluentIcons.Avalonia;assembly=FluentIcons.Avalonia"
+             x:Class="AminosUI.Views.Pages.MaimaiDx.CollectionLookupPageView"
+             x:DataType="vm:CollectionLookupPageViewModel">
+    <Design.DataContext>
+        <vm:CollectionLookupPageViewModel />
+    </Design.DataContext>
+
+    <Grid Name="container" ColumnDefinitions="*,2,*">
+        <Grid RowDefinitions="Auto,*">
+            <Grid ColumnDefinitions="*,*,Auto">
+                <ComboBox Name="groupComboBox" Margin="5" HorizontalAlignment="Stretch"
+                          SelectedItem="{Binding CurrentSelectGroup}" ItemsSource="{Binding CollectionGroups}"
+                          DisplayMemberBinding="{Binding Name}" />
+                <TextBox Watermark="正则表达式过滤" Text="{Binding RegexFilterExpression}" HorizontalAlignment="Stretch"
+                         Grid.Column="1" Margin="5" />
+                <Button Command="{Binding ApplyFilterExpressionCommand}" Grid.Column="2" Background="Transparent"
+                        Width="30" VerticalAlignment="Stretch" Margin="5,5,10,5">
+                    <avalonia:SymbolIcon Symbol="Filter" FontSize="20" />
+                </Button>
+            </Grid>
+            <ScrollViewer AllowAutoHide="True" Grid.Row="1">
+                <ItemsRepeater ItemsSource="{Binding CurrentSelectGroup.Items}">
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate DataType="{x:Type model:DisplayCollectionItem}">
+                            <Border Classes="ContentContainer" HorizontalAlignment="Stretch" Margin="10"
+                                    CornerRadius="15">
+                                <StackPanel>
+                                    <Border
+                                        Margin="10"
+                                        x:Name="cont" ClipToBounds="True" CornerRadius="15">
+                                        <Image
+                                            x:Name="image"
+                                            Stretch="UniformToFill"
+                                            Source="{Binding Bitmap}"
+                                            DataContext="{Binding .,Converter={StaticResource CollectionImageLoadConverter}}">
+                                            <Interaction.Behaviors>
+                                                <DataTriggerBehavior Binding="{Binding #cont.DataContext.Type}"
+                                                                     Value="{x:Static enums:ItemKind.Icon}">
+                                                    <DataTriggerBehavior.Actions>
+                                                        <ChangePropertyAction TargetObject="image" PropertyName="Width"
+                                                                              Value="64" />
+                                                    </DataTriggerBehavior.Actions>
+                                                </DataTriggerBehavior>
+                                                <DataTriggerBehavior Binding="{Binding #cont.DataContext.Type}"
+                                                                     ComparisonCondition="NotEqual"
+                                                                     Value="{x:Static enums:ItemKind.Icon}">
+                                                    <DataTriggerBehavior.Actions>
+                                                        <ChangePropertyAction TargetObject="image" PropertyName="Width"
+                                                                              Value="{Binding #cont.Width}" />
+                                                    </DataTriggerBehavior.Actions>
+                                                </DataTriggerBehavior>
+                                            </Interaction.Behaviors>
+                                        </Image>
+                                    </Border>
+                                    <Label HorizontalAlignment="Center" Content="{Binding Name }" FontSize="22" />
+                                    <Label HorizontalAlignment="Center" Content="{Binding Description }" />
+                                    <Button HorizontalAlignment="Center" Padding="20,5,20,5" Margin="0,0,0,10"
+                                            Command="{Binding #container.DataContext.ApplyItemCommand}"
+                                            CommandParameter="{Binding .}"
+                                            IsEnabled="{Binding IsEnable}">
+                                        <Interaction.Behaviors>
+                                            <DataTriggerBehavior Binding="{Binding IsEnable}"
+                                                                 Value="True">
+                                                <DataTriggerBehavior.Actions>
+                                                    <ChangePropertyAction PropertyName="Content"
+                                                                          Value="选择" />
+                                                </DataTriggerBehavior.Actions>
+                                            </DataTriggerBehavior>
+                                            <DataTriggerBehavior Binding="{Binding IsEnable}"
+                                                                 Value="False">
+                                                <DataTriggerBehavior.Actions>
+                                                    <ChangePropertyAction PropertyName="Content"
+                                                                          Value="未取得" />
+                                                </DataTriggerBehavior.Actions>
+                                            </DataTriggerBehavior>
+                                        </Interaction.Behaviors>
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </ScrollViewer>
+        </Grid>
+        <GridSplitter Grid.Column="1" Background="Gray" ResizeDirection="Columns" />
+        <ScrollViewer Grid.Column="2">
+            <StackPanel>
+                <Border Margin="10" Classes="ContentContainer">
+                    <StackPanel>
+                        <Viewbox>
+                            <controls:UserCollectionPreview FrameId="{Binding CurrentFrameItem.Id}"
+                                                            IconId="{Binding CurrentIconItem.Id}"
+                                                            PlateId="{Binding CurrentPlateItem.Id}"
+                                                            UserName="Aminos~"
+                                                            TitleRare="{Binding CurrentTitleItem.UrlTemplate}"
+                                                            TitleString="{Binding CurrentTitleItem.Name}" />
+                        </Viewbox>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                            <Button Padding="20,5,20,5" Margin="10,10,10,10"
+                                    Command="{Binding ResetToUserUsedCommand}" Content="重置" />
+                            <Button Padding="20,5,20,5" Margin="10,10,10,10"
+                                    Command="{Binding SaveAppliedCommand}" Content="保存设置" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Border Margin="10,0,10,10" Classes="ContentContainer">
+                    <StackPanel Margin="5">
+                        <ToggleSwitch IsChecked="{Binding HideNotGetItems}" Content="隐藏未获取的物品" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

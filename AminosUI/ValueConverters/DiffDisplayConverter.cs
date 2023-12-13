@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using AminosUI.Controls;
@@ -8,9 +7,9 @@ using Avalonia.Data.Converters;
 
 namespace AminosUI.ValueConverters;
 
-public class DiffDisplayConverter : IMultiValueConverter
+public class DiffDisplayConverter : IValueConverter
 {
-    public object Convert(IList<object> value, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         var showSymbolCheck = false;
         if (parameter is string templateStr && bool.Parse(templateStr))
@@ -19,13 +18,12 @@ public class DiffDisplayConverter : IMultiValueConverter
         var level = 0;
         var levelDecimal = 0;
 
-        if (value.Count > 2 && value[0] is MusicDisplayItem item &&
-            value[1] is MusicDisplayItemView.DisplayDiffType diffType)
+        if (value is MusicDisplayItem item)
         {
-            var note = item.Data.NotesData?.Notes?.ElementAtOrDefault(diffType switch
+            var note = item.MusicData.NotesData?.Notes?.ElementAtOrDefault(item.DifficultyId switch
             {
                 MusicDisplayItemView.DisplayDiffType.Utage => 0,
-                _ => (int) diffType
+                _ => (int) item.DifficultyId
             });
         }
 
@@ -42,7 +40,7 @@ public class DiffDisplayConverter : IMultiValueConverter
         return default;
     }
 
-    public object ConvertBack(object[] value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

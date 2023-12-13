@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="850"
              x:Class="AminosUI.Views.Pages.User.UserInfoPageView"
-             xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
              xmlns:vm="clr-namespace:AminosUI.ViewModels.Pages.User;assembly=AminosUI"
              xmlns:ic="using:FluentIcons.Avalonia"
              x:DataType="vm:UserInfoPageViewModel">
@@ -15,7 +14,8 @@
         <Border Margin="10,10,5,10" Background="{StaticResource ThemeBorderLowBrush}" CornerRadius="15">
             <StackPanel Margin="10">
                 <Image HorizontalAlignment="Center" Width="150" Height="150"
-                       asyncImageLoader:ImageLoader.Source="{Binding User.Email,Converter={StaticResource GAvatarUrlValveConverter}}" />
+                       Source="{Binding Bitmap}"
+                       DataContext="{Binding User.Email,Converter={StaticResource GAvatarUrlValveConverter}}" />
                 <StackPanel>
                     <Label HorizontalAlignment="Center" Margin="10,0,0,0" FontSize="30" FontWeight="DemiBold"
                            Content="{Binding User.Name}" />

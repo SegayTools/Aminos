@@ -6,19 +6,19 @@ namespace AminosUI.Controls;
 
 public partial class UserMusicDetailRankItem : UserControl
 {
-    public static StyledProperty<UserMusicDetail> UserMusicDetailProperty =
+    public readonly static StyledProperty<UserMusicDetail> UserMusicDetailProperty =
         AvaloniaProperty.Register<UserMusicDetailRankItem, UserMusicDetail>(nameof(UserMusicDetail),
             default, true);
 
-    public static StyledProperty<int> RankProperty =
+    public readonly static StyledProperty<int> RankProperty =
         AvaloniaProperty.Register<UserMusicDetailRankItem, int>(nameof(Rank),
             0, true);
     
-    public static StyledProperty<UserDetail> UserDetailProperty =
+    public readonly static StyledProperty<UserDetail> UserDetailProperty =
         AvaloniaProperty.Register<UserMusicDetailRankItem, UserDetail>(nameof(UserDetail),
             default, true);
     
-    public static StyledProperty<MusicData> MusicDataProperty =
+    public readonly static StyledProperty<MusicData> MusicDataProperty =
         AvaloniaProperty.Register<UserMusicDetailRankItem, MusicData>(nameof(MusicData),
             default, true);
 

@@ -107,11 +107,11 @@ public class MaimaiDXWebController : CommonWebAPIControllerBase
         return Json(response);
     }
 
-    [HttpGet("GetUserMusicDetail")]
-    public async ValueTask<IActionResult> GetUserMusicDetail(ulong userId, int musicId,
+    [HttpGet("GetAllUserMusicDetail")]
+    public async ValueTask<IActionResult> GetAllUserMusicDetail(ulong userId,
         MaimaiDXUserMusicHandler handler)
     {
-        var response = await handler.GetUserMusicDetail(userId, musicId);
+        var response = await handler.GetAllUserMusicDetail(userId);
         return Json(response);
     }
 
@@ -121,6 +121,38 @@ public class MaimaiDXWebController : CommonWebAPIControllerBase
         MaimaiDXUserMusicHandler handler)
     {
         var response = await handler.GetMusicDetailRank(musicId, takeCount);
+        return Json(response);
+    }
+    
+    [HttpGet("GetAllMapBoundMusicData")]
+    public async ValueTask<IActionResult> GetAllMapBoundMusicData(
+        MaimaiDXMapBoundMusicDataHandler handler)
+    {
+        var response = await handler.GetAllMapBoundMusicData();
+        return Json(response);
+    }
+    
+    [HttpGet("GetAllCollectionData")]
+    public async ValueTask<IActionResult> GetAllCollectionData(
+        MaimaiDXCollectionDataHandler handler)
+    {
+        var response = await handler.GetAllCollectionData();
+        return Json(response);
+    }
+    
+    [HttpGet("GetAllUserItems")]
+    public async ValueTask<IActionResult> GetAllUserItems(ulong userId,
+        MaimaiDXUserItemHandler handler)
+    {
+        var response = await handler.GetAllUserItems(userId);
+        return Json(response);
+    }
+    
+    [HttpPost("SaveUserCollectionUsing")]
+    public async ValueTask<IActionResult> SaveUserCollectionUsing([FromForm]ulong userId, [FromForm]ItemKind itemKind, [FromForm]int itemId,
+        MaimaiDXUserItemHandler handler)
+    {
+        var response = await handler.SaveUserCollectionUsing(userId, itemKind, itemId);
         return Json(response);
     }
 }

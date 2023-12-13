@@ -68,7 +68,7 @@ public class UserDetail
     public virtual UserExtend UserExtend { get; set; }
 
     [JsonIgnore]
-    public virtual UserActivity UserActivity { get; set; }
+    public virtual ICollection<UserActivity> UserActivities { get; set; } = new List<UserActivity>();
 
     [JsonIgnore]
     public bool IsGuest => (Id & 0x1000000000001L) == 281474976710657L;
